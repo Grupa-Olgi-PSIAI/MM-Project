@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+html, body {
+  margin: 0;
+  font-family: 'Open Sans';
+  background: #f1f1f1;
+  overflow: auto;
+}
+
+/* MENU */
+
+/* Side menu by Simone Bernabè https://codepen.io/simoberny */
+#cont:target > menu-fixed {
+  width: 120px;
+  background: #FFC400;
+  transition: all 0.3s;
+}
+#cont:target > menu-fixed > a .material-icons.back {
+  display: none;
+}
+#cont:target > menu-fixed > .menu li {
+  text-align: center;
+  width: 40%;
+}
+#cont:target > menu-fixed > .menu li > p {
+  display: none;
+}
+
+#menu-fixed {
+  width: 120px;
+  z-index: 2;
+  height: 100%;
+  background: #FFC400;
+  position: fixed;
+  transition: all 0.3s;
+  text-align: center;
+  overflow: auto;
+}
+
+#menu-fixed .material-icons.back {
+  display: none;
+  color: white;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  font-size: 36px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#menu-fixed .material-icons.back:hover {
+  color: #FFD740;
+  transition: color 0.3s;
+}
+
+#menu-fixed:target {
+  width: 280px;
+  background: #FFC400;
+  transition: all 0.3s ease-out;
+}
+
+#menu-fixed:target > a .material-icons.back {
+  display: block;
+}
+
+#menu-fixed:target > a > .logo {
+  width: 60%;
+  height: 47px;
+  margin: auto;
+}
+
+#menu-fixed:target > a > .logo > span {
+  display: none;
+}
+
+#menu-fixed:target > a > .logo > p {
+  display: block;
+}
+
+#menu-fixed:target > .menu li {
+  text-align: left;
+  width: 60%;
+}
+
+#menu-fixed:target > .menu li:hover::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
+}
+
+#menu-fixed:target > .menu li:hover > p {
+  color: white;
+}
+
+#menu-fixed:target > .menu li > p {
+  display: inline-block;
+}
+
+#menu-fixed .logo {
+  width: 100%;
+  height: 60px;
+  position: relative;
+  cursor: pointer;
+}
+
+#menu-fixed .logo p {
+  display: none;
+  font-family: 'Pacifico';
+  color: #fff;
+  font-size: 34px;
+  padding-bottom: 0;
+  font-weight: 300;
+}
+
+#menu-fixed .logo span {
+  width: 10px;
+  height: 10px;
+  background: #FFC400;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 25px;
+  transform: rotateZ(45deg);
+  -webkit-transform: rotateZ(45deg);
+  border: 8px solid white;
+  transition: all 0.2s;
+}
+
+#menu-fixed .logo:hover ~ p {
+  color: white;
+  transition: all 0.3s;
+}
+
+#menu-fixed .logo:hover > span {
+  width: 0;
+  height: 0;
+  border-left: 15px solid white;
+  border-right: 15px solid rgba(0, 0, 0, 0);
+  border-top: 15px solid rgba(0, 0, 0, 0);
+  border-bottom: 15px solid rgba(0, 0, 0, 0);
+  transition: all 0.2s;
+  transform: rotateZ(0deg) translateX(10px);
+  -webkit-transform: rotateZ(0deg) translateX(10px);
+}
+
+#menu-fixed .logo:hover > span::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 8px solid #FFC400;
+  border-right: 8px solid rgba(0, 0, 0, 0);
+  border-top: 8px solid rgba(0, 0, 0, 0);
+  border-bottom: 8px solid rgba(0, 0, 0, 0);
+  left: -15px;
+  position: absolute;
+  top: -8px;
+}
+
+#menu-fixed .pmenu {
+  margin: 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+  font-weight: 300;
+}
+
+#menu-fixed hr {
+  width: 75%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#menu-fixed .menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#menu-fixed .menu li {
+  padding: 15px;
+  width: 40%;
+  margin: auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom-style: dotted;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s;
+}
+
+#menu-fixed .menu li:last-child {
+  border: none;
+}
+
+#menu-fixed .menu li:hover {
+  background: #FFECB3;
+  transition: all 0.3s;
+}
+
+#menu-fixed .menu li:hover > .material-icons {
+  color: white;
+}
+
+#menu-fixed .menu li .material-icons {
+  color: #FFECB3;
+}
+
+#menu-fixed .menu li p {
+  display: none;
+  margin: auto;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+  position: absolute;
+  padding-left: 30px;
+  line-height: 30px;
+}
+
+.material-icons.info {
+  color: #FFECB3;
+  position: absolute;
+  margin: 0;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+}
+
+/* PAGE CONTENT */
+#page {
+  margin-left: 120px;
+  margin-top: 70px;
+  height: 100%;
+}
+.page div {
+  
+}
+
+/* TOP NAVIGATION BAR */
+
+#top-nav {
+  height: 70px;
+  background-color: white;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
+#top-nav ul {
+  width: 100%;
+  background: white;
+  float: right;
+  list-style: none;
+  padding-right: 12px;
+}
+
+#top-nav li {
+  float: right; 
+}
+
+/* Icons in nav bar */
+.material-icons.navbar {
+  color: white;
+  background-color: #FFC400;
+  display: inline-block;
+  padding: 8px 8px;
+  margin-left: 12px;
+  -webkit-border-radius: 10em;
+  -moz-border-radius: 10em;
+  border-radius: 10em;
+}
+
+.material-icons.navbar:hover {
+  color: #FFC400;
+  background-color: white;
+  transition: all .5s;
+}
+
+.material-icons.navbar.logout {
+  color: #7A777D;
+  background-color: white;
+}
+
+.material-icons.navbar.logout:hover {
+  color: #FFC400;
+}
+
+/* Search bar*/
+.search-bar {
+  text-align: left;
+}
+
+.search-bar input {
+  outline: none;
+}
+
+.search-bar input[type=search] {
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+.search-bar input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search-bar input[type=search] {
+  background: #fff url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-128.png) no-repeat 12px center;
+  background-size: 20px 20px;
+  border: solid 1px #ccc;
+  padding: 10px 10px 10px 40px;
+  font-size: 14px;
+  -webkit-border-radius: 10em;
+  -moz-border-radius: 10em;
+  border-radius: 10em;
+
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
+}
+
+.search-bar input[type=search]:focus {
+  background-color: #fff;
+  border-color: #FFC400;
+
+  -webkit-box-shadow: 0 0 5px #FFC400;
+  -moz-box-shadow: 0 0 5px #FFC400;
+  box-shadow: 0 0 5px #FFC400;
+}
+
+.search-bar input:-moz-placeholder {
+  color: #7A777D;
+}
+
+.search-bar input::-webkit-input-placeholder {
+  color: #7A777D;
+}

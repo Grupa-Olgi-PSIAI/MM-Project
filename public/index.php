@@ -1,9 +1,10 @@
 <?php
 
-use Core\Router;
+use core\Router;
 
 spl_autoload_register(function ($class_name) {
-    require('../' . $class_name . '.php');
+    $class_name = str_replace('\\', '/', $class_name);
+    require(dirname(__DIR__) . '/' . $class_name . '.php');
 });
 
 error_reporting(E_ALL);

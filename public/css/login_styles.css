@@ -54,7 +54,7 @@ input::-webkit-search-cancel-button {
 }
 
 .login-form input {
-  outline: none
+    outline: none;
   -webkit-appearance: textfield;
   -webkit-box-sizing: content-box;
   border: solid 1px #ccc;

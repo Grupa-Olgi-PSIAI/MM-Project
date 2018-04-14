@@ -1,5 +1,6 @@
 <?php
 
+use core\Config;
 use core\Router;
 
 spl_autoload_register(function ($class_name) {
@@ -10,6 +11,8 @@ spl_autoload_register(function ($class_name) {
 error_reporting(E_ALL);
 set_error_handler('core\ErrorHandler::handleError');
 set_exception_handler('core\ErrorHandler::handleException');
+
+Config::loadConfig();
 
 $router = new Router();
 $router->add('', ['controller' => 'Home', 'action' => 'index']);

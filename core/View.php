@@ -16,10 +16,9 @@ abstract class View
      */
     public static function render($view, $args = [])
     {
-        extract($args, EXTR_SKIP);
         $file = dirname(__DIR__) . "/view/$view";
         if (is_readable($file)) {
-            self::renderHTML($file);
+            self::renderHTML($file, $args);
         } else {
             throw new \Exception("$file not found");
         }
@@ -38,14 +37,16 @@ abstract class View
         extract($args, EXTR_SKIP);
         $file = dirname(__DIR__) . "/view/$view";
         if (is_readable($file)) {
-            self::renderHTML($file, false);
+            self::renderHTML($file, $args, false);
         } else {
             throw new \Exception("$file not found");
         }
     }
 
-    private static function renderHTML($file, $showMenu = true)
+    private static function renderHTML($file, $args, $showMenu = true)
     {
+        extract($args, EXTR_SKIP);
+
         self::renderHeader();
         if ($showMenu) {
             self::renderMenu();

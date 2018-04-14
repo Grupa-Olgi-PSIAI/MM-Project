@@ -28,14 +28,16 @@ abstract class Controller
      * called on an object of this class. Used to execute before and after
      * filter methods on action methods.
      *
-     * @param string $method Method name
+     * @param string $name Method name
      * @param array $args Arguments passed to the method
      *
      * @return void
      * @throws \Exception
      */
-    public function __call($method, $args)
+    public function __call($name, $args)
     {
+        $method = $name . 'Action';
+
         if (method_exists($this, $method)) {
             if ($this->before() !== false) {
                 call_user_func_array([$this, $method], $args);

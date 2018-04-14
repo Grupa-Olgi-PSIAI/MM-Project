@@ -5,29 +5,68 @@ namespace core;
 
 class Config
 {
+    private const CONFIG_FILE = "config.ini";
+
+    private static $config = [];
+    private static $dbHost;
+    private static $dbName;
+    private static $dbUser;
+    private static $dbPassword;
+
     /**
-     * Database host
-     * @var string
+     * @throws \Exception
      */
-    const DB_HOST = 'your-database-host';
+    public static function loadConfig()
+    {
+        $path = dirname(__DIR__) . '/' . self::CONFIG_FILE;
+        if (file_exists($path)) {
+            self::$config = parse_ini_file($path);
+            self::$dbHost = self::$config['host'];
+            self::$dbName = self::$config['dbname'];
+            self::$dbUser = self::$config['user'];
+            self::$dbPassword = self::$config['password'];
+        } else {
+            throw new \Exception("Config file not found - add " . self::CONFIG_FILE . " file to root directory");
+        }
+    }
+
     /**
-     * Database name
-     * @var string
+     * @return array
      */
-    const DB_NAME = 'your-database-name';
+    public static function getConfig(): array
+    {
+        return self::$config;
+    }
+
     /**
-     * Database user
-     * @var string
+     * @return string
      */
-    const DB_USER = 'your-database-user';
+    public static function getDbHost()
+    {
+        return self::$dbHost;
+    }
+
     /**
-     * Database password
-     * @var string
+     * @return string
      */
-    const DB_PASSWORD = 'your-database-password';
+    public static function getDbName()
+    {
+        return self::$dbName;
+    }
+
     /**
-     * Show or hide error messages on screen
-     * @var boolean
+     * @return string
      */
-    const SHOW_ERRORS = true;
+    public static function getDbUser()
+    {
+        return self::$dbUser;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getDbPassword()
+    {
+        return self::$dbPassword;
+    }
 }

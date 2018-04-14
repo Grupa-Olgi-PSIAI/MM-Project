@@ -7,6 +7,12 @@ class ErrorHandler
 {
 
     /**
+     * Show or hide error messages on screen
+     * @var boolean
+     */
+    private const SHOW_ERRORS = true;
+
+    /**
      * Error handler. Convert all errors to Exceptions by throwing an ErrorException.
      *
      * @param int $level Error level
@@ -39,7 +45,7 @@ class ErrorHandler
             $code = 500;
         }
         http_response_code($code);
-        if (Config::SHOW_ERRORS) {
+        if (self::SHOW_ERRORS) {
             echo "<h1>Fatal error</h1>";
             echo "<p>Uncaught exception: '" . get_class($exception) . "'</p>";
             echo "<p>Message: '" . $exception->getMessage() . "'</p>";

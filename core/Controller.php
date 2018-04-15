@@ -3,6 +3,9 @@
 namespace core;
 
 
+use model\Authenticator;
+use util\Redirect;
+
 abstract class Controller
 {
     /**
@@ -51,10 +54,16 @@ abstract class Controller
     /**
      * Before filter - called before an action method.
      *
-     * @return void
+     * @return bool
      */
     protected function before()
     {
+        if (!Authenticator::getInstance()->isAuthenticated()) {
+            Redirect::to("/login");
+            return false;
+        }
+
+        return true;
     }
 
     /**

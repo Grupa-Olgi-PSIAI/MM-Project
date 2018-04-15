@@ -7,6 +7,7 @@ namespace controller;
 use core\Controller;
 use core\View;
 use model\Authenticator;
+use util\Redirect;
 
 class Login extends Controller
 {
@@ -15,7 +16,7 @@ class Login extends Controller
     public function __construct($route_params)
     {
         parent::__construct($route_params);
-        $this->authenticator = new Authenticator();
+        $this->authenticator = Authenticator::getInstance();
     }
 
     /**
@@ -23,7 +24,7 @@ class Login extends Controller
      */
     public function showAction()
     {
-        View::renderWithoutMenu("index.html");
+        View::renderWithoutMenu("login.php");
     }
 
     /**
@@ -31,24 +32,31 @@ class Login extends Controller
      */
     public function loginAction()
     {
+        unset($error);
+
         $email = $_POST['email'];
         $password = $_POST['password'];
 
         if ($this->authenticator->login($email, $password)) {
-            header("Location: /index.php");
-            exit();
+            Redirect::to("/");
         } else {
-            View::renderWithoutMenu("index.html", ["error" => true]);
+            View::renderWithoutMenu("login.php", ["error" => true]);
         }
     }
 
     public function logout()
     {
         $this->authenticator->logout();
+        Redirect::to("/");
     }
 
     protected function before()
     {
-        return !$this->authenticator->isAuthenticated();
+        if ($this->authenticator->isAuthenticated()) {
+            Redirect::to("/");
+            return false;
+        }
+
+        return true;
     }
 }

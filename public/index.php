@@ -17,6 +17,7 @@ Config::loadConfig();
 $router = new Router();
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
 $router->add('login', ['controller' => 'Login', 'action' => 'show']);
+$router->add('logout', ['controller' => 'Login', 'action' => 'logout']);
 $router->add('{controller}/{action}');
 $router->add('{controller}/{id:\d+}/{action}');
 

@@ -53,17 +53,16 @@ class Session
 
     /**
      * Deletes value from session
-     * returns true if deletion was successful
      * @param $key
-     * @return bool
+     * @return bool true if deletion was successful
      */
     public function delete($key)
     {
         if ($this->exists($key)) {
             unset($_SESSION[$key]);
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

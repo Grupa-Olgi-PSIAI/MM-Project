@@ -8,18 +8,43 @@ class Authenticator
 {
     private const USER_SESSION = "user";
 
+    private static $instance;
     private $session;
 
-    public function __construct()
+    private function __construct()
     {
         $this->session = Session::getInstance();
     }
 
+    /**
+     * Returns singleton instance of Authenticator
+     * creates one if non exists
+     * @return Authenticator
+     */
+    public static function getInstance()
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = new self;
+        }
+
+        return self::$instance;
+    }
+
+    /**
+     * Check if user is authenticated
+     * @return bool true if user is authenticated
+     */
     public function isAuthenticated()
     {
         return $this->session->exists(self::USER_SESSION);
     }
 
+    /**
+     * Logs in user
+     * @param $email
+     * @param $password
+     * @return bool true if login was successful
+     */
     public function login($email, $password)
     {
         if ($email === '' || $password === '') {

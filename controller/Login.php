@@ -6,13 +6,13 @@ namespace controller;
 use core\Controller;
 use core\View;
 
-class Home extends Controller
+class Login extends Controller
 {
     /**
      * @throws \Exception
      */
-    public function index()
+    public function login()
     {
-        View::render('index.html');
+        View::renderWithoutMenu('login.html');
     }
 }

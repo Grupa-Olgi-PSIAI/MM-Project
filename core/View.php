@@ -49,6 +49,7 @@ abstract class View
         self::renderHeader();
         if ($showMenu) {
             self::renderMenu();
+            self::renderTopNav();
         }
         require $file;
         self::renderFooter();
@@ -56,7 +57,12 @@ abstract class View
 
     private static function renderMenu()
     {
-        require dirname(__DIR__) . "/view/default.html";
+        require dirname(__DIR__) . "/view/menu.html";
+    }
+
+    private static function renderTopNav()
+    {
+        require dirname(__DIR__) . "/view/top.html";
     }
 
     private static function renderHeader()

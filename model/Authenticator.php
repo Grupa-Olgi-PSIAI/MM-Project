@@ -17,14 +17,16 @@ class Authenticator
 
     public function isAuthenticated()
     {
-        $this->session->start();
         return $this->session->exists(self::USER_SESSION);
     }
 
     public function login($email, $password)
     {
+        if ($email === '' || $password === '') {
+            return false;
+        }
+
         // TODO check credentials with db
-        $this->session->start();
         $this->session->add(self::USER_SESSION, $email);
 
         return true;

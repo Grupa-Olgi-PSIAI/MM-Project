@@ -23,14 +23,11 @@ class Session
             self::$instance = new self;
         }
 
-        return self::$instance;
-    }
-
-    public function start()
-    {
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
+
+        return self::$instance;
     }
 
     public function destroy()

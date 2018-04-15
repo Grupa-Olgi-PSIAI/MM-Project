@@ -52,6 +52,12 @@ class Authenticator
         }
 
         // TODO check credentials with db
+        // ... if $email exists ...
+        $userPassword = password_hash("123", PASSWORD_BCRYPT);
+        if (!password_verify($password, $userPassword)) {
+            return false;
+        }
+
         $this->session->add(self::USER_SESSION, $email);
 
         return true;

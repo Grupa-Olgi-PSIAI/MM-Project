@@ -1,6 +1,7 @@
 .idea/
 out/
 build/
+/config.ini
 
 # OSX Files
 .DS_Store

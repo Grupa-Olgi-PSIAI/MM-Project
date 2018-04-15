@@ -1,26 +1,32 @@
 <?php
 
+
 namespace core;
 
 
-use PDO;
-
 abstract class Model
 {
+    private $id;
+
     /**
-     * Get the PDO database connection
-     *
+     * Get fields for database
+     * @return array with all class fields and their values
+     */
+    abstract public function getFields(): array;
+
+    /**
      * @return mixed
      */
-    protected static function getDB()
+    public function getId()
     {
-        static $db = null;
-        if ($db === null) {
-            $dsn = 'mysql:host=' . Config::getDbHost() . ';dbname=' . Config::getDbName() . ';charset=utf8';
-            $db = new PDO($dsn, Config::getDbUser(), Config::getDbPassword());
-            // Throw an Exception when an error occurs
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }
-        return $db;
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
     }
 }

@@ -3,7 +3,7 @@
 namespace core;
 
 
-class Config
+final class Config
 {
     private const CONFIG_FILE = "config.ini";
 

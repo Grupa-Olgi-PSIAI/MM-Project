@@ -11,7 +11,7 @@ class Home extends Controller
     /**
      * @throws \Exception
      */
-    public function index()
+    public function indexAction()
     {
         View::render('index.html');
     }

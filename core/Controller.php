@@ -3,6 +3,9 @@
 namespace core;
 
 
+use model\Authenticator;
+use util\Redirect;
+
 abstract class Controller
 {
     /**
@@ -28,14 +31,16 @@ abstract class Controller
      * called on an object of this class. Used to execute before and after
      * filter methods on action methods.
      *
-     * @param string $method Method name
+     * @param string $name Method name
      * @param array $args Arguments passed to the method
      *
      * @return void
      * @throws \Exception
      */
-    public function __call($method, $args)
+    public function __call($name, $args)
     {
+        $method = $name . 'Action';
+
         if (method_exists($this, $method)) {
             if ($this->before() !== false) {
                 call_user_func_array([$this, $method], $args);
@@ -49,10 +54,16 @@ abstract class Controller
     /**
      * Before filter - called before an action method.
      *
-     * @return void
+     * @return bool
      */
     protected function before()
     {
+        if (!Authenticator::getInstance()->isAuthenticated()) {
+            Redirect::to("/login");
+            return false;
+        }
+
+        return true;
     }
 
     /**

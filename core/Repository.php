@@ -79,4 +79,41 @@ abstract class Repository
         $statement = $this->db->prepare("DELETE FROM $this->table WHERE id = :id");
         return $statement->execute(["id" => $id]);
     }
+
+    public function add(Model $model)
+    {
+        $params = $model->getFields();
+        $columns = "";
+        $placeholders = "";
+        foreach ($params as $key => $value) {
+            $columns .= "$key, ";
+            $placeholders .= ":$key, ";
+        }
+        $columns = rtrim($columns, ", ");
+        $placeholders = rtrim($placeholders, ", ");
+
+        $sql = "INSERT INTO $this->table ($columns) VALUES ($placeholders)";
+        $statement = $this->db->prepare($sql);
+        $statement->execute($params);
+    }
+
+    public function update($id, Model $model)
+    {
+        $model->setId($id);
+        $params = $model->getFields();
+        $columns = "";
+        foreach ($params as $key => $value) {
+            $columns .= "$key=:$key, ";
+        }
+        $columns = rtrim($columns, ", ");
+
+        $sql = "UPDATE $this->table SET $columns WHERE id=$id";
+        $statement = $this->db->prepare($sql);
+        $statement->execute($params);
+    }
+
+    public function query($sql)
+    {
+        return $this->db->query($sql);
+    }
 }

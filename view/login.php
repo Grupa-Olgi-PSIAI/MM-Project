@@ -12,7 +12,7 @@
     <form id="form_login" class="login-form" action="/login/login" method="post">
         <p><input type="email" id="email" name="email" placeholder="Email"/></p>
         <p><input type="password" id="password" name="password" placeholder="Hasło"/></p>
-        <?php if (isset($error)) echo '<p class="error"> Błędny login i/lub hasło! </p>' ?>
+        <?php if (isset($error) && $error == true) echo '<p class="error"> Błędny login i/lub hasło! </p>' ?>
         <p><input id="login" type="submit" name="login-button" value="Zaloguj"></p>
     </form>
 </div>

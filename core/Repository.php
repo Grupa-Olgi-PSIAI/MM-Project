@@ -34,7 +34,7 @@ abstract class Repository
 
     /**
      * @param array $conditions array of strings with conditions to WHERE statement
-     * e.g. ['id=?', 'name LIKE ?']
+     * e.g. ['id=?', 'name LIKE ?'], note '?' sign in place for value
      * @param array $values array of values to conditions
      * @return array
      */

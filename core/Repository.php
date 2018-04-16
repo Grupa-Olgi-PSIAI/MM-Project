@@ -25,6 +25,22 @@ abstract class Repository
         return $statement->fetchAll(PDO::FETCH_CLASS, $this->class);
     }
 
+    /**
+     * @param int $limit
+     * @param int|null $offset
+     * @return array
+     */
+    public function findAllLimited(int $limit, int $offset = null)
+    {
+        $sql = "SELECT * FROM $this->table LIMIT $limit";
+        if ($offset != null) {
+            $sql .= ",$offset";
+        }
+
+        $statement = $this->db->query($sql);
+        return $statement->fetchAll(PDO::FETCH_CLASS, $this->class);
+    }
+
     public function findById($id)
     {
         $statement = $this->db->prepare("SELECT * FROM $this->table WHERE id = :id");
@@ -44,6 +60,32 @@ abstract class Repository
 
         if ($conditions) {
             $sql .= ' WHERE ' . implode(' AND ', $conditions);
+        }
+
+        $statement = $this->db->prepare($sql);
+        $statement->execute($values);
+        return $statement->fetchAll(PDO::FETCH_CLASS, $this->class);
+    }
+
+    /**
+     * @param array $conditions array of strings with conditions to WHERE statement
+     * e.g. ['id=?', 'name LIKE ?'], note '?' sign in place for value
+     * @param array $values array of values to conditions
+     * @param int $limit
+     * @param int|null $offset
+     * @return array
+     */
+    public function findLimited(array $conditions, array $values, int $limit, int $offset = null)
+    {
+        $sql = "SELECT * FROM $this->table";
+
+        if ($conditions) {
+            $sql .= ' WHERE ' . implode(' AND ', $conditions);
+        }
+
+        $sql .= " LIMIT $limit";
+        if ($offset != null) {
+            $sql .= ",$offset";
         }
 
         $statement = $this->db->prepare($sql);

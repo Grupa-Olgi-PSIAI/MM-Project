@@ -1,5 +1,7 @@
 <?php
+
 namespace model;
+
 use core\Model;
 
 class Contractor extends Model
@@ -10,6 +12,15 @@ class Contractor extends Model
     private $last_updated;
     private $name;
     private $vat_id;
+
+    //TODO: Do it in some more sophisticated way...
+    public function prepareInitialObject()
+    {
+        $this->setId(self::primitiveUUID());
+        $this->setVersion(1);
+        $this->setDateCreated(time());
+        $this->setLastUpdated(time());
+    }
 
     public function getFields(): array
     {
@@ -61,7 +72,7 @@ class Contractor extends Model
      */
     public function setDateCreated($date_created): void
     {
-        $this->date_created = $date_created;
+        $this->date_created = date('Y-m-d H:i:s', $date_created);
     }
 
     /**
@@ -77,7 +88,7 @@ class Contractor extends Model
      */
     public function setLastUpdated($last_updated): void
     {
-        $this->last_updated = $last_updated;
+        $this->last_updated = date('Y-m-d H:i:s', $last_updated);
     }
 
     /**
@@ -111,7 +122,4 @@ class Contractor extends Model
     {
         $this->vat_id = $vat_id;
     }
-
-
-
 }

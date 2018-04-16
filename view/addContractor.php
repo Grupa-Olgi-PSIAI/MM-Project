@@ -4,7 +4,7 @@
 
     <form action="/addcontractor" method="post">
         <div class="material-input">
-            <input type="text" name="contractor_name">
+            <?php echo "<input type='text' name='contractor_name' value= '". (isset($name) ? $name : '') ."'/>"; ?>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label>Nazwa</label>
@@ -12,11 +12,12 @@
         </div>
 
         <div class="material-input">
-            <input type="text" name="contractor_vat_id">
+            <?php echo "<input type='text' name='contractor_vat_id' value= '". (isset($vat_id) ? $vat_id : '') ."'/>"; ?>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label>VAT ID</label>
             <?php if (isset($error_contractor_vat_id) && $error_contractor_vat_id == true) echo '<p class="error"> Podaj VAT ID! </p>' ?>
+            <?php if (isset($error_contractor_vat_id_exists) && $error_contractor_vat_id_exists == true) echo '<p class="error">Kontrahent o takim VAT ID już istnieje</p>' ?>
         </div>
 
         <div class="material-input">

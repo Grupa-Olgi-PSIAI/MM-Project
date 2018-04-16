@@ -15,7 +15,7 @@ class UserRepository extends Repository
     }
 
 
-    public function findByEmail($email): User
+    public function findByEmail($email)
     {
         return parent::findOne(["email = ?"], [$email]);
     }

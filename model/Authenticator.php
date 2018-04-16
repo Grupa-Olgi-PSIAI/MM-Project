@@ -4,6 +4,8 @@
 namespace model;
 
 
+use repository\UserRepository;
+
 class Authenticator
 {
     private const USER_SESSION = "user";
@@ -47,18 +49,21 @@ class Authenticator
      */
     public function login($email, $password)
     {
-        if ($email === '' || $password === '') {
+        if ($email == '' || $password == '') {
             return false;
         }
 
-        // TODO check credentials with db
-        // ... if $email exists ...
-        $userPassword = password_hash("123", PASSWORD_BCRYPT);
-        if (!password_verify($password, $userPassword)) {
+        $repository = new UserRepository();
+        $user = $repository->findByEmail($email);
+        if (!$user) {
             return false;
         }
 
-        $this->session->add(self::USER_SESSION, $email);
+        if (!password_verify($password, $user->getPassword())) {
+            return false;
+        }
+
+        $this->session->add(self::USER_SESSION, $user->getId());
 
         return true;
     }

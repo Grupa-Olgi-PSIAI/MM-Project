@@ -8,6 +8,7 @@ use core\Model;
 
 class User extends Model
 {
+    private $id;
     private $version;
     private $date_created;
     private $last_updated;
@@ -26,6 +27,22 @@ class User extends Model
     public function getFields(): array
     {
         return get_object_vars($this);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
     }
 
     /**

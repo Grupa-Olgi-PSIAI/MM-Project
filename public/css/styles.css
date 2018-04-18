@@ -83,7 +83,11 @@ html, body {
 
 #menu-fixed:target > .menu li {
     text-align: left;
-    width: 60%;
+    width: 100%;
+}
+
+#menu-fixed:target > .menu li > i {
+    margin-left: 20px;
 }
 
 #menu-fixed:target > .menu li:hover::after {
@@ -93,7 +97,6 @@ html, body {
     width: 100%;
     height: 100%;
     top: 0;
-    left: 0;
     border-radius: 4px;
 }
 
@@ -189,7 +192,7 @@ html, body {
 
 #menu-fixed .menu li {
     padding: 15px;
-    width: 40%;
+    width: 100%;
     margin: auto;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom-style: dotted;
@@ -245,6 +248,7 @@ a:link, a:visited {
     margin-left: 120px;
     margin-top: 70px;
     height: 100%;
+    padding: 30px;
 }
 
 .page div {
@@ -353,3 +357,118 @@ input::-webkit-search-cancel-button {
 .search-bar input::-webkit-input-placeholder {
     color: #7A777D;
 }
+
+* { box-sizing:border-box; }
+
+.material-input 			  {
+    position:relative;
+    margin-bottom:45px;
+}
+.material-input input 				{
+    font-size:18px;
+    padding:10px 10px 10px 5px;
+    display:block;
+    width:300px;
+    border:none;
+
+    background: transparent;
+    border-bottom:1px solid #757575;
+}
+.material-input input:focus 		{ outline:none; }
+
+/* LABEL ======================================= */
+.material-input label 				 {
+    color:#999;
+    font-size:18px;
+    font-weight:normal;
+    position:absolute;
+    pointer-events:none;
+    left:5px;
+    top:10px;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+.material-input input:focus ~ label, input:valid ~ label 		{
+    top:-20px;
+    font-size:14px;
+    color:#FFC400;
+}
+
+.material-input input:valid ~ label {
+    color: #7A777D;
+}
+
+.material-input input[type=submit] {
+    text-align: center;
+    color: white;
+    border: solid 1px #FFC400;
+    background-color: #FFC400;
+}
+
+.material-input .error {
+    color: red;
+    font-size: 12px;
+}
+
+/* BOTTOM BARS ================================= */
+.material-input-bar 	{ position:relative; display:block; width:300px; }
+.material-input-bar:before, .material-input-bar:after 	{
+    content:'';
+    height:2px;
+    width:0;
+    bottom:1px;
+    position:absolute;
+    background:#FFC400;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+}
+.material-input-bar:before {
+    left:50%;
+}
+.material-input-bar:after {
+    right:50%;
+}
+
+/* active state */
+input:focus ~ .material-input-bar:before, input:focus ~ .material-input-bar:after {
+    width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.material-input-highlight {
+    position:absolute;
+    height:60%;
+    width:100px;
+    top:25%;
+    left:0;
+    pointer-events:none;
+    opacity:0.5;
+}
+
+
+
+/* active state */
+input:focus ~ .material-input-highlight {
+    -webkit-animation:inputHighlighter 0.3s ease;
+    -moz-animation:inputHighlighter 0.3s ease;
+    animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+    from { background:#FFC400; }
+    to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+    from { background:#FFC400; }
+    to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+    from { background:#FFC400; }
+    to 	{ width:0; background:transparent; }
+}
+

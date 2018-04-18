@@ -38,15 +38,21 @@
             <label>Waluta</label>
         </div>
 
-        <div class="material-input">
-            <input type='text' name='contractor_id' value="1" required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>Id kontrahenta</label>
-        </div>
+        Kontrahent <br>
 
-        <div class="material-input">
-            <input type="submit" name="invoice_add" value="Wyślij">
-        </div>
+        <?php if (isset($contractors)) { ?>
+            <select name="contractor_id">
+                <?php foreach ($contractors as &$value) {
+                    echo "<option value=" . $value->getId() . ">" . $value->getName() . "</option>";
+                } ?>
+            </select>
+            <br><br><br>
+            <div class="material-input">
+                <input type="submit" name="invoice_add" value="Wyślij">
+            </div>
+        <?php } else { ?>
+            <a href="/addContractor/show" class="btn btn-primary"> Dodaj nowego kontrahenta </a>
+        <?php }
+        ?>
     </form>
 </div>

@@ -6,6 +6,9 @@ use util\DateUtils;
 
 <div id="page">
 
+    <a href="/invoices/add" class="btn btn-primary" style="font-size: larger; background-color: #FFC400; color: white; padding: 5px;">Dodaj nową fakturę</a>
+    <br>
+    <h2>Lista faktur</h2>
     <table class="table">
         <thead>
         <tr>
@@ -41,9 +44,4 @@ use util\DateUtils;
         } ?>
         </tbody>
     </table>
-    <div class="row" style="justify-content: end">
-        <div class="col" style="justify-content: end">
-            <a href="/invoices/add" class="btn btn-primary">Dodaj</a>
-        </div>
-    </div>
 </div>

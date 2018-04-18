@@ -11,6 +11,7 @@ namespace controller;
 use core\Controller;
 use core\View;
 use model\Invoice;
+use repository\ContractorRepository;
 use repository\InvoicesRepository;
 
 class Invoices extends Controller
@@ -31,7 +32,9 @@ class Invoices extends Controller
      */
     public function addAction()
     {
-        View::render('invoicesAdd.php');
+        $repository = new ContractorRepository();
+        $contractors = $repository->findAll();
+        View::render('invoicesAdd.php', ["contractors" => $contractors]);
     }
 
 
@@ -55,7 +58,7 @@ class Invoices extends Controller
 
         $invoice->setVersion(1);
         $invoice->setNumber($number);
-        $invoice->setInvoiceDate($invoice_date);
+        $invoice->setInvoiceDate(date_create($invoice_date));
         $invoice->setAmountNet($amount_net);
         $invoice->setAmountGross($amount_gross);
         $invoice->setAmountTax($amount_tax);

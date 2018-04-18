@@ -13,7 +13,7 @@ class AddContractor extends Controller
     /**
      * @throws \Exception
      */
-    public function show()
+    public function showAction()
     {
         View::render('addContractor.php');
     }
@@ -42,13 +42,13 @@ class AddContractor extends Controller
             !$error_contractor_vat_id_exists) {
 
             $contractor = new Contractor();
-            $contractor->prepareInitialObject();
+            $contractor->setVersion(1);
             $contractor->setName($name);
             $contractor->setVatId($vat_id);
 
             $repository->add($contractor);
 
-            $this->show();
+            $this->showAction();
             return;
         }
 

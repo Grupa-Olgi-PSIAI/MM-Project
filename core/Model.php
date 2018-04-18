@@ -15,9 +15,4 @@ abstract class Model
     abstract public function getId();
 
     abstract public function setId($id): void;
-
-    public static function primitiveUUID() : int
-    {
-        return rand(10000000000, 99999999999);
-    }
 }

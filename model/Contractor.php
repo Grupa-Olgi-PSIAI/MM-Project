@@ -13,15 +13,6 @@ class Contractor extends Model
     private $name;
     private $vat_id;
 
-    //TODO: Do it in some more sophisticated way...
-    public function prepareInitialObject()
-    {
-        $this->setId(self::primitiveUUID());
-        $this->setVersion(1);
-        $this->setDateCreated(time());
-        $this->setLastUpdated(time());
-    }
-
     public function getFields(): array
     {
         return get_object_vars($this);

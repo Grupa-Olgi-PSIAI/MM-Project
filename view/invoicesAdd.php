@@ -18,14 +18,14 @@
         </div>
 
         <div class="material-input">
-            <input type='number' name='amount_net' required/>
+            <input type='number' step="0.01" name='amount_net' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label>Kwota netto</label>
         </div>
 
         <div class="material-input">
-            <input type='number' name='amount_gross' required/>
+            <input type='number' step="0.01" name='amount_gross' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label>Kwota brutto</label>

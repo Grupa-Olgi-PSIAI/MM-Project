@@ -1,3 +1,9 @@
+<?php
+
+use util\DateUtils;
+
+?>
+
 <div id="page">
 
     <table class="table">
@@ -23,7 +29,7 @@
                     <th scope="row"><?php echo $key ?></th>
                     <td><?php echo $invoice->getId() ?></td>
                     <td><?php echo $invoice->getNumber() ?></td>
-                    <td><?php echo $invoice->getInvoiceDate() ?></td>
+                    <td><?php DateUtils::getPlainDate($invoice->getInvoiceDate()) ?></td>
                     <td><?php echo $invoice->getAmountNet() ?></td>
                     <td><?php echo $invoice->getAmountGross() ?></td>
                     <td><?php echo $invoice->getAmountTax() ?></td>

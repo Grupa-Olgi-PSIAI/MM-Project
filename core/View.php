@@ -75,4 +75,5 @@ abstract class View
     {
         require dirname(__DIR__) . "/view/footer.html";
     }
+
 }

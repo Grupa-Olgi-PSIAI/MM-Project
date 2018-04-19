@@ -63,6 +63,22 @@ use util\DateUtils;
                     </tr>
                 <?php }
             } ?>
+            <?php if (isset($invoice)) { ?>
+                    <tr>
+                        <td><?php if(isset($invoice)){ echo $invoice->getNumber() ;}?>/td>
+                        <td><?php if(isset($invoice)){ DateUtils::getPlainDate($invoice->getInvoiceDate()); } ?></td>
+                        <td><?php if(isset($invoice)){echo $invoice->getAmountNet(); } ?></td>
+                        <td><?php if(isset($invoice)){echo $invoice->getAmountGross() ; }?></td>
+                        <td><?php if(isset($invoice)){echo $invoice->getAmountTax(); } ?></td>
+                        <td><?php if(isset($invoice)){echo $invoice->getCurrency() ; }?></td>
+                        <td><?php if(isset($invoice)){echo $invoice->getAmountNetCurrency() ; }?></td>
+                        <td><?php if(isset($invoice)){echo $invoice->getContractorId() ; }?></td>
+                        <td><?php if(isset($invoice)){echo '<a href="/invoices/details?id=' . $invoice->getId() . '" class="btn btn-primary">Szczegóły</a>'; ; }?></td>
+                        <td><?php if(isset($invoice)){echo '<a href="/invoices/edit?id=' . $invoice->getId() . '" class="btn btn-primary">Edytuj</a>';; } ?></td>
+                        <td><?php if(isset($invoice)){echo '<a href="/invoices/delete?id=' . $invoice->getId() . '">Usuń</a>' ; }?></td>
+                    </tr>
+                <?php
+            } ?>
             </tbody>
         </table>
     </div>

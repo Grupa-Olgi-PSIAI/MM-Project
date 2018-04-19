@@ -114,12 +114,12 @@ class Invoices extends Controller
     public function search() {
 
         $id = $_POST['id'];
+
         echo "<script>console.log( 'Debug Objects: " . $id . "' );</script>";
 
-        $invoices = new InvoicesRepository();
-        $invoices->findById($id);
-
-        View::render('invoicesList.php', ["invoices" => $invoices]);
+        $repository = new InvoicesRepository();
+        $invoice = $repository->findById($id);
+        View::render('invoicesList.php', ["invoice" => $invoice]);
     }
 
 

@@ -95,7 +95,7 @@ class Invoices extends Controller
 
         $contractorRepository = new ContractorRepository();
         $contractors = $contractorRepository->findAll();
-        
+
         $invoice = $repository->findById($id);
         View::render('invoicesEdit.php', ["invoice" => $invoice, "contractors" => $contractors]);
     }
@@ -111,4 +111,39 @@ class Invoices extends Controller
         View::render('invoicesList.php', ["invoices" => $invoices]);
     }
 
+
+    /**
+     * @throws \Exception
+     */
+    public function updateAction()
+    {
+        unset($error);
+
+        $number = $_POST['number'];
+        $invoice_date = $_POST['invoice_date'];
+        $amount_net = $_POST['amount_net'];
+        $amount_gross = $_POST['amount_gross'];
+        $amount_tax = $amount_gross - $amount_net;
+        $currency = $_POST['currency'];
+        $amount_net_currency = $amount_net;
+        $contractor_id = $_POST['contractor_id'];
+
+        $invoice = new Invoice();
+
+        $invoice->setVersion(1);
+        $invoice->setNumber($number);
+        $invoice->setInvoiceDate(date_create($invoice_date)->format('Y-m-d h:m:s'));
+        $invoice->setAmountNet($amount_net);
+        $invoice->setAmountGross($amount_gross);
+        $invoice->setAmountTax($amount_tax);
+        $invoice->setCurrency($currency);
+        $invoice->setAmountNetCurrency($amount_net_currency);
+        $invoice->setContractorId($contractor_id);
+
+        $repository = new InvoicesRepository();
+        $repository->update($_GET['id'],$invoice);
+        $invoices = $repository->findAll();
+
+        View::render('invoicesList.php', ["invoices" => $invoices]);
+    }
 }

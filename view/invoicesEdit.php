@@ -2,7 +2,7 @@
     <h2>Edytuj fakturę</h2>
     <br>
 
-    <form action="/invoices/edit" method="post">
+    <form action="/invoices/update" method="post">
         <div class="material-input">
             <input type='text' name='number' <?php if(isset($invoice)){ echo "value=" . $invoice->getNumber() . "";}?> required/>
             <span class="material-input-highlight"></span>

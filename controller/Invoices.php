@@ -92,7 +92,10 @@ class Invoices extends Controller
     public function edit() {
         $id = $_GET['id'];
         $repository = new InvoicesRepository();
-        $contractors = $repository->findAll();
+
+        $contractorRepository = new ContractorRepository();
+        $contractors = $contractorRepository->findAll();
+        
         $invoice = $repository->findById($id);
         View::render('invoicesEdit.php', ["invoice" => $invoice, "contractors" => $contractors]);
     }

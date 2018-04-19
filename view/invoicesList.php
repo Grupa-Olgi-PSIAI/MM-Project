@@ -22,6 +22,7 @@ use util\DateUtils;
                 <th>Waluta</th>
                 <th>Kwota netto w walucie</th>
                 <th>Kontrahent</th>
+                <th></th>
             </tr>
             </thead>
         </table>
@@ -42,6 +43,9 @@ use util\DateUtils;
                 <td><?php echo $invoice->getCurrency() ?></td>
                 <td><?php echo $invoice->getAmountNetCurrency() ?></td>
                 <td><?php echo $invoice->getContractorId() ?></td>
+                <?php echo '<td><a href="/invoices/delete?id='. $invoice->getId() .'">Usuń</td>' ?>
+
+
             </tr>
             <?php }
             } ?>

@@ -23,6 +23,7 @@ use util\DateUtils;
                 <th>Kwota netto w walucie</th>
                 <th>Kontrahent</th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
         </table>
@@ -31,23 +32,21 @@ use util\DateUtils;
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
             <?php if (isset($invoices)) {
-            foreach ($invoices
-
-            as $key => $invoice) { ?>
-            <tr>
-                <td><?php echo $invoice->getNumber() ?></td>
-                <td><?php DateUtils::getPlainDate($invoice->getInvoiceDate()) ?></td>
-                <td><?php echo $invoice->getAmountNet() ?></td>
-                <td><?php echo $invoice->getAmountGross() ?></td>
-                <td><?php echo $invoice->getAmountTax() ?></td>
-                <td><?php echo $invoice->getCurrency() ?></td>
-                <td><?php echo $invoice->getAmountNetCurrency() ?></td>
-                <td><?php echo $invoice->getContractorId() ?></td>
-                <?php echo '<td><a href="/invoices/delete?id='. $invoice->getId() .'">Usuń</td>' ?>
-
-
-            </tr>
-            <?php }
+                foreach ($invoices
+                         as $key => $invoice) { ?>
+                    <tr>
+                        <td><?php echo $invoice->getNumber() ?></td>
+                        <td><?php DateUtils::getPlainDate($invoice->getInvoiceDate()) ?></td>
+                        <td><?php echo $invoice->getAmountNet() ?></td>
+                        <td><?php echo $invoice->getAmountGross() ?></td>
+                        <td><?php echo $invoice->getAmountTax() ?></td>
+                        <td><?php echo $invoice->getCurrency() ?></td>
+                        <td><?php echo $invoice->getAmountNetCurrency() ?></td>
+                        <td><?php echo $invoice->getContractorId() ?></td>
+                        <td><?php echo '<a href="/invoices/edit?id=' . $invoice->getId() . '" class="btn btn-primary">Edytuj</a>'; ?></td>
+                        <td><?php echo '<a href="/invoices/delete?id=' . $invoice->getId() . '">Usuń</a>' ?></td>
+                    </tr>
+                <?php }
             } ?>
             </tbody>
         </table>

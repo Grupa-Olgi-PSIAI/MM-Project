@@ -37,7 +37,6 @@ class Invoices extends Controller
         View::render('invoicesAdd.php', ["contractors" => $contractors]);
     }
 
-
     /**
      * @throws \Exception
      */
@@ -58,7 +57,7 @@ class Invoices extends Controller
 
         $invoice->setVersion(1);
         $invoice->setNumber($number);
-        $invoice->setInvoiceDate(date_create($invoice_date));
+        $invoice->setInvoiceDate(date_create($invoice_date)->format('Y-m-d h:m:s'));
         $invoice->setAmountNet($amount_net);
         $invoice->setAmountGross($amount_gross);
         $invoice->setAmountTax($amount_tax);
@@ -85,5 +84,16 @@ class Invoices extends Controller
         $invoices = $repository->findAll();
         View::render('invoicesList.php', ["invoices" => $invoices]);
 
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function edit() {
+        $id = $_GET['id'];
+        $repository = new InvoicesRepository();
+        $contractors = $repository->findAll();
+        $invoice = $repository->findById($id);
+        View::render('invoicesEdit.php', ["invoice" => $invoice, "contractors" => $contractors]);
     }
 }

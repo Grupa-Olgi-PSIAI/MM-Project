@@ -72,4 +72,18 @@ class Invoices extends Controller
 
         View::render('invoicesList.php', ["invoices" => $invoices]);
     }
+
+    public function delete() {
+
+        $id = $_GET['id'];
+
+        echo "<script>console.log( 'Debug Objects: " . $id . "' );</script>";
+
+        $repository = new InvoicesRepository();
+        $repository->delete($id);
+
+        $invoices = $repository->findAll();
+        View::render('invoicesList.php', ["invoices" => $invoices]);
+
+    }
 }

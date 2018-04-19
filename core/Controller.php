@@ -3,7 +3,7 @@
 namespace core;
 
 
-use model\Authenticator;
+use util\Authenticator;
 use util\Redirect;
 
 abstract class Controller

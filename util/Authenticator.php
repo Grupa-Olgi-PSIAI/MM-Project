@@ -1,7 +1,7 @@
 <?php
 
 
-namespace model;
+namespace util;
 
 
 use repository\UserRepository;

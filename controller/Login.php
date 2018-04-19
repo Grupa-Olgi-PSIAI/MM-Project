@@ -6,7 +6,7 @@ namespace controller;
 
 use core\Controller;
 use core\View;
-use model\Authenticator;
+use util\Authenticator;
 use util\Redirect;
 
 class Login extends Controller

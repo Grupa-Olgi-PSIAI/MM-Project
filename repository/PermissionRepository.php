@@ -17,4 +17,9 @@ class PermissionRepository extends Repository
     {
         parent::__construct("permissions", Permission::class);
     }
+
+    public function findForUser($userId)
+    {
+
+    }
 }

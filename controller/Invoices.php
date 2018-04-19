@@ -100,6 +100,17 @@ class Invoices extends Controller
         View::render('invoicesEdit.php', ["invoice" => $invoice, "contractors" => $contractors]);
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function details() {
+        $id = $_GET['id'];
+        $repository = new InvoicesRepository();
+
+        $invoice = $repository->findById($id);
+        View::render('invoicesDetails.php', ["invoice" => $invoice]);
+    }
+
     public function search() {
 
         $id = $_POST['id'];

@@ -37,6 +37,7 @@ use util\DateUtils;
                 <th>Kontrahent</th>
                 <th></th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
         </table>
@@ -56,6 +57,7 @@ use util\DateUtils;
                         <td><?php echo $invoice->getCurrency() ?></td>
                         <td><?php echo $invoice->getAmountNetCurrency() ?></td>
                         <td><?php echo $invoice->getContractorId() ?></td>
+                        <td><?php echo '<a href="/invoices/details?id=' . $invoice->getId() . '" class="btn btn-primary">Szczegóły</a>'; ?></td>
                         <td><?php echo '<a href="/invoices/edit?id=' . $invoice->getId() . '" class="btn btn-primary">Edytuj</a>'; ?></td>
                         <td><?php echo '<a href="/invoices/delete?id=' . $invoice->getId() . '">Usuń</a>' ?></td>
                     </tr>

@@ -1,8 +1,8 @@
 <div id="page">
-    <h2>Edytuj fakturę</h2>
+    <h2>Edytuj fakturę <?php if(isset($invoice)){ echo $invoice->getNumber() ;}?></h2>
     <br>
 
-    <form action="/invoices/update" method="post">
+    <form action="/invoices/update?id=<?php if(isset($invoice)){echo $invoice->getId();}?>" method="post">
         <div class="material-input">
             <input type='text' name='number' <?php if(isset($invoice)){ echo "value=" . $invoice->getNumber() . "";}?> required/>
             <span class="material-input-highlight"></span>
@@ -48,7 +48,7 @@
             </select>
             <br><br><br>
             <div class="material-input">
-                <input type="submit" name="invoice_add" value="Wyślij">
+                <input type="submit" name="invoice_edit" value="Wyślij">
             </div>
         <?php } else { ?>
             <a href="/addContractor/show" class="btn btn-primary"> Dodaj nowego kontrahenta </a>

@@ -13,7 +13,7 @@ class Permission extends Model
     private $role_id;
     private $own_perms;
     private $group_perms;
-    private $other_perm;
+    private $other_perms;
 
     /**
      * Get fields for database
@@ -107,16 +107,16 @@ class Permission extends Model
     /**
      * @return mixed
      */
-    public function getOtherPerm()
+    public function getOtherPerms()
     {
-        return $this->other_perm;
+        return $this->other_perms;
     }
 
     /**
-     * @param mixed $other_perm
+     * @param mixed $other_perms
      */
-    public function setOtherPerm($other_perm): void
+    public function setOtherPerms($other_perms): void
     {
-        $this->other_perm = $other_perm;
+        $this->other_perms = $other_perms;
     }
 }

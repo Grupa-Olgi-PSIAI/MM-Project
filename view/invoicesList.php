@@ -8,6 +8,19 @@ use util\DateUtils;
 
     <a href="/invoices/add" class="btn btn-primary"
        style="font-size: larger; background-color: #FFC400; color: white; padding: 5px;">Dodaj nową fakturę</a>
+
+    <form action="/invoices/search" method="post">
+        <div class="row">
+            <div class="material-input">
+                <input type="text" name='id'/>
+            </div>
+            <div class="material-input">
+                <input type="submit" name="invoice_add"  name='id'/>
+            </div>
+        </div>
+
+    </form>
+
     <br>
     <h2>Lista faktur</h2>
     <div class="tbl-header">

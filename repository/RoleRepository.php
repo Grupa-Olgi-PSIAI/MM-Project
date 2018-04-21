@@ -14,7 +14,11 @@ class RoleRepository extends Repository
         parent::__construct("roles", Role::class);
     }
 
-    public function findByAuthority($authority)
+    /**
+     * @param string $authority name of authority
+     * @return Role
+     */
+    public function findByAuthority($authority): Role
     {
         return parent::findOne(["authority = ?"], [$authority]);
     }

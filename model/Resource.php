@@ -21,34 +21,38 @@ class Resource extends Model
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
+     * @return Resource
      */
-    public function setId($id): void
+    public function setId($id): Resource
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
+     * @return Resource
      */
-    public function setName($name): void
+    public function setName($name): Resource
     {
         $this->name = $name;
+        return $this;
     }
 }

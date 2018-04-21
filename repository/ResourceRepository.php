@@ -18,7 +18,11 @@ class ResourceRepository extends Repository
         parent::__construct("resources", Resource::class);
     }
 
-    public function findByName($name)
+    /**
+     * @param string $name of resource
+     * @return Resource
+     */
+    public function findByName($name): Resource
     {
         return parent::findOne(["name = ?"], [$name]);
     }

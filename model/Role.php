@@ -22,50 +22,56 @@ class Role extends Model
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
+     * @return Role
      */
-    public function setId($id): void
+    public function setId($id): Role
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getVersion()
+    public function getVersion(): int
     {
         return $this->version;
     }
 
     /**
-     * @param mixed $version
+     * @param int $version
+     * @return Role
      */
-    public function setVersion($version): void
+    public function setVersion($version): Role
     {
         $this->version = $version;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getAuthority()
+    public function getAuthority(): string
     {
         return $this->authority;
     }
 
     /**
-     * @param mixed $authority
+     * @param string $authority
+     * @return Role
      */
-    public function setAuthority($authority): void
+    public function setAuthority($authority): Role
     {
         $this->authority = $authority;
+        return $this;
     }
 }

@@ -25,98 +25,110 @@ class Permission extends Model
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
+     * @return Permission
      */
-    public function setId($id): void
+    public function setId($id): Permission
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getResourceId()
+    public function getResourceId(): int
     {
         return $this->resource_id;
     }
 
     /**
-     * @param mixed $resource_id
+     * @param int $resource_id
+     * @return Permission
      */
-    public function setResourceId($resource_id): void
+    public function setResourceId($resource_id): Permission
     {
         $this->resource_id = $resource_id;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getRoleId()
+    public function getRoleId(): int
     {
         return $this->role_id;
     }
 
     /**
-     * @param mixed $role_id
+     * @param int $role_id
+     * @return Permission
      */
-    public function setRoleId($role_id): void
+    public function setRoleId($role_id): Permission
     {
         $this->role_id = $role_id;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return string in format 'create,read,update,delete'
      */
-    public function getOwnPerms()
+    public function getOwnPerms(): string
     {
         return $this->own_perms;
     }
 
     /**
-     * @param mixed $own_perms
+     * @param string $own_perms in format 'create,read,update,delete'
+     * @return Permission
      */
-    public function setOwnPerms($own_perms): void
+    public function setOwnPerms($own_perms): Permission
     {
         $this->own_perms = $own_perms;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return string in format 'create,read,update,delete'
      */
-    public function getGroupPerms()
+    public function getGroupPerms(): string
     {
         return $this->group_perms;
     }
 
     /**
-     * @param mixed $group_perms
+     * @param string $group_perms in format 'create,read,update,delete'
+     * @return Permission
      */
-    public function setGroupPerms($group_perms): void
+    public function setGroupPerms($group_perms): Permission
     {
         $this->group_perms = $group_perms;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return string in format 'create,read,update,delete'
      */
-    public function getOtherPerms()
+    public function getOtherPerms(): string
     {
         return $this->other_perms;
     }
 
     /**
-     * @param mixed $other_perms
+     * @param string $other_perms in format 'create,read,update,delete'
+     * @return Permission
      */
-    public function setOtherPerms($other_perms): void
+    public function setOtherPerms($other_perms): Permission
     {
         $this->other_perms = $other_perms;
+        return $this;
     }
 }

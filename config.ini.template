@@ -1,3 +1,5 @@
+showErrors=1
+logErrors=0
 [database]
 host=localhost
 user=admin

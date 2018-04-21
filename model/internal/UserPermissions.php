@@ -6,106 +6,40 @@ namespace model\internal;
 
 class UserPermissions
 {
-    private $userId;
-    private $resource;
-    private $role;
-    private $ownPermissions;
-    private $groupPermissions;
-    private $otherPermissions;
+    private $name;
+    private $own_perms;
+    private $group_perms;
+    private $other_perms;
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getUserId()
+    public function getResourceName(): string
     {
-        return $this->userId;
+        return $this->name;
     }
 
     /**
-     * @param mixed $userId
+     * @return string
      */
-    public function setUserId($userId): void
+    public function getOwnPermissions(): string
     {
-        $this->userId = $userId;
+        return $this->own_perms;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getResource()
+    public function getGroupPermissions(): string
     {
-        return $this->resource;
+        return $this->group_perms;
     }
 
     /**
-     * @param mixed $resource
+     * @return string
      */
-    public function setResource($resource): void
+    public function getOtherPermissions(): string
     {
-        $this->resource = $resource;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * @param mixed $role
-     */
-    public function setRole($role): void
-    {
-        $this->role = $role;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOwnPermissions()
-    {
-        return $this->ownPermissions;
-    }
-
-    /**
-     * @param mixed $ownPermissions
-     */
-    public function setOwnPermissions($ownPermissions): void
-    {
-        $this->ownPermissions = $ownPermissions;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getGroupPermissions()
-    {
-        return $this->groupPermissions;
-    }
-
-    /**
-     * @param mixed $groupPermissions
-     */
-    public function setGroupPermissions($groupPermissions): void
-    {
-        $this->groupPermissions = $groupPermissions;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOtherPermissions()
-    {
-        return $this->otherPermissions;
-    }
-
-    /**
-     * @param mixed $otherPermissions
-     */
-    public function setOtherPermissions($otherPermissions): void
-    {
-        $this->otherPermissions = $otherPermissions;
+        return $this->other_perms;
     }
 }

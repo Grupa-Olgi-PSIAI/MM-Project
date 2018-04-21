@@ -18,8 +18,12 @@ class PermissionRepository extends Repository
         parent::__construct("permissions", Permission::class);
     }
 
-    public function findForUser($userId)
+    /**
+     * @param int $roleId id of role
+     * @return array of Permissions
+     */
+    public function findByRoleId(int $roleId): array
     {
-
+        return parent::find(["role_id = ?"], [$roleId]);
     }
 }

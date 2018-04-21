@@ -20,25 +20,25 @@ class UserPermissions
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getOwnPermissions(): string
+    public function getOwnPermissions()
     {
         return $this->own_perms;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGroupPermissions(): string
+    public function getGroupPermissions()
     {
         return $this->group_perms;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getOtherPermissions(): string
+    public function getOtherPermissions()
     {
         return $this->other_perms;
     }

@@ -45,8 +45,8 @@ WHERE `role_id` = @`role_id`;
 INSERT INTO `user_role` (`role_id`, `user_id`) VALUES (@`role_id`, @`user_id`);
 
 DELETE FROM `resources`
-WHERE `name` IN ('AddContractor');
-INSERT INTO `resources` (`name`) VALUES ('AddContractor');
+WHERE `name` IN ('contractor');
+INSERT INTO `resources` (`name`) VALUES ('contractor');
 SET @`resource_id` = LAST_INSERT_ID();
 
 DELETE FROM `permissions`

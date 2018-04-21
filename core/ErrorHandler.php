@@ -41,7 +41,7 @@ class ErrorHandler
     public static function handleException($exception)
     {
         $code = $exception->getCode();
-        if ($code != 404) {
+        if ($code != 404 && $code != 401) {
             $code = 500;
         }
         http_response_code($code);

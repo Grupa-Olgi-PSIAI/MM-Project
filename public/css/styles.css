@@ -255,6 +255,12 @@ a:link, a:visited {
 
 }
 
+#error {
+    margin-top: 150px;
+    text-align: center;
+    width: 100%;
+}
+
 /* TOP NAVIGATION BAR */
 
 #top-nav {
@@ -358,43 +364,49 @@ input::-webkit-search-cancel-button {
     color: #7A777D;
 }
 
-* { box-sizing:border-box; }
-
-.material-input 			  {
-    position:relative;
-    margin-bottom:45px;
+* {
+    box-sizing: border-box;
 }
-.material-input input 				{
-    font-size:18px;
-    padding:10px 10px 10px 5px;
-    display:block;
-    width:300px;
-    border:none;
+
+.material-input {
+    position: relative;
+    margin-bottom: 45px;
+}
+
+.material-input input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 300px;
+    border: none;
 
     background: transparent;
-    border-bottom:1px solid #757575;
+    border-bottom: 1px solid #757575;
 }
-.material-input input:focus 		{ outline:none; }
+
+.material-input input:focus {
+    outline: none;
+}
 
 /* LABEL ======================================= */
-.material-input label 				 {
-    color:#999;
-    font-size:18px;
-    font-weight:normal;
-    position:absolute;
-    pointer-events:none;
-    left:5px;
-    top:10px;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
+.material-input label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
 }
 
 /* active state */
-.material-input input:focus ~ label, input:valid ~ label 		{
-    top:-20px;
-    font-size:14px;
-    color:#FFC400;
+.material-input input:focus ~ label, input:valid ~ label {
+    top: -20px;
+    font-size: 14px;
+    color: #FFC400;
 }
 
 .material-input input:valid ~ label {
@@ -414,61 +426,83 @@ input::-webkit-search-cancel-button {
 }
 
 /* BOTTOM BARS ================================= */
-.material-input-bar 	{ position:relative; display:block; width:300px; }
-.material-input-bar:before, .material-input-bar:after 	{
-    content:'';
-    height:2px;
-    width:0;
-    bottom:1px;
-    position:absolute;
-    background:#FFC400;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
+.material-input-bar {
+    position: relative;
+    display: block;
+    width: 300px;
 }
+
+.material-input-bar:before, .material-input-bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #FFC400;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
 .material-input-bar:before {
-    left:50%;
+    left: 50%;
 }
+
 .material-input-bar:after {
-    right:50%;
+    right: 50%;
 }
 
 /* active state */
 input:focus ~ .material-input-bar:before, input:focus ~ .material-input-bar:after {
-    width:50%;
+    width: 50%;
 }
 
 /* HIGHLIGHTER ================================== */
 .material-input-highlight {
-    position:absolute;
-    height:60%;
-    width:100px;
-    top:25%;
-    left:0;
-    pointer-events:none;
-    opacity:0.5;
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
 }
-
-
 
 /* active state */
 input:focus ~ .material-input-highlight {
-    -webkit-animation:inputHighlighter 0.3s ease;
-    -moz-animation:inputHighlighter 0.3s ease;
-    animation:inputHighlighter 0.3s ease;
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
 }
 
 /* ANIMATIONS ================ */
 @-webkit-keyframes inputHighlighter {
-    from { background:#FFC400; }
-    to 	{ width:0; background:transparent; }
+    from {
+        background: #FFC400;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
 }
+
 @-moz-keyframes inputHighlighter {
-    from { background:#FFC400; }
-    to 	{ width:0; background:transparent; }
+    from {
+        background: #FFC400;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
 }
+
 @keyframes inputHighlighter {
-    from { background:#FFC400; }
-    to 	{ width:0; background:transparent; }
+    from {
+        background: #FFC400;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
 }
 

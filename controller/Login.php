@@ -38,7 +38,7 @@ class Login extends Controller
         $password = $_POST['password'];
 
         if ($this->authenticator->login($email, $password)) {
-            Redirect::to("/");
+            Redirect::to("home");
         } else {
             View::renderWithoutMenu("login.php", ["error" => true]);
         }
@@ -47,13 +47,13 @@ class Login extends Controller
     public function logout()
     {
         $this->authenticator->logout();
-        Redirect::to("/");
+        Redirect::to("home");
     }
 
     protected function before()
     {
         if ($this->authenticator->isAuthenticated()) {
-            Redirect::to("/");
+            Redirect::to("home");
             return false;
         }
 

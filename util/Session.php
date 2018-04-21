@@ -6,6 +6,9 @@ namespace util;
 
 class Session
 {
+    public const USER_SESSION = "user";
+    public const PERMISSIONS = "permissions";
+
     private static $instance;
 
     private function __construct()

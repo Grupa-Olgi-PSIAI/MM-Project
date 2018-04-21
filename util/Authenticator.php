@@ -8,8 +8,6 @@ use repository\UserRepository;
 
 class Authenticator
 {
-    private const USER_SESSION = "user";
-
     private static $instance;
     private $session;
 
@@ -38,7 +36,7 @@ class Authenticator
      */
     public function isAuthenticated()
     {
-        return $this->session->exists(self::USER_SESSION);
+        return $this->session->exists(Session::USER_SESSION);
     }
 
     /**
@@ -63,7 +61,7 @@ class Authenticator
             return false;
         }
 
-        $this->session->add(self::USER_SESSION, $user->getId());
+        $this->session->add(Session::USER_SESSION, $user->getId());
 
         return true;
     }

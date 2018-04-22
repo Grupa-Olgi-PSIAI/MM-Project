@@ -8,8 +8,19 @@ use core\Model;
 
 class Role extends Model
 {
+    /**
+     * @var int
+     */
     private $id;
+
+    /**
+     * @var int
+     */
     private $version;
+
+    /**
+     * @var string
+     */
     private $authority;
 
     /**
@@ -33,7 +44,7 @@ class Role extends Model
      * @param int $id
      * @return Role
      */
-    public function setId($id): Role
+    public function setId(int $id): Role
     {
         $this->id = $id;
         return $this;
@@ -51,7 +62,7 @@ class Role extends Model
      * @param int $version
      * @return Role
      */
-    public function setVersion($version): Role
+    public function setVersion(int $version): Role
     {
         $this->version = $version;
         return $this;
@@ -69,7 +80,7 @@ class Role extends Model
      * @param string $authority
      * @return Role
      */
-    public function setAuthority($authority): Role
+    public function setAuthority(string $authority): Role
     {
         $this->authority = $authority;
         return $this;

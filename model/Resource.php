@@ -8,7 +8,14 @@ use core\Model;
 
 class Resource extends Model
 {
+    /**
+     * @var int
+     */
     private $id;
+
+    /**
+     * @var string
+     */
     private $name;
 
     /**
@@ -32,7 +39,7 @@ class Resource extends Model
      * @param int $id
      * @return Resource
      */
-    public function setId($id): Resource
+    public function setId(int $id): Resource
     {
         $this->id = $id;
         return $this;
@@ -50,7 +57,7 @@ class Resource extends Model
      * @param string $name
      * @return Resource
      */
-    public function setName($name): Resource
+    public function setName(string $name): Resource
     {
         $this->name = $name;
         return $this;

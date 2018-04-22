@@ -41,13 +41,13 @@ class Authenticator
 
     /**
      * Logs in user
-     * @param $email
-     * @param $password
+     * @param string $email
+     * @param string $password
      * @return bool true if login was successful
      */
-    public function login($email, $password)
+    public function login(string $email, string $password): bool
     {
-        if ($email == '' || $password == '') {
+        if (empty($email) || empty($password)) {
             return false;
         }
 
@@ -57,13 +57,12 @@ class Authenticator
             return false;
         }
 
-        if (!password_verify($password, $user->getPassword())) {
-            return false;
+        if (password_verify($password, $user->getPassword())) {
+            $this->session->add(Session::USER_SESSION, $user->getId());
+            return true;
         }
 
-        $this->session->add(Session::USER_SESSION, $user->getId());
-
-        return true;
+        return false;
     }
 
     public function logout()

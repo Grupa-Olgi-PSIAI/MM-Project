@@ -6,9 +6,24 @@ namespace model\internal;
 
 class UserPermissions
 {
+    /**
+     * @var string
+     */
     private $name;
+
+    /**
+     * @var null|string format: 'create,read,update,delete'
+     */
     private $own_perms;
+
+    /**
+     * @var null|string format: 'create,read,update,delete'
+     */
     private $group_perms;
+
+    /**
+     * @var null|string format: 'create,read,update,delete'
+     */
     private $other_perms;
 
     /**
@@ -20,25 +35,25 @@ class UserPermissions
     }
 
     /**
-     * @return string|null
+     * @return null|string format: 'create,read,update,delete'
      */
-    public function getOwnPermissions()
+    public function getOwnPermissions(): ?string
     {
         return $this->own_perms;
     }
 
     /**
-     * @return string|null
+     * @return null|string format: 'create,read,update,delete'
      */
-    public function getGroupPermissions()
+    public function getGroupPermissions(): ?string
     {
         return $this->group_perms;
     }
 
     /**
-     * @return string|null
+     * @return null|string format: 'create,read,update,delete'
      */
-    public function getOtherPermissions()
+    public function getOtherPermissions(): ?string
     {
         return $this->other_perms;
     }

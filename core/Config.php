@@ -14,6 +14,8 @@ final class Config
     private static $dbPassword;
     private static $showErrors;
     private static $logErrors;
+    private static $filesLocation;
+    private static $maxFileSize;
 
     /**
      * @throws \Exception
@@ -29,6 +31,8 @@ final class Config
             self::$dbName = self::read('dbname');
             self::$dbUser = self::read('user');
             self::$dbPassword = self::read('password');
+            self::$filesLocation = dirname(__DIR__) . '/' . self::read('filesLocation') . '/';
+            self::$maxFileSize = self::read('maxFileSizeBytes');
         } else {
             throw new \Exception("Config file not found - add " . self::CONFIG_FILE . " file to root directory");
         }
@@ -88,6 +92,22 @@ final class Config
     public static function logErrors(): bool
     {
         return self::$logErrors;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getFilesLocation(): string
+    {
+        return self::$filesLocation;
+    }
+
+    /**
+     * @return int
+     */
+    public static function getMaxFileSize(): int
+    {
+        return self::$maxFileSize;
     }
 
     /**

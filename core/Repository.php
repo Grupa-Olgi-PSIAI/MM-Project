@@ -47,7 +47,7 @@ abstract class Repository
 
     /**
      * @param int $id of object
-     * @return object of class given in constructor
+     * @return mixed object of class given in constructor
      */
     public function findById(int $id)
     {
@@ -124,7 +124,7 @@ abstract class Repository
      * @param int $id
      * @return bool TRUE on success or FALSE on failure
      */
-    public function delete(int $id)
+    public function delete(int $id): bool
     {
         $statement = $this->db->prepare("DELETE FROM $this->table WHERE id = :id");
         return $statement->execute(["id" => $id]);

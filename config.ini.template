@@ -1,7 +1,12 @@
 showErrors=1
 logErrors=0
+
 [database]
 host=localhost
 user=admin
 password=password
 dbname=db_main
+
+[files]
+filesLocation="storage"
+maxFileSizeBytes=2000000

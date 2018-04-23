@@ -127,7 +127,7 @@ class Invoices extends Controller
     {
         $dateFrom = $_POST['dateFrom'];
         $dateTo = $_POST['dateTo'];
-        $con = array('date_created > ?','date_created < ?');
+        $con = array('invoice_date >= ?','invoice_date <= ?');
         $val = array($dateFrom,$dateTo);
 
         echo "<script>console.log('chuuj=".$val[0]."');</script>";

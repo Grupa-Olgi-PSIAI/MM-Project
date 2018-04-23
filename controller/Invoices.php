@@ -27,6 +27,7 @@ class Invoices extends Controller
         View::render('invoicesList.php', ["invoices" => $invoices]);
     }
 
+
     /**
      * @throws \Exception
      */
@@ -122,6 +123,22 @@ class Invoices extends Controller
         View::render('invoicesList.php', ["invoice" => $invoice]);
     }
 
+    public function filterAction()
+    {
+        $dateFrom = $_POST['dateFrom'];
+        $dateTo = $_POST['dateTo'];
+        $con = array('date_created > ?','date_created < ?');
+        $val = array($dateFrom,$dateTo);
+
+        echo "<script>console.log('chuuj=".$val[0]."');</script>";
+        echo "<script>console.log( 'kondy " . $con[0] . "' );</script>";
+
+        $repository = new InvoicesRepository();
+        $invoiceFilter = $repository->find($con,$val);
+
+
+        View::render('invoicesList.php', ["invoiceFilter" => $invoiceFilter]);
+    }
 
     /**
      * @throws \Exception

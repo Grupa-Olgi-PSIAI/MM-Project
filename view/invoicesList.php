@@ -22,13 +22,28 @@ use util\DateUtils;
     </form>
 
     <div>
+
+        <form action="/invoices/filter" method="post">
+            <div class="row">
+                <div class="material-input">
+                    <input type="date" name='dateFrom'/>
+                    <input type="date" name='dateTo'/>
+                </div>
+                <div class="material-input">
+                    <input type="submit" name="invoice_filter"  name='dateRange'/>
+                </div>
+            </div>
+
+        </form>
+
+
         <label>Od:</label>
-        <input type='date' name='invoice_date' />
+        <input type='text' name='invoice_date' />
 
-        <label>Do:</label>
-        <input type='date' name='invoice_date' />
+      <!--  <label>Do:</label>
+        <input type='date' name='invoice_date' /> -->
 
-        <a href="/invoices/show" class="btn btn-primary"
+        <a href="/invoices/filter" class="btn btn-primary"
            style="font-size: larger; background-color: #FFC400; color: white; padding: 5px;">Filtruj</a>
     </div>
 
@@ -58,6 +73,41 @@ use util\DateUtils;
             <tbody>
             <?php if (isset($invoices)) {
                 foreach ($invoices
+                         as $key => $invoice) { ?>
+                    <tr>
+                        <td><?php echo $invoice->getNumber() ?></td>
+                        <td><?php DateUtils::getPlainDate($invoice->getInvoiceDate()) ?></td>
+                        <td><?php echo $invoice->getAmountNet() ?></td>
+                        <td><?php echo $invoice->getAmountGross() ?></td>
+                        <td><?php echo $invoice->getAmountTax() ?></td>
+                        <td><?php echo $invoice->getCurrency() ?></td>
+                        <td><?php echo $invoice->getAmountNetCurrency() ?></td>
+                        <td><?php echo $invoice->getContractorId() ?></td>
+                        <td><?php echo '<a href="/invoices/details?id=' . $invoice->getId() . '" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
+                        <td><?php echo '<a href="/invoices/edit?id=' . $invoice->getId() . '" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
+                        <td><?php echo '<a href="/invoices/delete?id=' . $invoice->getId() . '"><button>Usuń</button></a>' ?></td>
+                    </tr>
+                <?php }
+            } ?>
+            <?php  if (isset($invoice)) { ?>
+                <tr>
+                    <td><?php if(isset($invoice)){ echo $invoice->getNumber() ;}?>/td>
+                    <td><?php if(isset($invoice)){ DateUtils::getPlainDate($invoice->getInvoiceDate()); } ?></td>
+                    <td><?php if(isset($invoice)){echo $invoice->getAmountNet(); } ?></td>
+                    <td><?php if(isset($invoice)){echo $invoice->getAmountGross() ; }?></td>
+                    <td><?php if(isset($invoice)){echo $invoice->getAmountTax(); } ?></td>
+                    <td><?php if(isset($invoice)){echo $invoice->getCurrency() ; }?></td>
+                    <td><?php if(isset($invoice)){echo $invoice->getAmountNetCurrency() ; }?></td>
+                    <td><?php if(isset($invoice)){echo $invoice->getContractorId() ; }?></td>
+                    <td><?php if(isset($invoice)){echo '<a href="/invoices/details?id=' . $invoice->getId() . '" class="btn btn-primary">Szczegóły</a>'; ; }?></td>
+                    <td><?php if(isset($invoice)){echo '<a href="/invoices/edit?id=' . $invoice->getId() . '" class="btn btn-primary">Edytuj</a>';; } ?></td>
+                    <td><?php if(isset($invoice)){echo '<a href="/invoices/delete?id=' . $invoice->getId() . '">Usuń</a>' ; }?></td>
+                </tr>
+                <?php
+            } ?>
+
+            <?php if (isset($invoiceFilter)) {
+                foreach ($invoiceFilter
                          as $key => $invoice) { ?>
                     <tr>
                         <td><?php echo $invoice->getNumber() ?></td>

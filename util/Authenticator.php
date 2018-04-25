@@ -1,15 +1,13 @@
 <?php
 
 
-namespace model;
+namespace util;
 
 
 use repository\UserRepository;
 
 class Authenticator
 {
-    private const USER_SESSION = "user";
-
     private static $instance;
     private $session;
 
@@ -38,18 +36,18 @@ class Authenticator
      */
     public function isAuthenticated()
     {
-        return $this->session->exists(self::USER_SESSION);
+        return $this->session->exists(Session::USER_SESSION);
     }
 
     /**
      * Logs in user
-     * @param $email
-     * @param $password
+     * @param string $email
+     * @param string $password
      * @return bool true if login was successful
      */
-    public function login($email, $password)
+    public function login(string $email, string $password): bool
     {
-        if ($email == '' || $password == '') {
+        if (empty($email) || empty($password)) {
             return false;
         }
 
@@ -59,13 +57,12 @@ class Authenticator
             return false;
         }
 
-        if (!password_verify($password, $user->getPassword())) {
-            return false;
+        if (password_verify($password, $user->getPassword())) {
+            $this->session->add(Session::USER_SESSION, $user->getId());
+            return true;
         }
 
-        $this->session->add(self::USER_SESSION, $user->getId());
-
-        return true;
+        return false;
     }
 
     public function logout()

@@ -6,7 +6,8 @@ namespace controller;
 
 use core\Controller;
 use core\View;
-use model\Authenticator;
+use util\Authenticator;
+use util\Authorization;
 use util\Redirect;
 
 class Login extends Controller
@@ -38,7 +39,8 @@ class Login extends Controller
         $password = $_POST['password'];
 
         if ($this->authenticator->login($email, $password)) {
-            Redirect::to("/");
+            Authorization::getInstance()->loadPermissions();
+            Redirect::to("/home");
         } else {
             View::renderWithoutMenu("login.php", ["error" => true]);
         }
@@ -47,13 +49,13 @@ class Login extends Controller
     public function logout()
     {
         $this->authenticator->logout();
-        Redirect::to("/");
+        Redirect::to("/home");
     }
 
     protected function before()
     {
         if ($this->authenticator->isAuthenticated()) {
-            Redirect::to("/");
+            Redirect::to("/home");
             return false;
         }
 

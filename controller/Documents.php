@@ -80,4 +80,20 @@ class Documents extends Controller
     /**
      * @throws \Exception
      */
+
+    public function search() {
+
+        $criterium = $_POST['criterium'];
+
+        $con = array('id LIKE ?','version LIKE ?','id_internal LIKE ?','description LIKE ?',
+            'contractor_id IN (SELECT id FROM contractors WHERE name = ?)');
+
+
+        $val = array($criterium,$criterium,$criterium,"%" . $criterium . "%",$criterium);
+        //"%" . $criterium . "%",
+
+        $repository = new DocumentRepository();
+        $documentsSearch = $repository->findOr($con,$val);
+        View::render('documentsList.php', ["documentsSearch" => $documentsSearch]);
+    }
 }

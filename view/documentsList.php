@@ -9,6 +9,17 @@ use util\DateUtils;
     <a href="/documents/add" class="btn btn-primary"
        style="font-size: larger; background-color: #FFC400; color: white; padding: 5px;">Dodaj nową fakturę</a>
 
+    <form action="/documents/search" method="post">
+        <div class="row">
+            <div class="material-input">
+                <input type="text" name='criterium'/>
+            </div>
+            <div class="material-input">
+                <input type="submit" name="invoice_add"  name='id'/>
+            </div>
+        </div>
+
+    </form>
     <div>
         <form action="/documents/filter" method="post">
             <div class="row">
@@ -62,23 +73,23 @@ use util\DateUtils;
                     </tr>
                 <?php }
             } ?>
-            <?php  if (isset($invoice)) { ?>
-                <tr>
-                <tr>
-                    <td><?php echo $document->getId() ?></td>
-                    <td><?php echo $document->getVersion() ?></td>
-                    <td><?php DateUtils::getPlainDate($document->getDateCreated()) ?></td>
-                    <td><?php DateUtils::getPlainDate($document->getLastUpdated()) ?></td>
-                    <td><?php echo $document->getIdInternal() ?></td>
-                    <td><?php echo $document->getDescription() ?></td>
-                    <td><?php echo $document->getContractorId() ?></td>
-                    <td><?php echo '<a href="/invoices/details?id=' . $document->getId() . '" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                    <td><?php echo '<a href="/invoices/edit?id=' . $document->getId() . '" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
-                    <td><?php echo '<a href="/invoices/delete?id=' . $document->getId() . '"><button>Usuń</button></a>' ?></td>
-                </tr>
-                <?php
+            <?php if (isset($documentsSearch)) {
+                foreach ($documentsSearch
+                         as $key => $document) { ?>
+                    <tr>
+                        <td><?php echo $document->getId() ?></td>
+                        <td><?php echo $document->getVersion() ?></td>
+                        <td><?php DateUtils::getPlainDate($document->getDateCreated()) ?></td>
+                        <td><?php DateUtils::getPlainDate($document->getLastUpdated()) ?></td>
+                        <td><?php echo $document->getIdInternal() ?></td>
+                        <td><?php echo $document->getDescription() ?></td>
+                        <td><?php echo $document->getContractorId() ?></td>
+                        <td><?php echo '<a href="/invoices/details?id=' . $document->getId() . '" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
+                        <td><?php echo '<a href="/invoices/edit?id=' . $document->getId() . '" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
+                        <td><?php echo '<a href="/invoices/delete?id=' . $document->getId() . '"><button>Usuń</button></a>' ?></td>
+                    </tr>
+                <?php }
             } ?>
-
             <?php if (isset($documentsFilter)) {
                 foreach ($documentsFilter
                          as $key => $document) { ?>

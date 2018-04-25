@@ -17,12 +17,12 @@ class Invoice extends Model
     private $version;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $date_created;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $last_updated;
 
@@ -32,7 +32,7 @@ class Invoice extends Model
     private $number;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $invoice_date;
 
@@ -108,36 +108,36 @@ class Invoice extends Model
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getDateCreated(): \DateTime
+    public function getDateCreated(): string
     {
         return $this->date_created;
     }
 
     /**
-     * @param \DateTime $date_created
+     * @param string $date_created
      * @return Invoice
      */
-    public function setDateCreated(\DateTime $date_created): Invoice
+    public function setDateCreated($date_created): string
     {
         $this->date_created = $date_created;
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getLastUpdated(): \DateTime
+    public function getLastUpdated(): string
     {
         return $this->last_updated;
     }
 
     /**
-     * @param \DateTime $last_updated
+     * @param string $last_updated
      * @return Invoice
      */
-    public function setLastUpdated(\DateTime $last_updated): Invoice
+    public function setLastUpdated($last_updated): Invoice
     {
         $this->last_updated = $last_updated;
         return $this;
@@ -162,18 +162,18 @@ class Invoice extends Model
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getInvoiceDate(): \DateTime
+    public function getInvoiceDate(): string
     {
         return $this->invoice_date;
     }
 
     /**
-     * @param \DateTime $invoice_date
+     * @param string $invoice_date
      * @return Invoice
      */
-    public function setInvoiceDate(\DateTime $invoice_date): Invoice
+    public function setInvoiceDate(string $invoice_date): Invoice
     {
         $this->invoice_date = $invoice_date;
         return $this;

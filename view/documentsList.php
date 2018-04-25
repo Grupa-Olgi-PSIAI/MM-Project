@@ -51,14 +51,16 @@
     <div class="tbl-content">
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
-            <?php if (isset($documents)) {
+            <?php use util\DateUtils;
+
+            if (isset($documents)) {
                 /** @var \model\Document $document */
                 foreach ($documents as $key => $document) { ?>
                     <tr>
                         <td><?php echo $document->getId() ?></td>
                         <td><?php echo $document->getVersion() ?></td>
-                        <td><?php $document->getDateCreated()->format('Y-m-d') ?></td>
-                        <td><?php $document->getLastUpdated()->format('Y-m-d') ?></td>
+                        <td><?php DateUtils::getPlainDate($document->getDateCreated()) ?></td>
+                        <td><?php DateUtils::getPlainDate($document->getLastUpdated()) ?></td>
                         <td><?php echo $document->getIdInternal() ?></td>
                         <td><?php echo $document->getDescription() ?></td>
                         <td><?php echo $document->getContractorId() ?></td>
@@ -74,8 +76,8 @@
                     <tr>
                         <td><?php echo $document->getId() ?></td>
                         <td><?php echo $document->getVersion() ?></td>
-                        <td><?php $document->getDateCreated()->format('Y-m-d') ?></td>
-                        <td><?php $document->getLastUpdated()->format('Y-m-d') ?></td>
+                        <td><?php DateUtils::getPlainDate($document->getDateCreated()) ?></td>
+                        <td><?php DateUtils::getPlainDate($document->getLastUpdated()) ?></td>
                         <td><?php echo $document->getIdInternal() ?></td>
                         <td><?php echo $document->getDescription() ?></td>
                         <td><?php echo $document->getContractorId() ?></td>
@@ -91,8 +93,8 @@
                     <tr>
                         <td><?php echo $document->getId() ?></td>
                         <td><?php echo $document->getVersion() ?></td>
-                        <td><?php $document->getDateCreated()->format('Y-m-d') ?></td>
-                        <td><?php $document->getLastUpdated()->format('Y-m-d') ?></td>
+                        <td><?php DateUtils::getPlainDate($document->getDateCreated()) ?></td>
+                        <td><?php DateUtils::getPlainDate($document->getLastUpdated()) ?></td>
                         <td><?php echo $document->getIdInternal() ?></td>
                         <td><?php echo $document->getDescription() ?></td>
                         <td><?php echo $document->getContractorId() ?></td>

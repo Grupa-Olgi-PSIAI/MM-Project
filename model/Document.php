@@ -17,12 +17,12 @@ class Document extends Model
     private $version;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $date_created;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $last_updated;
 
@@ -83,36 +83,36 @@ class Document extends Model
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getDateCreated(): \DateTime
+    public function getDateCreated(): string
     {
-        return new \DateTime($this->date_created);
+        return $this->date_created;
     }
 
     /**
-     * @param \DateTime $date_created
+     * @param string $date_created
      * @return Document
      */
-    public function setDateCreated(\DateTime $date_created): Document
+    public function setDateCreated(string $date_created): Document
     {
         $this->date_created = $date_created;
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getLastUpdated(): \DateTime
+    public function getLastUpdated(): string
     {
-        return new \DateTime($this->last_updated);
+        return $this->last_updated;
     }
 
     /**
-     * @param \DateTime $last_updated
+     * @param string $last_updated
      * @return Document
      */
-    public function setLastUpdated(\DateTime $last_updated): Document
+    public function setLastUpdated(string $last_updated): Document
     {
         $this->last_updated = $last_updated;
         return $this;

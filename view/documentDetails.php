@@ -10,7 +10,7 @@
     <label title="creation_date">Data dodania</label>
     <div class="material-input">
         <input title="creation_date" type='date' disabled name='date_created' <?php if (isset($document)) {
-            echo "value=" . $document->getDateCreated()->format('Y-m-d') . "";
+            echo "value=" . $document->getDateCreated() . "";
         } ?> required/>
         <span class="material-input-highlight"></span>
         <span class="material-input-bar"></span>

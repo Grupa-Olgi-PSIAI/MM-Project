@@ -17,12 +17,12 @@ class Contractor extends Model
     private $version;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $date_created;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $last_updated;
 
@@ -78,36 +78,36 @@ class Contractor extends Model
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getDateCreated(): \DateTime
+    public function getDateCreated(): string
     {
         return $this->date_created;
     }
 
     /**
-     * @param \DateTime $date_created
+     * @param string $date_created
      * @return Contractor
      */
-    public function setDateCreated(\DateTime $date_created): Contractor
+    public function setDateCreated(string $date_created): Contractor
     {
         $this->date_created = $date_created;
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getLastUpdated(): \DateTime
+    public function getLastUpdated(): string
     {
         return $this->last_updated;
     }
 
     /**
-     * @param \DateTime $last_updated
+     * @param string $last_updated
      * @return Contractor
      */
-    public function setLastUpdated(\DateTime $last_updated): Contractor
+    public function setLastUpdated(string $last_updated): Contractor
     {
         $this->last_updated = $last_updated;
         return $this;

@@ -76,6 +76,26 @@ abstract class Repository
     }
 
     /**
+     * jest to find, ale z OR zamiast AND
+     * @param array $conditions array of strings with conditions to WHERE statement
+     * e.g. ['id=?', 'name LIKE ?'], note '?' sign in place for value
+     * @param array $values array of values to conditions
+     * @return array
+     */
+    public function findOr(array $conditions, array $values)
+    {
+        $sql = "SELECT * FROM $this->table";
+
+        if ($conditions) {
+            $sql .= ' WHERE ' . implode(' OR ', $conditions);
+        }
+
+        $statement = $this->db->prepare($sql);
+        $statement->execute($values);
+        return $statement->fetchAll(PDO::FETCH_CLASS, $this->class);
+    }
+
+    /**
      * @param array $conditions array of strings with conditions to WHERE statement
      * e.g. ['id=?', 'name LIKE ?'], note '?' sign in place for value
      * @param array $values array of values to conditions

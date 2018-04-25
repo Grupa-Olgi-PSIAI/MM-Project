@@ -3,7 +3,8 @@
 namespace core;
 
 
-use model\Authenticator;
+use util\Authenticator;
+use util\Authorization;
 use util\Redirect;
 
 abstract class Controller
@@ -73,5 +74,20 @@ abstract class Controller
      */
     protected function after()
     {
+    }
+
+    /**
+     * Check it currently logged user has permission(s) of given type
+     * for resource
+     * @param string $resource name
+     * @param int $mask AuthFlags constants, can be combined
+     * e.g. AuthFlags::OWN_CREATE | AuthFlags::OTHER_READ
+     */
+    protected function checkPermissions(string $resource, int $mask)
+    {
+        $auth = Authorization::getInstance();
+        if (!$auth->hasPermission($resource, $mask)) {
+            throw new \RuntimeException("Unauthorized access to $resource", 401);
+        }
     }
 }

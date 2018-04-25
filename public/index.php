@@ -8,7 +8,6 @@ spl_autoload_register(function ($class_name) {
     require(dirname(__DIR__) . '/' . $class_name . '.php');
 });
 
-error_reporting(E_ALL);
 set_error_handler('core\ErrorHandler::handleError');
 set_exception_handler('core\ErrorHandler::handleException');
 
@@ -16,6 +15,7 @@ Config::loadConfig();
 
 $router = new Router();
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
+$router->add('home', ['controller' => 'Home', 'action' => 'index']);
 $router->add('login', ['controller' => 'Login', 'action' => 'show']);
 $router->add('logout', ['controller' => 'Login', 'action' => 'logout']);
 $router->add('addContractor', ['controller' => 'AddContractor', 'action' => 'addContractor']);

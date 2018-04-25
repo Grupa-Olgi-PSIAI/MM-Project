@@ -1,13 +1,7 @@
-<?php
-
-use util\DateUtils;
-
-?>
-
 <div id="page">
 
     <a href="/documents/add" class="btn btn-primary"
-       style="font-size: larger; background-color: #FFC400; color: white; padding: 5px;">Dodaj nową fakturę</a>
+       style="font-size: larger; background-color: #FFC400; color: white; padding: 5px;">Dodaj nowy dokument</a>
 
     <form action="/documents/search" method="post">
         <div class="row">
@@ -15,7 +9,7 @@ use util\DateUtils;
                 <input type="text" name='criterium'/>
             </div>
             <div class="material-input">
-                <input type="submit" name="invoice_add"  name='id'/>
+                <input type="submit" name="invoice_add" name='id'/>
             </div>
         </div>
 
@@ -28,7 +22,7 @@ use util\DateUtils;
                     <input type="date" name='dateTo'/>
                 </div>
                 <div class="material-input">
-                    <input type="submit" name="documents_filter"  name='dateRange'/>
+                    <input type="submit" name="documents_filter" name='dateRange'/>
                 </div>
             </div>
 
@@ -58,18 +52,19 @@ use util\DateUtils;
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
             <?php if (isset($documents)) {
+                /** @var \model\Document $document */
                 foreach ($documents as $key => $document) { ?>
                     <tr>
                         <td><?php echo $document->getId() ?></td>
                         <td><?php echo $document->getVersion() ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getDateCreated()) ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getLastUpdated()) ?></td>
+                        <td><?php $document->getDateCreated()->format('Y-m-d') ?></td>
+                        <td><?php $document->getLastUpdated()->format('Y-m-d') ?></td>
                         <td><?php echo $document->getIdInternal() ?></td>
                         <td><?php echo $document->getDescription() ?></td>
                         <td><?php echo $document->getContractorId() ?></td>
-                        <td><?php echo '<a href="/invoices/details?id=' . $document->getId() . '" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/invoices/edit?id=' . $document->getId() . '" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
-                        <td><?php echo '<a href="/invoices/delete?id=' . $document->getId() . '"><button>Usuń</button></a>' ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/delete"><button>Usuń</button></a>' ?></td>
                     </tr>
                 <?php }
             } ?>
@@ -79,14 +74,14 @@ use util\DateUtils;
                     <tr>
                         <td><?php echo $document->getId() ?></td>
                         <td><?php echo $document->getVersion() ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getDateCreated()) ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getLastUpdated()) ?></td>
+                        <td><?php $document->getDateCreated()->format('Y-m-d') ?></td>
+                        <td><?php $document->getLastUpdated()->format('Y-m-d') ?></td>
                         <td><?php echo $document->getIdInternal() ?></td>
                         <td><?php echo $document->getDescription() ?></td>
                         <td><?php echo $document->getContractorId() ?></td>
-                        <td><?php echo '<a href="/invoices/details?id=' . $document->getId() . '" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/invoices/edit?id=' . $document->getId() . '" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
-                        <td><?php echo '<a href="/invoices/delete?id=' . $document->getId() . '"><button>Usuń</button></a>' ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/delete"><button>Usuń</button></a>' ?></td>
                     </tr>
                 <?php }
             } ?>
@@ -96,14 +91,14 @@ use util\DateUtils;
                     <tr>
                         <td><?php echo $document->getId() ?></td>
                         <td><?php echo $document->getVersion() ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getDateCreated()) ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getLastUpdated()) ?></td>
+                        <td><?php $document->getDateCreated()->format('Y-m-d') ?></td>
+                        <td><?php $document->getLastUpdated()->format('Y-m-d') ?></td>
                         <td><?php echo $document->getIdInternal() ?></td>
                         <td><?php echo $document->getDescription() ?></td>
                         <td><?php echo $document->getContractorId() ?></td>
-                        <td><?php echo '<a href="/invoices/details?id=' . $document->getId() . '" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/invoices/edit?id=' . $document->getId() . '" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
-                        <td><?php echo '<a href="/invoices/delete?id=' . $document->getId() . '"><button>Usuń</button></a>' ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/delete"><button>Usuń</button></a>' ?></td>
                     </tr>
                 <?php }
             } ?>

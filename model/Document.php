@@ -87,7 +87,7 @@ class Document extends Model
      */
     public function getDateCreated(): \DateTime
     {
-        return $this->date_created;
+        return new \DateTime($this->date_created);
     }
 
     /**
@@ -105,7 +105,7 @@ class Document extends Model
      */
     public function getLastUpdated(): \DateTime
     {
-        return $this->last_updated;
+        return new \DateTime($this->last_updated);
     }
 
     /**

@@ -7,8 +7,10 @@ namespace controller;
 use core\Controller;
 use core\View;
 use model\Document;
+use repository\ContractorRepository;
 use repository\DocumentRepository;
 use util\AuthFlags;
+use util\Redirect;
 
 class Documents extends Controller
 {
@@ -101,14 +103,18 @@ class Documents extends Controller
         $documentsSearch = $repository->findOr($con,$val);
         View::render('documentsList.php', ["documentsSearch" => $documentsSearch]);
     }
-    public function showDetailsAction()
+
+    public function detailsAction()
     {
         $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_READ);
 
         $id = $this->route_params['id'];
+        /** @var Document $document */
         $document = $this->repository->findById($id);
+        $contractorRepo = new ContractorRepository();
+        $contractor = $contractorRepo->findById($document->getContractorId());
 
-        // TODO load view
+        View::render('documentDetails.php', ['document' => $document, 'contractor' => $contractor]);
     }
 
     public function deleteAction()
@@ -117,5 +123,7 @@ class Documents extends Controller
 
         $id = $this->route_params['id'];
         $this->repository->delete($id);
+
+        Redirect::to('/documents/show');
     }
 }

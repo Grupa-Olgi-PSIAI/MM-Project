@@ -117,12 +117,12 @@ class Invoices extends Controller
         $criterium = $_POST['criterium'];
 
         $con = array('number LIKE ?','amount_gross LIKE ?','amount_net LIKE ?','amount_tax LIKE ?',
-            'currency LIKE ?','amount_net_currency LIKE ?','contractor_id LIKE ?',
+            'currency LIKE ?','amount_net_currency LIKE ?',
             'contractor_id IN (SELECT id FROM contractors WHERE name = ?)');
 
 
-        $val = array($criterium,$criterium,$criterium,$criterium,$criterium,$criterium,"%" . $criterium . "%",$criterium);
-
+        $val = array($criterium,$criterium,$criterium,$criterium,$criterium,$criterium,$criterium);
+        //"%" . $criterium . "%",
 
         $repository = new InvoicesRepository();
         $invoiceSearch = $repository->findOr($con,$val);

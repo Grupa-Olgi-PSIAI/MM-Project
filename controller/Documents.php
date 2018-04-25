@@ -63,5 +63,21 @@ class Documents extends Controller
 
         View::render('invoicesList.php', ["documents" => $documents]);
     }
+    public function filterAction()
+    {
+        $dateFrom = $_POST['dateFrom'];
+        $dateTo = $_POST['dateTo'];
+        $con = array('date_created >= ?','date_created <= ?');
+        $val = array($dateFrom,$dateTo);
 
+        $repository = new DocumentRepository();
+        $documentsFilter = $repository->find($con,$val);
+        echo "<script>console.log( 'Debug Objects: " . $dateFrom . "' );</script>";
+
+        View::render('documentsList.php', ["documentsFilter" => $documentsFilter]);
+    }
+
+    /**
+     * @throws \Exception
+     */
 }

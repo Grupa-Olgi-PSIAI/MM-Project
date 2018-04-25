@@ -22,7 +22,6 @@ use util\DateUtils;
     </form>
 
     <div>
-
         <form action="/invoices/filter" method="post">
             <div class="row">
                 <div class="material-input">

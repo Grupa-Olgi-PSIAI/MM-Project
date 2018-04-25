@@ -61,7 +61,8 @@ use util\DateUtils;
     <div class="tbl-content">
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
-            <?php if (isset($invoices)) {
+            <?php /** @var \model\Invoice $invoice */
+            if (isset($invoices)) {
                 foreach ($invoices
                          as $key => $invoice) { ?>
                     <tr>

@@ -8,79 +8,20 @@ use core\Model;
 
 class User extends Model
 {
-    /**
-     * @var int
-     */
     private $id;
-
-    /**
-     * @var int
-     */
     private $version;
-
-    /**
-     * @var \DateTime
-     */
     private $date_created;
-
-    /**
-     * @var \DateTime
-     */
     private $last_updated;
-
-    /**
-     * @var string
-     */
     private $first_name;
-
-    /**
-     * @var string
-     */
     private $last_name;
-
-    /**
-     * @var string
-     */
     private $phone_number;
-
-    /**
-     * @var string|null
-     */
     private $zipcode;
-
-    /**
-     * @var string|null
-     */
     private $address;
-
-    /**
-     * @var string|null
-     */
     private $street_with_no;
-
-    /**
-     * @var string|null
-     */
     private $country_code;
-
-    /**
-     * @var string|null
-     */
     private $city;
-
-    /**
-     * @var string
-     */
     private $password;
-
-    /**
-     * @var string|null
-     */
     private $status;
-
-    /**
-     * @var string
-     */
     private $email;
 
     public function getFields(): array
@@ -89,272 +30,242 @@ class User extends Model
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     * @return User
+     * @param mixed $id
      */
-    public function setId(int $id): User
+    public function setId($id): void
     {
         $this->id = $id;
-        return $this;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getVersion(): int
+    public function getVersion()
     {
         return $this->version;
     }
 
     /**
-     * @param int $version
-     * @return User
+     * @param mixed $version
      */
-    public function setVersion(int $version): User
+    public function setVersion($version): void
     {
         $this->version = $version;
-        return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return mixed
      */
-    public function getDateCreated(): \DateTime
+    public function getDateCreated()
     {
         return $this->date_created;
     }
 
     /**
-     * @param \DateTime $date_created
-     * @return User
+     * @param mixed $date_created
      */
-    public function setDateCreated(\DateTime $date_created): User
+    public function setDateCreated($date_created): void
     {
         $this->date_created = $date_created;
-        return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return mixed
      */
-    public function getLastUpdated(): \DateTime
+    public function getLastUpdated()
     {
         return $this->last_updated;
     }
 
     /**
-     * @param \DateTime $last_updated
-     * @return User
+     * @param mixed $last_updated
      */
-    public function setLastUpdated(\DateTime $last_updated): User
+    public function setLastUpdated($last_updated): void
     {
         $this->last_updated = $last_updated;
-        return $this;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getFirstName(): string
+    public function getFirstName()
     {
         return $this->first_name;
     }
 
     /**
-     * @param string $first_name
-     * @return User
+     * @param mixed $first_name
      */
-    public function setFirstName(string $first_name): User
+    public function setFirstName($first_name): void
     {
         $this->first_name = $first_name;
-        return $this;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getLastName(): string
+    public function getLastName()
     {
         return $this->last_name;
     }
 
     /**
-     * @param string $last_name
-     * @return User
+     * @param mixed $last_name
      */
-    public function setLastName(string $last_name): User
+    public function setLastName($last_name): void
     {
         $this->last_name = $last_name;
-        return $this;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getPhoneNumber(): string
+    public function getPhoneNumber()
     {
         return $this->phone_number;
     }
 
     /**
-     * @param string $phone_number
-     * @return User
+     * @param mixed $phone_number
      */
-    public function setPhoneNumber(string $phone_number): User
+    public function setPhoneNumber($phone_number): void
     {
         $this->phone_number = $phone_number;
-        return $this;
     }
 
     /**
-     * @return null|string
+     * @return mixed
      */
-    public function getZipcode(): ?string
+    public function getZipcode()
     {
         return $this->zipcode;
     }
 
     /**
-     * @param null|string $zipcode
-     * @return User
+     * @param mixed $zipcode
      */
-    public function setZipcode(?string $zipcode): User
+    public function setZipcode($zipcode): void
     {
         $this->zipcode = $zipcode;
-        return $this;
     }
 
     /**
-     * @return null|string
+     * @return mixed
      */
-    public function getAddress(): ?string
+    public function getAddress()
     {
         return $this->address;
     }
 
     /**
-     * @param null|string $address
-     * @return User
+     * @param mixed $address
      */
-    public function setAddress(?string $address): User
+    public function setAddress($address): void
     {
         $this->address = $address;
-        return $this;
     }
 
     /**
-     * @return null|string
+     * @return mixed
      */
-    public function getStreetWithNo(): ?string
+    public function getStreetWithNo()
     {
         return $this->street_with_no;
     }
 
     /**
-     * @param null|string $street_with_no
-     * @return User
+     * @param mixed $street_with_no
      */
-    public function setStreetWithNo(?string $street_with_no): User
+    public function setStreetWithNo($street_with_no): void
     {
         $this->street_with_no = $street_with_no;
-        return $this;
     }
 
     /**
-     * @return null|string
+     * @return mixed
      */
-    public function getCountryCode(): ?string
+    public function getCountryCode()
     {
         return $this->country_code;
     }
 
     /**
-     * @param null|string $country_code
-     * @return User
+     * @param mixed $country_code
      */
-    public function setCountryCode(?string $country_code): User
+    public function setCountryCode($country_code): void
     {
         $this->country_code = $country_code;
-        return $this;
     }
 
     /**
-     * @return null|string
+     * @return mixed
      */
-    public function getCity(): ?string
+    public function getCity()
     {
         return $this->city;
     }
 
     /**
-     * @param null|string $city
-     * @return User
+     * @param mixed $city
      */
-    public function setCity(?string $city): User
+    public function setCity($city): void
     {
         $this->city = $city;
-        return $this;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getPassword(): string
+    public function getPassword()
     {
         return $this->password;
     }
 
     /**
-     * @param string $password
-     * @return User
+     * @param mixed $password
      */
-    public function setPassword(string $password): User
+    public function setPassword($password): void
     {
         $this->password = $password;
-        return $this;
     }
 
     /**
-     * @return null|string
+     * @return mixed
      */
-    public function getStatus(): ?string
+    public function getStatus()
     {
         return $this->status;
     }
 
     /**
-     * @param null|string $status
-     * @return User
+     * @param mixed $status
      */
-    public function setStatus(?string $status): User
+    public function setStatus($status): void
     {
         $this->status = $status;
-        return $this;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getEmail(): string
+    public function getEmail()
     {
         return $this->email;
     }
 
     /**
-     * @param string $email
-     * @return User
+     * @param mixed $email
      */
-    public function setEmail(string $email): User
+    public function setEmail($email): void
     {
         $this->email = $email;
-        return $this;
     }
 }

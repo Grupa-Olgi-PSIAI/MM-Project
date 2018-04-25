@@ -6,34 +6,11 @@ use core\Model;
 
 class Contractor extends Model
 {
-    /**
-     * @var int
-     */
     private $id;
-
-    /**
-     * @var int
-     */
     private $version;
-
-    /**
-     * @var \DateTime
-     */
     private $date_created;
-
-    /**
-     * @var \DateTime
-     */
     private $last_updated;
-
-    /**
-     * @var string
-     */
     private $name;
-
-    /**
-     * @var string
-     */
     private $vat_id;
 
     public function getFields(): array
@@ -42,110 +19,98 @@ class Contractor extends Model
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     * @return Contractor
+     * @param mixed $id
      */
-    public function setId(int $id): Contractor
+    public function setId($id): void
     {
         $this->id = $id;
-        return $this;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getVersion(): int
+    public function getVersion()
     {
         return $this->version;
     }
 
     /**
-     * @param int $version
-     * @return Contractor
+     * @param mixed $version
      */
-    public function setVersion(int $version): Contractor
+    public function setVersion($version): void
     {
         $this->version = $version;
-        return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return mixed
      */
-    public function getDateCreated(): \DateTime
+    public function getDateCreated()
     {
         return $this->date_created;
     }
 
     /**
-     * @param \DateTime $date_created
-     * @return Contractor
+     * @param mixed $date_created
      */
-    public function setDateCreated(\DateTime $date_created): Contractor
+    public function setDateCreated($date_created): void
     {
-        $this->date_created = $date_created;
-        return $this;
+        $this->date_created = date('Y-m-d H:i:s', $date_created);
     }
 
     /**
-     * @return \DateTime
+     * @return mixed
      */
-    public function getLastUpdated(): \DateTime
+    public function getLastUpdated()
     {
         return $this->last_updated;
     }
 
     /**
-     * @param \DateTime $last_updated
-     * @return Contractor
+     * @param mixed $last_updated
      */
-    public function setLastUpdated(\DateTime $last_updated): Contractor
+    public function setLastUpdated($last_updated): void
     {
-        $this->last_updated = $last_updated;
-        return $this;
+        $this->last_updated = date('Y-m-d H:i:s', $last_updated);
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
-     * @return Contractor
+     * @param mixed $name
      */
-    public function setName(string $name): Contractor
+    public function setName($name): void
     {
         $this->name = $name;
-        return $this;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getVatId(): string
+    public function getVatId()
     {
         return $this->vat_id;
     }
 
     /**
-     * @param string $vat_id
-     * @return Contractor
+     * @param mixed $vat_id
      */
-    public function setVatId(string $vat_id): Contractor
+    public function setVatId($vat_id): void
     {
         $this->vat_id = $vat_id;
-        return $this;
     }
 }

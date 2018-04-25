@@ -1,49 +1,40 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: apple
+ * Date: 25.04.2018
+ * Time: 20:19
+ */
 
 namespace controller;
 
-
 use core\Controller;
 use core\View;
+
 use model\Document;
 use repository\DocumentRepository;
-use util\AuthFlags;
 
 class Documents extends Controller
 {
-    private const RESOURCE = "documents";
 
-    /**
-     * @var DocumentRepository
-     */
-    private $repository;
 
-    public function __construct(array $route_params)
+    public function addAction()
     {
-        parent::__construct($route_params);
-        $this->repository = new DocumentRepository();
+        $repository = new DocumentRepository();
+        $documents = $repository->findAll();
+        View::render('documentsAdd.php', ["documents" => $documents]);
     }
 
     public function showAction()
     {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_READ);
-        $documents = $this->repository->findAll();
+        $repository = new DocumentRepository();
+        $documents = $repository->findAll();
+
         View::render('documentsList.php', ["documents" => $documents]);
-    }
-
-    public function addAction()
-    {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_CREATE);
-
-        $documents = $this->repository->findAll();
-        View::render('documentsAdd.php', ["documents" => $documents]);
     }
 
     public function createAction()
     {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_CREATE);
-
         unset($error);
 
 
@@ -55,6 +46,9 @@ class Documents extends Controller
         $contractor_id = $_POST['contractor_id'];
 
         $document = new Document();
+
+
+
         $document->setVersion(1);
         $document->setDateCreated($date_created);
         $document->setLastUpdated($last_updated);
@@ -62,9 +56,10 @@ class Documents extends Controller
         $document->setDescription($description);
         $document->setContractorId($contractor_id);
 
-        $this->repository->add($document);
+        $repository = new DocumentRepository();
+        $repository->add($document);
 
-        $documents = $this->repository->findAll();
+        $documents = $repository->findAll();
 
         View::render('invoicesList.php', ["documents" => $documents]);
     }
@@ -100,22 +95,5 @@ class Documents extends Controller
         $repository = new DocumentRepository();
         $documentsSearch = $repository->findOr($con,$val);
         View::render('documentsList.php', ["documentsSearch" => $documentsSearch]);
-    }
-    public function showDetailsAction()
-    {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_READ);
-
-        $id = $this->route_params['id'];
-        $document = $this->repository->findById($id);
-
-        // TODO load view
-    }
-
-    public function deleteAction()
-    {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_DELETE);
-
-        $id = $this->route_params['id'];
-        $this->repository->delete($id);
     }
 }

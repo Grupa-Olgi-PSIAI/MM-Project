@@ -1,69 +1,20 @@
 <?php
-
 namespace model;
-
 use core\Model;
 
 class Invoice extends Model
 {
-    /**
-     * @var int
-     */
     private $id;
-
-    /**
-     * @var int
-     */
     private $version;
-
-    /**
-     * @var \DateTime
-     */
     private $date_created;
-
-    /**
-     * @var \DateTime
-     */
     private $last_updated;
-
-    /**
-     * @var int
-     */
     private $number;
-
-    /**
-     * @var \DateTime
-     */
     private $invoice_date;
-
-    /**
-     * @var float
-     */
     private $amount_net;
-
-    /**
-     * @var float
-     */
     private $amount_gross;
-
-    /**
-     * @var float
-     */
     private $amount_tax;
-
-    /**
-     * @var string
-     */
     private $currency;
-
-    /**
-     * @var float
-     */
     private $amount_net_currency;
-
-    /**
-     * @var null|int
-     */
     private $contractor_id;
 
     public function getFields(): array
@@ -72,218 +23,194 @@ class Invoice extends Model
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     * @return Invoice
+     * @param mixed $id
      */
-    public function setId(int $id): Invoice
+    public function setId($id): void
     {
         $this->id = $id;
-        return $this;
     }
-
+    
     /**
-     * @return int
+     * @return mixed
      */
-    public function getVersion(): int
+    public function getVersion()
     {
         return $this->version;
     }
 
     /**
-     * @param int $version
-     * @return Invoice
+     * @param mixed $version
      */
-    public function setVersion(int $version): Invoice
+    public function setVersion($version): void
     {
         $this->version = $version;
-        return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return mixed
      */
-    public function getDateCreated(): \DateTime
+    public function getDateCreated()
     {
         return $this->date_created;
     }
 
     /**
-     * @param \DateTime $date_created
-     * @return Invoice
+     * @param mixed $date_created
      */
-    public function setDateCreated(\DateTime $date_created): Invoice
+    public function setDateCreated($date_created): void
     {
         $this->date_created = $date_created;
-        return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return mixed
      */
-    public function getLastUpdated(): \DateTime
+    public function getLastUpdated()
     {
         return $this->last_updated;
     }
 
     /**
-     * @param \DateTime $last_updated
-     * @return Invoice
+     * @param mixed $last_updated
      */
-    public function setLastUpdated(\DateTime $last_updated): Invoice
+    public function setLastUpdated($last_updated): void
     {
         $this->last_updated = $last_updated;
-        return $this;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getNumber(): int
+    public function getNumber()
     {
         return $this->number;
     }
 
     /**
-     * @param int $number
-     * @return Invoice
+     * @param mixed $number
      */
-    public function setNumber(int $number): Invoice
+    public function setNumber($number): void
     {
         $this->number = $number;
-        return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return mixed
      */
-    public function getInvoiceDate(): \DateTime
+    public function getInvoiceDate()
     {
         return $this->invoice_date;
     }
 
     /**
-     * @param \DateTime $invoice_date
-     * @return Invoice
+     * @param mixed $invoice_date
      */
-    public function setInvoiceDate(\DateTime $invoice_date): Invoice
+    public function setInvoiceDate($invoice_date): void
     {
         $this->invoice_date = $invoice_date;
-        return $this;
     }
 
     /**
-     * @return float
+     * @return mixed
      */
-    public function getAmountNet(): float
+    public function getAmountNet()
     {
         return $this->amount_net;
     }
 
     /**
-     * @param float $amount_net
-     * @return Invoice
+     * @param mixed $amount_net
      */
-    public function setAmountNet(float $amount_net): Invoice
+    public function setAmountNet($amount_net): void
     {
         $this->amount_net = $amount_net;
-        return $this;
     }
 
     /**
-     * @return float
+     * @return mixed
      */
-    public function getAmountGross(): float
+    public function getAmountGross()
     {
         return $this->amount_gross;
     }
 
     /**
-     * @param float $amount_gross
-     * @return Invoice
+     * @param mixed $amount_gross
      */
-    public function setAmountGross(float $amount_gross): Invoice
+    public function setAmountGross($amount_gross): void
     {
         $this->amount_gross = $amount_gross;
-        return $this;
     }
 
     /**
-     * @return float
+     * @return mixed
      */
-    public function getAmountTax(): float
+    public function getAmountTax()
     {
         return $this->amount_tax;
     }
 
     /**
-     * @param float $amount_tax
-     * @return Invoice
+     * @param mixed $amount_tax
      */
-    public function setAmountTax(float $amount_tax): Invoice
+    public function setAmountTax($amount_tax): void
     {
         $this->amount_tax = $amount_tax;
-        return $this;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getCurrency(): string
+    public function getCurrency()
     {
         return $this->currency;
     }
 
     /**
-     * @param string $currency
-     * @return Invoice
+     * @param mixed $currency
      */
-    public function setCurrency(string $currency): Invoice
+    public function setCurrency($currency): void
     {
         $this->currency = $currency;
-        return $this;
     }
 
     /**
-     * @return float
+     * @return mixed
      */
-    public function getAmountNetCurrency(): float
+    public function getAmountNetCurrency()
     {
         return $this->amount_net_currency;
     }
 
     /**
-     * @param float $amount_net_currency
-     * @return Invoice
+     * @param mixed $amount_net_currency
      */
-    public function setAmountNetCurrency(float $amount_net_currency): Invoice
+    public function setAmountNetCurrency($amount_net_currency): void
     {
         $this->amount_net_currency = $amount_net_currency;
-        return $this;
     }
 
     /**
-     * @return int|null
+     * @return mixed
      */
-    public function getContractorId(): ?int
+    public function getContractorId()
     {
         return $this->contractor_id;
     }
 
     /**
-     * @param int|null $contractor_id
-     * @return Invoice
+     * @param mixed $contractor_id
      */
-    public function setContractorId(?int $contractor_id): Invoice
+    public function setContractorId($contractor_id): void
     {
         $this->contractor_id = $contractor_id;
-        return $this;
     }
 }

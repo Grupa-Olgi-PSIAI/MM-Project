@@ -12,6 +12,7 @@ abstract class View
      * @param array $args Associative array of data to display in the view (optional)
      *
      * @return void
+     * @throws \Exception
      */
     public static function render($view, $args = [])
     {
@@ -19,7 +20,7 @@ abstract class View
         if (is_readable($file)) {
             self::renderHTML($file, $args);
         } else {
-            throw new \RuntimeException("$file not found");
+            throw new \Exception("$file not found");
         }
     }
 
@@ -28,6 +29,8 @@ abstract class View
      *
      * @param string $view The view file
      * @param array $args Associative array of data to display in the view (optional)
+     *
+     * @throws \Exception
      */
     public static function renderWithoutMenu($view, $args = [])
     {
@@ -36,7 +39,7 @@ abstract class View
         if (is_readable($file)) {
             self::renderHTML($file, $args, false);
         } else {
-            throw new \RuntimeException("$file not found");
+            throw new \Exception("$file not found");
         }
     }
 

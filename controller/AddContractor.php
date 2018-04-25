@@ -7,18 +7,14 @@ use core\Controller;
 use core\View;
 use model\Contractor;
 use repository\ContractorRepository;
-use util\AuthFlags;
 
 class AddContractor extends Controller
 {
-    private const RESOURCE = "contractor";
-
     /**
      * @throws \Exception
      */
     public function showAction()
     {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_CREATE);
         View::render('addContractor.php');
     }
 
@@ -27,8 +23,6 @@ class AddContractor extends Controller
      */
     public function addContractorAction()
     {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_CREATE);
-
         unset($error_contractor_name);
         unset($error_contractor_vat_id);
         unset($error_contractor_vat_id_exists);

@@ -12,7 +12,7 @@ abstract class Model
      */
     abstract public function getFields(): array;
 
-    abstract public function getId(): int;
+    abstract public function getId();
 
-    abstract public function setId(int $id);
+    abstract public function setId($id): void;
 }

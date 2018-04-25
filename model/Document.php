@@ -1,44 +1,15 @@
 <?php
-
 namespace model;
-
 use core\Model;
 
 class Document extends Model
 {
-    /**
-     * @var int
-     */
     private $id;
-
-    /**
-     * @var int
-     */
     private $version;
-
-    /**
-     * @var \DateTime
-     */
     private $date_created;
-
-    /**
-     * @var \DateTime
-     */
     private $last_updated;
-
-    /**
-     * @var string
-     */
     private $id_internal;
-
-    /**
-     * @var null|string
-     */
     private $description;
-
-    /**
-     * @var null|int
-     */
     private $contractor_id;
 
     public function getFields(): array
@@ -47,128 +18,114 @@ class Document extends Model
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     * @return Document
+     * @param mixed $id
      */
-    public function setId(int $id): Document
+    public function setId($id): void
     {
         $this->id = $id;
-        return $this;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getVersion(): int
+    public function getVersion()
     {
         return $this->version;
     }
 
     /**
-     * @param int $version
-     * @return Document
+     * @param mixed $version
      */
-    public function setVersion(int $version): Document
+    public function setVersion($version): void
     {
         $this->version = $version;
-        return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return mixed
      */
-    public function getDateCreated(): \DateTime
+    public function getDateCreated()
     {
         return $this->date_created;
     }
 
     /**
-     * @param \DateTime $date_created
-     * @return Document
+     * @param mixed $date_created
      */
-    public function setDateCreated(\DateTime $date_created): Document
+    public function setDateCreated($date_created): void
     {
         $this->date_created = $date_created;
-        return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return mixed
      */
-    public function getLastUpdated(): \DateTime
+    public function getLastUpdated()
     {
         return $this->last_updated;
     }
 
     /**
-     * @param \DateTime $last_updated
-     * @return Document
+     * @param mixed $last_updated
      */
-    public function setLastUpdated(\DateTime $last_updated): Document
+    public function setLastUpdated($last_updated): void
     {
         $this->last_updated = $last_updated;
-        return $this;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getIdInternal(): string
+    public function getIdInternal()
     {
         return $this->id_internal;
     }
 
     /**
-     * @param string $id_internal
-     * @return Document
+     * @param mixed $id_internal
      */
-    public function setIdInternal(string $id_internal): Document
+    public function setIdInternal($id_internal): void
     {
         $this->id_internal = $id_internal;
-        return $this;
     }
 
     /**
-     * @return null|string
+     * @return mixed
      */
-    public function getDescription(): ?string
+    public function getDescription()
     {
         return $this->description;
     }
 
     /**
-     * @param null|string $description
-     * @return Document
+     * @param mixed $description
      */
-    public function setDescription(?string $description): Document
+    public function setDescription($description): void
     {
         $this->description = $description;
-        return $this;
     }
 
     /**
-     * @return int|null
+     * @return mixed
      */
-    public function getContractorId(): ?int
+    public function getContractorId()
     {
         return $this->contractor_id;
     }
 
     /**
-     * @param int|null $contractor_id
-     * @return Document
+     * @param mixed $contractor_id
      */
-    public function setContractorId(?int $contractor_id): Document
+    public function setContractorId($contractor_id): void
     {
         $this->contractor_id = $contractor_id;
-        return $this;
     }
 }

@@ -2,7 +2,6 @@
 out/
 build/
 /config.ini
-storage/
 
 # OSX Files
 .DS_Store

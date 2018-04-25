@@ -8,7 +8,8 @@
 
 namespace controller;
 
-
+use core\View;
+use core\Controller;
 use repository\LicenseRepository;
 
 class Licenses extends Controller

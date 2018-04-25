@@ -19,7 +19,11 @@ abstract class Repository
         $this->db = Database::getInstance()->getDb();
     }
 
-    public function findAll()
+    /**
+     * Find all objects
+     * @return array of class type given in constructor
+     */
+    public function findAll(): array
     {
         $statement = $this->db->query("SELECT * FROM $this->table");
         return $statement->fetchAll(PDO::FETCH_CLASS, $this->class);
@@ -28,9 +32,9 @@ abstract class Repository
     /**
      * @param int $limit
      * @param int|null $offset
-     * @return array
+     * @return array of class type given in constructor
      */
-    public function findAllLimited(int $limit, int $offset = null)
+    public function findAllLimited(int $limit, int $offset = null): array
     {
         $sql = "SELECT * FROM $this->table LIMIT $limit";
         if ($offset != null) {
@@ -41,7 +45,11 @@ abstract class Repository
         return $statement->fetchAll(PDO::FETCH_CLASS, $this->class);
     }
 
-    public function findById($id)
+    /**
+     * @param int $id of object
+     * @return mixed object of class given in constructor
+     */
+    public function findById(int $id)
     {
         $statement = $this->db->prepare("SELECT * FROM $this->table WHERE id = :id");
         $statement->execute(["id" => $id]);
@@ -54,7 +62,7 @@ abstract class Repository
      * @param array $values array of values to conditions
      * @return array
      */
-    public function find(array $conditions, array $values)
+    public function find(array $conditions, array $values): array
     {
         $sql = "SELECT * FROM $this->table";
 
@@ -75,7 +83,7 @@ abstract class Repository
      * @param int|null $offset
      * @return array
      */
-    public function findOr(array $conditions, array $values)
+    public function findOr(array $conditions, array $values): array
     {
         $sql = "SELECT * FROM $this->table";
 
@@ -97,7 +105,7 @@ abstract class Repository
      * @return array
      * jest to find, ale z OR zamiast AND
      */
-    public function findLimited(array $conditions, array $values, int $limit, int $offset = null)
+    public function findLimited(array $conditions, array $values, int $limit, int $offset = null): array
     {
         $sql = "SELECT * FROM $this->table";
 
@@ -119,7 +127,7 @@ abstract class Repository
      * @param array $conditions array of strings with conditions to WHERE statement
      * e.g. ['id=?', 'name LIKE ?']
      * @param array $values array of values to conditions
-     * @return mixed
+     * @return object of class given in constructor
      */
     public function findOne(array $conditions, array $values)
     {
@@ -135,15 +143,19 @@ abstract class Repository
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return bool TRUE on success or FALSE on failure
      */
-    public function delete($id)
+    public function delete(int $id): bool
     {
         $statement = $this->db->prepare("DELETE FROM $this->table WHERE id = :id");
         return $statement->execute(["id" => $id]);
     }
 
+    /**
+     * Adds object to database
+     * @param Model $model object to add to database
+     */
     public function add(Model $model)
     {
         $params = $model->getFields();
@@ -161,7 +173,12 @@ abstract class Repository
         $statement->execute($params);
     }
 
-    public function update($id, Model $model)
+    /**
+     * Updates object in database
+     * @param int $id of object
+     * @param Model $model
+     */
+    public function update(int $id, Model $model)
     {
         $model->setId($id);
         $params = $model->getFields();
@@ -176,8 +193,29 @@ abstract class Repository
         $statement->execute($params);
     }
 
-    public function query($sql)
+    /**
+     * @param string $sql query
+     * @param array $params array of parameters to query
+     * @return array of objects of class given in constructor
+     */
+    public function query(string $sql, array $params): array
     {
-        return $this->db->query($sql);
+        $statement = $this->db->prepare($sql);
+        $statement->execute($params);
+
+        return $statement->fetchAll();
+    }
+
+    /**
+     * @param string $sql query
+     * @param array $params array of parameters to query
+     * @return array
+     */
+    public function queryToClass(string $sql, array $params): array
+    {
+        $statement = $this->db->prepare($sql);
+        $statement->execute($params);
+
+        return $statement->fetchAll(PDO::FETCH_CLASS, $this->class);
     }
 }

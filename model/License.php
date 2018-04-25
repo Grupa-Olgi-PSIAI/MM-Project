@@ -7,7 +7,7 @@
  */
 
 namespace model;
-
+use core\Model;
 
 class License extends Model
 {
@@ -25,7 +25,10 @@ class License extends Model
     private $price_net;
     private $notes;
 
-
+    public function getFields(): array
+    {
+        return get_object_vars($this);
+    }
     public function setId($id): void
     {
         $this->id = $id;

@@ -5,6 +5,8 @@ namespace controller;
 
 
 use core\Controller;
+use core\View;
+use model\Document;
 use repository\DocumentRepository;
 use util\AuthFlags;
 
@@ -27,7 +29,7 @@ class Documents extends Controller
     {
         $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_READ);
         $documents = $this->repository->findAll();
-        // TODO load view
+        View::render('documentsList.php', ["documents" => $documents]);
     }
 
     public function addAction()
@@ -62,7 +64,7 @@ class Documents extends Controller
 
         $this->repository->add($document);
 
-        $documents = $repository->findAll();
+        $documents = $this->repository->findAll();
 
         View::render('invoicesList.php', ["documents" => $documents]);
     }

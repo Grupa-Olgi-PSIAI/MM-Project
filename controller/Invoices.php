@@ -114,13 +114,19 @@ class Invoices extends Controller
 
     public function search() {
 
-        $id = $_POST['id'];
+        $criterium = $_POST['criterium'];
 
-        echo "<script>console.log( 'Debug Objects: " . $id . "' );</script>";
+        $con = array('number LIKE ?','amount_gross LIKE ?','amount_net LIKE ?','amount_tax LIKE ?',
+            'currency LIKE ?','amount_net_currency LIKE ?','contractor_id LIKE ?',
+            'contractor_id IN (SELECT id FROM contractors WHERE name = ?)');
+
+
+        $val = array($criterium,$criterium,$criterium,$criterium,$criterium,$criterium,"%" . $criterium . "%",$criterium);
+
 
         $repository = new InvoicesRepository();
-        $invoice = $repository->findById($id);
-        View::render('invoicesList.php', ["invoice" => $invoice]);
+        $invoiceSearch = $repository->findOr($con,$val);
+        View::render('invoicesList.php', ["invoiceSearch" => $invoiceSearch]);
     }
 
     public function filterAction()

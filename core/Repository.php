@@ -75,6 +75,28 @@ abstract class Repository
      * @param int|null $offset
      * @return array
      */
+    public function findOr(array $conditions, array $values)
+    {
+        $sql = "SELECT * FROM $this->table";
+
+        if ($conditions) {
+            $sql .= ' WHERE ' . implode(' OR ', $conditions);
+        }
+
+        $statement = $this->db->prepare($sql);
+        $statement->execute($values);
+        return $statement->fetchAll(PDO::FETCH_CLASS, $this->class);
+    }
+
+    /**
+     * @param array $conditions array of strings with conditions to WHERE statement
+     * e.g. ['id=?', 'name LIKE ?'], note '?' sign in place for value
+     * @param array $values array of values to conditions
+     * @param int $limit
+     * @param int|null $offset
+     * @return array
+     * jest to find, ale z OR zamiast AND
+     */
     public function findLimited(array $conditions, array $values, int $limit, int $offset = null)
     {
         $sql = "SELECT * FROM $this->table";

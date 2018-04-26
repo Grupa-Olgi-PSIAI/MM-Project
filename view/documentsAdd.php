@@ -14,14 +14,14 @@
             <input type='date' name='date_created' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Data uworzenia</label>
+            <label></label>
         </div>
 
         <div class="material-input">
             <input type='date' name='last_updated' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Data faktury</label>
+            <label></label>
         </div>
 
         <div class="material-input">

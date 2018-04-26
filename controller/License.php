@@ -130,9 +130,9 @@ class License extends Controller
         $criterium = $_POST['criterium'];
 
         $con = array('id LIKE ?','version LIKE ?','user_id LIKE ?','inventary_number LIKE ?',
-            'name LIKE ?','serial_key LIKE ?','notes LIKE ?','price_net LIKE ?');
+            'name LIKE ?','serial_key LIKE ?','notes LIKE ?','price_net LIKE ?','user_id IN (SELECT id FROM users WHERE last_name = ?)');
 
-        $val = array($criterium,$criterium,$criterium,$criterium,"%" . $criterium . "%",$criterium,"%" . $criterium . "%",$criterium);
+        $val = array($criterium,$criterium,$criterium,$criterium,"%" . $criterium . "%",$criterium,"%" . $criterium . "%",$criterium,$criterium);
 
         $repository = new LicenseRepository();
         $licenses = $repository->findOr($con, $val);

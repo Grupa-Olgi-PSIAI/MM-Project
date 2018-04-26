@@ -70,38 +70,39 @@ class Documents extends Controller
 
         View::render('invoicesList.php', ["documents" => $documents]);
     }
+
     public function filterAction()
     {
         $dateFrom = $_POST['dateFrom'];
         $dateTo = $_POST['dateTo'];
-        $con = array('date_created >= ?','date_created <= ?');
-        $val = array($dateFrom,$dateTo);
+        $con = array('date_created >= ?', 'date_created <= ?');
+        $val = array($dateFrom, $dateTo);
 
         $repository = new DocumentRepository();
-        $documentsFilter = $repository->find($con,$val);
-        echo "<script>console.log( 'Debug Objects: " . $dateFrom . "' );</script>";
+        $documents = $repository->find($con, $val);
 
-        View::render('documentsList.php', ["documentsFilter" => $documentsFilter]);
+        View::render('documentsList.php', ["documents" => $documents]);
     }
 
     /**
      * @throws \Exception
      */
 
-    public function search() {
+    public function search()
+    {
 
         $criterium = $_POST['criterium'];
 
-        $con = array('id LIKE ?','version LIKE ?','id_internal LIKE ?','description LIKE ?',
+        $con = array('id LIKE ?', 'version LIKE ?', 'id_internal LIKE ?', 'description LIKE ?',
             'contractor_id IN (SELECT id FROM contractors WHERE name = ?)');
 
 
-        $val = array($criterium,$criterium,$criterium,"%" . $criterium . "%",$criterium);
+        $val = array($criterium, $criterium, $criterium, "%" . $criterium . "%", $criterium);
         //"%" . $criterium . "%",
 
         $repository = new DocumentRepository();
-        $documentsSearch = $repository->findOr($con,$val);
-        View::render('documentsList.php', ["documentsSearch" => $documentsSearch]);
+        $documents = $repository->findOr($con, $val);
+        View::render('documentsList.php', ["documents" => $documents]);
     }
 
     public function detailsAction()

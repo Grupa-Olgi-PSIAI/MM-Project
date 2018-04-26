@@ -1,33 +1,31 @@
 <div id="page">
 
-    <a href="/documents/add" class="material-btn btn-primary"
-       style="font-size: larger; background-color: #FFC400; color: white; padding: 5px;">Dodaj nowy dokument</a>
+    <ul id="content-nav">
+        <li><a href="/documents/add" class="material-btn">Nowy</a></li>
+        <li><a href="#filter_popup" class="material-btn">Filtruj</a></li>
+        <li>
+            <form class="search-bar" action="/documents/search" method="post">
+                <input type="search" placeholder="Szukaj dokumentu..." name="criterium">
+            </form>
+        </li>
+    </ul>
 
-    <form action="/documents/search" method="post">
-        <div class="row">
-            <div class="material-input">
-                <input type="text" name='criterium'/>
-            </div>
-            <div class="material-input">
-                <input type="submit" name="invoice_add" name='id'/>
-            </div>
-        </div>
-
-    </form>
-    <div>
-        <form action="/documents/filter" method="post">
+    <a id="filter_popup" href="#" class="popup"></a>
+    <div class="popup">
+        <form title="filter" action="/documents/filter" method="post">
             <div class="row">
                 <div class="material-input">
-                    <input type="date" name='dateFrom'/>
-                    <input type="date" name='dateTo'/>
+                    <input title="filter" type="date" name='dateFrom'/>
+                    <input title="filter" type="date" name='dateTo'/>
                 </div>
                 <div class="material-input">
-                    <input type="submit" name="documents_filter" name='dateRange'/>
+                    <input type="submit"/>
                 </div>
             </div>
-
         </form>
+        <a class="close x" href="#">x</a>
     </div>
+
     <br>
     <h2>Lista faktur</h2>
     <div class="tbl-header">
@@ -64,50 +62,14 @@
                         <td><?php echo $document->getIdInternal() ?></td>
                         <td><?php echo $document->getDescription() ?></td>
                         <td><?php echo $document->getContractorId() ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="material-btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="material-btn btn-primary"><button>Edytuj</button></a>'; ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/delete"><button>Usuń</button></a>' ?></td>
-                    </tr>
-                <?php }
-            } ?>
-            <?php if (isset($documentsSearch)) {
-                foreach ($documentsSearch
-                         as $key => $document) { ?>
-                    <tr>
-                        <td><?php echo $document->getId() ?></td>
-                        <td><?php echo $document->getVersion() ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getDateCreated()) ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getLastUpdated()) ?></td>
-                        <td><?php echo $document->getIdInternal() ?></td>
-                        <td><?php echo $document->getDescription() ?></td>
-                        <td><?php echo $document->getContractorId() ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="material-btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="material-btn btn-primary"><button>Edytuj</button></a>'; ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/delete"><button>Usuń</button></a>' ?></td>
-                    </tr>
-                <?php }
-            } ?>
-            <?php if (isset($documentsFilter)) {
-                foreach ($documentsFilter
-                         as $key => $document) { ?>
-                    <tr>
-                        <td><?php echo $document->getId() ?></td>
-                        <td><?php echo $document->getVersion() ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getDateCreated()) ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getLastUpdated()) ?></td>
-                        <td><?php echo $document->getIdInternal() ?></td>
-                        <td><?php echo $document->getDescription() ?></td>
-                        <td><?php echo $document->getContractorId() ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="material-btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="material-btn btn-primary"><button>Edytuj</button></a>'; ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/delete"><button>Usuń</button></a>' ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="material-btn">Szczegóły</a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="material-btn">Edytuj</a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/delete" class="material-btn">Usuń</a>' ?></td>
                     </tr>
                 <?php }
             } ?>
             </tbody>
         </table>
-
-
     </div>
 
 </div>

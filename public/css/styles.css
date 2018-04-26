@@ -147,10 +147,8 @@ html, body {
 #menu-fixed .logo:hover > span {
     width: 0;
     height: 0;
-    border-left: 15px solid white;
-    border-right: 15px solid rgba(0, 0, 0, 0);
-    border-top: 15px solid rgba(0, 0, 0, 0);
-    border-bottom: 15px solid rgba(0, 0, 0, 0);
+    border: 15px solid rgba(0, 0, 0, 0);
+    border-left-color: white;
     transition: all 0.2s;
     transform: rotateZ(0deg) translateX(10px);
     -webkit-transform: rotateZ(0deg) translateX(10px);
@@ -161,10 +159,8 @@ html, body {
     display: block;
     width: 0;
     height: 0;
-    border-left: 8px solid #FFC400;
-    border-right: 8px solid rgba(0, 0, 0, 0);
-    border-top: 8px solid rgba(0, 0, 0, 0);
-    border-bottom: 8px solid rgba(0, 0, 0, 0);
+    border: 8px solid rgba(0, 0, 0, 0);
+    border-left-color: #FFC400;
     left: -15px;
     position: absolute;
     top: -8px;
@@ -194,8 +190,7 @@ html, body {
     padding: 15px;
     width: 100%;
     margin: auto;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom-style: dotted;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
     cursor: pointer;
     overflow: hidden;
     position: relative;

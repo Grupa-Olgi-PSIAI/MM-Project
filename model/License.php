@@ -29,109 +29,122 @@ class License extends Model
     {
         return get_object_vars($this);
     }
-    public function setId($id): void
+    public function setId(int $id): License
     {
         $this->id = $id;
+        return $this;
     }
-    public function setVersion($version): void
+    public function setVersion(int $version): License
     {
         $this->version = $version;
+        return $this;
     }
-    public function setDateCreated($date_created): void
+    public function setDateCreated(string $date_created): License
     {
         $this->date_created = $date_created;
+        return $this;
     }
-    public function setLastUpdated($last_updated): void
+    public function setLastUpdated(string $last_updated): License
     {
         $this->last_updated = $last_updated;
+        return $this;
     }
-    public function setUserId($user_id): void
+    public function setUserId(int $user_id): License
      {
          $this->user_id = $user_id;
+         return $this;
      }
-    public function setInventaryNumber($inventary_number): void
+    public function setInventaryNumber(string $inventary_number): License
      {
          $this->inventary_number = $inventary_number;
+         return $this;
      }
-    public function setName($name): void
+    public function setName(string $name): License
      {
          $this->name = $name;
+         return $this;
      }
-    public function setSerialKey($serial_key): void
+    public function setSerialKey(string $serial_key): License
      {
          $this->serial_key = $serial_key;
+         return $this;
      }
-    public function setValidationDate($validation_date): void
+    public function setValidationDate(string $validation_date): License
      {
          $this->validation_date = $validation_date;
+         return $this;
      }
-    public function setTechSupportEndDate($tech_support_end_date): void
+    public function setTechSupportEndDate(string $tech_support_end_date): License
      {
          $this->tech_support_end_date = $tech_support_end_date;
+         return $this;
      }
-    public function setPurchaseDate($purchase_date): void
+    public function setPurchaseDate(string $purchase_date): License
      {
          $this->purchase_date = $purchase_date;
+         return $this;
      }
-    public function setPriceNet($price_net): void
+    public function setPriceNet(float $price_net): License
      {
          $this->price_net = $price_net;
+         return $this;
      }
-    public function setNotes($notes): void
+    public function setNotes(string $notes): License
     {
         $this->notes = $notes;
+        return $this;
     }
 
 
-    public function getId(): void
+    public function getId(): int
     {
          return $this->id;
     }
-    public function getVersion(): void
+    public function getVersion(): int
     {
         return $this->version;
     }
-    public function getDateCreated(): void
+    public function getDateCreated(): string
     {
         return $this->date_created;
     }
-    public function getlastUpdated(): void
+    public function getlastUpdated(): string
     {
         return $this->last_updated;
     }
-    public function getUserId(): void
+    public function getUserId(): int
     {
         return $this->user_id;
     }
-    public function getInventaryNumber(): void
+    public function getInventaryNumber(): string
     {
         return $this->InventaryNumber;
     }
-    public function getName(): void
+    public function getName(): string
     {
         return $this->name;
     }
-    public function getSerialKey(): void
+    public function getSerialKey(): string
     {
         return $this->serial_key;
     }
-    public function getValidationDate(): void
+    public function getValidationDate(): string
     {
         return $this->validation_date;
     }
-    public function getTechSupportEndDate(): void
+    public function getTechSupportEndDate(): string
     {
         return $this->TechSupportEndDate;
     }
-    public function getPurchaseDate(): void
+    public function getPurchaseDate(): string
     {
         return $this->purchase_date;
     }
-    public function getPriceNet(): void
+    public function getPriceNet(): float
     {
         return $this->price_net;
     }
-    public function getNotes(): void
+    public function getNotes(): string
     {
         return $this->notes;
     }

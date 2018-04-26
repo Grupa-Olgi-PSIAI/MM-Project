@@ -27,6 +27,7 @@ abstract class Repository
     {
         $statement = $this->db->query("SELECT * FROM $this->table");
         return $statement->fetchAll(PDO::FETCH_CLASS, $this->class);
+
     }
 
     /**

@@ -6,7 +6,7 @@ use util\DateUtils;
 
 <div id="page">
 
-    <a href="/documents/add" class="material-btn"
+    <a href="/license/add" class="material-btn"
        style="font-size: larger; background-color: #FFC400; color: white; padding: 5px;">Dodaj nową fakturę</a>
     <br>
     <h2>Lista faktur</h2>

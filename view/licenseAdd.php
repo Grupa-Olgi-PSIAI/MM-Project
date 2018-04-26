@@ -10,7 +10,7 @@
             <label>ID</label>
         </div>
         <div class="material-input">
-            <input type='date' name='version' required/>
+            <input type='text' name='version' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label>Wersja</label>
@@ -20,14 +20,14 @@
             <input type='date' name='date_created' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Data faktury</label>
+            <label></label>
         </div>
 
         <div class="material-input">
-            <input type='text' name='last_updated' required/>
+            <input type='date' name='last_updated' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Data modyfikacji</label>
+            <label></label>
         </div>
 
         <div class="material-input">
@@ -55,22 +55,22 @@
             <label>Klucz</label>
         </div>
         <div class="material-input">
-            <input type='text' name='validation_date' required/>
+            <input type='date' name='validation_date' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Validacja data</label>
+            <label></label>
         </div>
         <div class="material-input">
-            <input type='text' name='tech_support_end_date' required/>
+            <input type='date' name='tech_support_end_date' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Support techniczny</label>
+            <label></label>
         </div>
         <div class="material-input">
-            <input type='text' name='purchase_date' required/>
+            <input type='date' name='purchase_date' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Data zakupu</label>
+            <label></label>
         </div>
         <div class="material-input">
             <input type='text' name='price_net' required/>

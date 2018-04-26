@@ -68,7 +68,7 @@ class Documents extends Controller
 
         $documents = $this->repository->findAll();
 
-        View::render('invoicesList.php', ["documents" => $documents]);
+        View::render('documentsList.php', ["documents" => $documents]);
     }
 
     public function filterAction()

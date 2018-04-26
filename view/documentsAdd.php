@@ -7,42 +7,42 @@
             <input type='text' name='version' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Numer faktury</label>
+            <label>Wersja dokumantu</label>
         </div>
 
         <div class="material-input">
             <input type='date' name='date_created' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Data faktury</label>
+            <label></label>
         </div>
 
         <div class="material-input">
             <input type='date' name='last_updated' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Data faktury</label>
+            <label></label>
         </div>
 
         <div class="material-input">
             <input type='text' name='id_internal' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Kwota netto</label>
+            <label>Id wewnątrzne</label>
         </div>
 
         <div class="material-input">
             <input type='text' name='description' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Kwota brutto</label>
+            <label>Opis</label>
         </div>
 
         <div class="material-input">
             <input type='text' name='contractor_id' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Waluta</label>
+            <label>ID</label>
         </div>
         <div class="material-input">
             <input type="submit" name="invoice_add" value="Wyślij">

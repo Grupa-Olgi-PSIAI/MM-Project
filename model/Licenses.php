@@ -9,7 +9,7 @@
 namespace model;
 use core\Model;
 
-class License extends Model
+class Licenses extends Model
 {
     private $id;
     private $version;
@@ -29,67 +29,67 @@ class License extends Model
     {
         return get_object_vars($this);
     }
-    public function setId(int $id): License
+    public function setId(int $id): Licenses
     {
         $this->id = $id;
         return $this;
     }
-    public function setVersion(int $version): License
+    public function setVersion(int $version): Licenses
     {
         $this->version = $version;
         return $this;
     }
-    public function setDateCreated(string $date_created): License
+    public function setDateCreated(string $date_created): Licenses
     {
         $this->date_created = $date_created;
         return $this;
     }
-    public function setLastUpdated(string $last_updated): License
+    public function setLastUpdated(string $last_updated): Licenses
     {
         $this->last_updated = $last_updated;
         return $this;
     }
-    public function setUserId(int $user_id): License
+    public function setUserId(int $user_id): Licenses
      {
          $this->user_id = $user_id;
          return $this;
      }
-    public function setInventaryNumber(string $inventary_number): License
+    public function setInventaryNumber(string $inventary_number): Licenses
      {
          $this->inventary_number = $inventary_number;
          return $this;
      }
-    public function setName(string $name): License
+    public function setName(string $name): Licenses
      {
          $this->name = $name;
          return $this;
      }
-    public function setSerialKey(string $serial_key): License
+    public function setSerialKey(string $serial_key): Licenses
      {
          $this->serial_key = $serial_key;
          return $this;
      }
-    public function setValidationDate(string $validation_date): License
+    public function setValidationDate(string $validation_date): Licenses
      {
          $this->validation_date = $validation_date;
          return $this;
      }
-    public function setTechSupportEndDate(string $tech_support_end_date): License
+    public function setTechSupportEndDate(string $tech_support_end_date): Licenses
      {
          $this->tech_support_end_date = $tech_support_end_date;
          return $this;
      }
-    public function setPurchaseDate(string $purchase_date): License
+    public function setPurchaseDate(string $purchase_date): Licenses
      {
          $this->purchase_date = $purchase_date;
          return $this;
      }
-    public function setPriceNet(float $price_net): License
+    public function setPriceNet(float $price_net): Licenses
      {
          $this->price_net = $price_net;
          return $this;
      }
-    public function setNotes(string $notes): License
+    public function setNotes(string $notes): Licenses
     {
         $this->notes = $notes;
         return $this;

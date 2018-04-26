@@ -9,14 +9,16 @@
 namespace repository;
 
 
-use model\License;
+use model\Licenses;
 use core\Repository;
+
+
 
 
 class LicenseRepository extends Repository
 {
     public function __construct()
     {
-        parent::__construct("licences", License::class);
+        parent::__construct("licences", Licenses::class);
     }
 }

@@ -23,6 +23,13 @@ use util\DateUtils;
                 <div class="material-input">
                     <input type="date" name='dateFrom' title="filter"/>
                     <input type="date" name='dateTo' title="filter"/>
+                    <br>
+                    <input type="radio" name="whichDate"
+                           value="createDate">po dacie utworzenia
+                    <input type="radio" name="whichDate"
+                           value="reviewDate">po dacie przeglądu
+                    <input type="radio" name="whichDate"
+                           value="purchaseDate">po dacie zakupu
                 </div>
                 <div class="material-input">
                     <input type="submit"/>

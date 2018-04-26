@@ -143,18 +143,41 @@ class License extends Controller
     {
         $dateFrom = $_POST['dateFrom'];
         $dateTo = $_POST['dateTo'];
+        $whichDate = $_POST['whichDate'];
 
-        if($dateTo == NULL){
-            $con = array('date_created >= ?');
-            $val = array($dateFrom);
-        }
-        else if($dateFrom == NULL){
-            $con = array('date_created <= ?');
-            $val = array($dateTo);
-        }
-        else{
-            $con = array('date_created >= ?','date_created <= ?');
-            $val = array($dateFrom,$dateTo);
+        if($whichDate == 'purchaseDate') {
+            if ($dateTo == NULL) {
+                $con = array('date_created >= ?');
+                $val = array($dateFrom);
+            } else if ($dateFrom == NULL) {
+                $con = array('date_created <= ?');
+                $val = array($dateTo);
+            } else {
+                $con = array('date_created >= ?', 'date_created <= ?');
+                $val = array($dateFrom, $dateTo);
+            }
+        } else if($whichDate == 'reviewDate'){
+            if ($dateTo == NULL) {
+                $con = array('tech_support_end_date >= ?');
+                $val = array($dateFrom);
+            } else if ($dateFrom == NULL) {
+                $con = array('tech_support_end_date <= ?');
+                $val = array($dateTo);
+            } else {
+                $con = array('tech_support_end_date >= ?', 'tech_support_end_date <= ?');
+                $val = array($dateFrom, $dateTo);
+            }
+        } else{
+            if ($dateTo == NULL) {
+                $con = array('purchase_date >= ?');
+                $val = array($dateFrom);
+            } else if ($dateFrom == NULL) {
+                $con = array('purchase_date <= ?');
+                $val = array($dateTo);
+            } else {
+                $con = array('purchase_date >= ?', 'purchase_date <= ?');
+                $val = array($dateFrom, $dateTo);
+            }
         }
 
         $repository = new LicenseRepository();

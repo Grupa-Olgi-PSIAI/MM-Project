@@ -7,9 +7,9 @@ use util\DateUtils;
 <div id="page">
 
     <a href="/license/add" class="material-btn"
-       style="font-size: larger; background-color: #FFC400; color: white; padding: 5px;">Dodaj nową fakturę</a>
+       style="font-size: larger; background-color: #FFC400; color: white; padding: 5px;">Dodaj nową licencję</a>
     <br>
-    <h2>Lista faktur</h2>
+    <h2>Lista licencji</h2>
     <div class="tbl-header">
         <table cellpadding="0" cellspacing="0" border="0">
             <thead>

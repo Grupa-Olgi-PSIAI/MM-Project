@@ -27,7 +27,7 @@
     </div>
 
     <br>
-    <h2>Lista faktur</h2>
+    <h2>Lista dokumentów</h2>
     <div class="tbl-header">
         <table cellpadding="0" cellspacing="0" border="0">
             <thead>
@@ -63,7 +63,7 @@
                         <td><?php echo $document->getDescription() ?></td>
                         <td><?php echo $document->getContractorId() ?></td>
                         <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="material-btn">Szczegóły</a>'; ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="material-btn">Edytuj</a>'; ?></td>
+                        <td><?php echo '<a href="/documents/edit?id=' . $document->getId() . '" class="material-btn">Edytuj</a>'; ?></td>
                         <td><?php echo '<a href="/documents/' . $document->getId() . '/delete" class="material-btn">Usuń</a>' ?></td>
                     </tr>
                 <?php }

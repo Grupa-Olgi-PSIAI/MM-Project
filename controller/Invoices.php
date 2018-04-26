@@ -13,6 +13,8 @@ use core\View;
 use model\Invoice;
 use repository\ContractorRepository;
 use repository\InvoicesRepository;
+use util\FileStorage;
+use util\Redirect;
 
 class Invoices extends Controller
 {
@@ -45,6 +47,10 @@ class Invoices extends Controller
     {
         unset($error);
 
+        $file = $_FILES['file'];
+        $fileStorage = FileStorage::getInstance();
+        $fileId = $fileStorage->store($file, 'invoice');
+
         $number = $_POST['number'];
         $invoice_date = $_POST['invoice_date'];
         $amount_net = $_POST['amount_net'];
@@ -65,32 +71,38 @@ class Invoices extends Controller
         $invoice->setCurrency($currency);
         $invoice->setAmountNetCurrency($amount_net_currency);
         $invoice->setContractorId($contractor_id);
+        $invoice->setFileId($fileId);
 
         $repository = new InvoicesRepository();
         $repository->add($invoice);
-        $invoices = $repository->findAll();
 
-        View::render('invoicesList.php', ["invoices" => $invoices]);
+        Redirect::to("/invoices/show");
     }
 
-    public function delete() {
+    public function delete()
+    {
 
         $id = $_GET['id'];
 
         echo "<script>console.log( 'Debug Objects: " . $id . "' );</script>";
 
         $repository = new InvoicesRepository();
+
+        /** @var Invoice $invoice */
+        $invoice = $repository->findById($id);
         $repository->delete($id);
 
-        $invoices = $repository->findAll();
-        View::render('invoicesList.php', ["invoices" => $invoices]);
+        $fileStorage = FileStorage::getInstance();
+        $fileStorage->delete($invoice->getFileId());
 
+        Redirect::to("/invoices/show");
     }
 
     /**
      * @throws \Exception
      */
-    public function edit() {
+    public function edit()
+    {
         $id = $_GET['id'];
         $repository = new InvoicesRepository();
 
@@ -104,7 +116,8 @@ class Invoices extends Controller
     /**
      * @throws \Exception
      */
-    public function details() {
+    public function details()
+    {
         $id = $_GET['id'];
         $repository = new InvoicesRepository();
 
@@ -112,16 +125,17 @@ class Invoices extends Controller
         View::render('invoicesDetails.php', ["invoice" => $invoice]);
     }
 
-    public function search() {
+    public function search()
+    {
 
         $criterium = $_POST['criterium'];
 
-        $con = array('number LIKE ?','amount_gross LIKE ?','amount_net LIKE ?','amount_tax LIKE ?',
-            'currency LIKE ?','amount_net_currency LIKE ?',
+        $con = array('number LIKE ?', 'amount_gross LIKE ?', 'amount_net LIKE ?', 'amount_tax LIKE ?',
+            'currency LIKE ?', 'amount_net_currency LIKE ?',
             'contractor_id IN (SELECT id FROM contractors WHERE name = ?)');
 
 
-        $val = array($criterium,$criterium,$criterium,$criterium,$criterium,$criterium,$criterium);
+        $val = array($criterium, $criterium, $criterium, $criterium, $criterium, $criterium, $criterium);
         //"%" . $criterium . "%",
 
         $repository = new InvoicesRepository();
@@ -133,8 +147,8 @@ class Invoices extends Controller
     {
         $dateFrom = $_POST['dateFrom'];
         $dateTo = $_POST['dateTo'];
-        $con = array('invoice_date >= ?','invoice_date <= ?');
-        $val = array($dateFrom,$dateTo);
+        $con = array('invoice_date >= ?', 'invoice_date <= ?');
+        $val = array($dateFrom, $dateTo);
 
         $repository = new InvoicesRepository();
         $invoices = $repository->find($con, $val);
@@ -172,9 +186,15 @@ class Invoices extends Controller
         $invoice->setContractorId($contractor_id);
 
         $repository = new InvoicesRepository();
-        $repository->update($_GET['id'],$invoice);
-        $invoices = $repository->findAll();
+        $repository->update($_GET['id'], $invoice);
 
-        View::render('invoicesList.php', ["invoices" => $invoices]);
+        Redirect::to("/invoices/show");
+    }
+
+    public function downloadAction()
+    {
+        $id = $this->route_params['id'];
+        $fileStorage = FileStorage::getInstance();
+        $fileStorage->download($id);
     }
 }

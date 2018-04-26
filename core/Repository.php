@@ -76,13 +76,14 @@ abstract class Repository
     }
 
     /**
-     * jest to find, ale z OR zamiast AND
      * @param array $conditions array of strings with conditions to WHERE statement
      * e.g. ['id=?', 'name LIKE ?'], note '?' sign in place for value
      * @param array $values array of values to conditions
+     * @param int $limit
+     * @param int|null $offset
      * @return array
      */
-    public function findOr(array $conditions, array $values)
+    public function findOr(array $conditions, array $values): array
     {
         $sql = "SELECT * FROM $this->table";
 
@@ -102,6 +103,7 @@ abstract class Repository
      * @param int $limit
      * @param int|null $offset
      * @return array
+     * jest to find, ale z OR zamiast AND
      */
     public function findLimited(array $conditions, array $values, int $limit, int $offset = null): array
     {

@@ -82,13 +82,12 @@ abstract class Controller
      * @param string $resource name
      * @param int $mask AuthFlags constants, can be combined
      * e.g. AuthFlags::OWN_CREATE | AuthFlags::OTHER_READ
-     * @throws \Exception
      */
     protected function checkPermissions(string $resource, int $mask)
     {
         $auth = Authorization::getInstance();
         if (!$auth->hasPermission($resource, $mask)) {
-            throw new \Exception("Unauthorized access to $resource", 401);
+            throw new \RuntimeException("Unauthorized access to $resource", 401);
         }
     }
 }

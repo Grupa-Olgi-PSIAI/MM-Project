@@ -19,12 +19,12 @@ class User extends Model
     private $version;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $date_created;
 
     /**
-     * @var \DateTime
+     * @var string
      */
     private $last_updated;
 
@@ -125,36 +125,36 @@ class User extends Model
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getDateCreated(): \DateTime
+    public function getDateCreated(): string
     {
         return $this->date_created;
     }
 
     /**
-     * @param \DateTime $date_created
+     * @param string $date_created
      * @return User
      */
-    public function setDateCreated(\DateTime $date_created): User
+    public function setDateCreated(string $date_created): User
     {
         $this->date_created = $date_created;
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getLastUpdated(): \DateTime
+    public function getLastUpdated(): string
     {
         return $this->last_updated;
     }
 
     /**
-     * @param \DateTime $last_updated
+     * @param string $last_updated
      * @return User
      */
-    public function setLastUpdated(\DateTime $last_updated): User
+    public function setLastUpdated(string $last_updated): User
     {
         $this->last_updated = $last_updated;
         return $this;

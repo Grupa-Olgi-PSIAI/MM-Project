@@ -24,7 +24,7 @@ use util\DateUtils;
                     <input type="date" name='dateFrom' title="filter"/>
                     <input type="date" name='dateTo' title="filter"/>
                     <br>
-                    <input type="radio" name="whichDate"
+                    <input type="radio" name="whichDate" checked="checked"
                            value="createDate">po dacie utworzenia
                     <input type="radio" name="whichDate"
                            value="reviewDate">po dacie przeglądu

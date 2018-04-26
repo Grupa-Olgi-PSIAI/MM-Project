@@ -147,13 +147,13 @@ class License extends Controller
 
         if($whichDate == 'purchaseDate') {
             if ($dateTo == NULL) {
-                $con = array('date_created >= ?');
+                $con = array('purchase_date >= ?');
                 $val = array($dateFrom);
             } else if ($dateFrom == NULL) {
-                $con = array('date_created <= ?');
+                $con = array('purchase_date <= ?');
                 $val = array($dateTo);
             } else {
-                $con = array('date_created >= ?', 'date_created <= ?');
+                $con = array('purchase_date >= ?', 'purchase_date <= ?');
                 $val = array($dateFrom, $dateTo);
             }
         } else if($whichDate == 'reviewDate'){
@@ -169,13 +169,13 @@ class License extends Controller
             }
         } else{
             if ($dateTo == NULL) {
-                $con = array('purchase_date >= ?');
+                $con = array('date_created >= ?');
                 $val = array($dateFrom);
             } else if ($dateFrom == NULL) {
-                $con = array('purchase_date <= ?');
+                $con = array('date_created <= ?');
                 $val = array($dateTo);
             } else {
-                $con = array('purchase_date >= ?', 'purchase_date <= ?');
+                $con = array('date_created >= ?', 'date_created <= ?');
                 $val = array($dateFrom, $dateTo);
             }
         }

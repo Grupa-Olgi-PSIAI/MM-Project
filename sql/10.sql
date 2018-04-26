@@ -34,5 +34,5 @@ INSERT INTO `permissions` (`resource_id`, `role_id`, `own_perms`, `group_perms`,
   (@`resource_id`, @`role_id`, 'read', 'read', 'read');
 
 DELETE FROM `versions`
-WHERE `id` = 9;
-INSERT INTO `versions` (`id`, `file`) VALUES (9, '09.sql');
+WHERE `id` = 10;
+INSERT INTO `versions` (`id`, `file`) VALUES (10, '10.sql');

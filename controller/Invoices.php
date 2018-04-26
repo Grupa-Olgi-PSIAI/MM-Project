@@ -147,8 +147,19 @@ class Invoices extends Controller
     {
         $dateFrom = $_POST['dateFrom'];
         $dateTo = $_POST['dateTo'];
-        $con = array('invoice_date >= ?', 'invoice_date <= ?');
-        $val = array($dateFrom, $dateTo);
+
+        if($dateTo == NULL){
+            $con = array('invoice_date >= ?');
+            $val = array($dateFrom);
+        }
+        else if($dateFrom == NULL){
+            $con = array('invoice_date <= ?');
+            $val = array($dateTo);
+        }
+        else{
+            $con = array('invoice_date >= ?', 'invoice_date <= ?');
+            $val = array($dateFrom, $dateTo);
+        }
 
         $repository = new InvoicesRepository();
         $invoices = $repository->find($con, $val);

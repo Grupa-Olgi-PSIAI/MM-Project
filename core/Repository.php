@@ -218,4 +218,12 @@ abstract class Repository
 
         return $statement->fetchAll(PDO::FETCH_CLASS, $this->class);
     }
+
+    /**
+     * @return int of last insert object
+     */
+    public function getLastInsertId(): int
+    {
+        return $this->db->lastInsertId();
+    }
 }

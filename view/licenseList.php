@@ -48,14 +48,14 @@ use util\DateUtils;
                         <td><?php echo $license->getInventaryNumber() ?></td>
                         <td><?php echo $license->getName() ?></td>
                         <td><?php echo $license->getSerialKey() ?></td>
-                        <td><?php echo $license->getValidationData() ?></td>
+                        <td><?php echo $license->getValidationDate() ?></td>
                         <td><?php echo $license->getTechSupportEndDate() ?></td>
                         <td><?php echo $license->getPurchaseDate() ?></td>
                         <td><?php echo $license->getPriceNet() ?></td>
                         <td><?php echo $license->getNotes() ?></td>
-                        <td><?php echo '<a href="/invoices/details?id=' . $document->getId() . '" class="material-btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/invoices/edit?id=' . $document->getId() . '" class="material-btn btn-primary"><button>Edytuj</button></a>'; ?></td>
-                        <td><?php echo '<a href="/invoices/delete?id=' . $document->getId() . '"><button>Usuń</button></a>' ?></td>
+                        <td><?php echo '<a href="/invoices/details?id=' . $license->getId() . '" class="material-btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
+                        <td><?php echo '<a href="/invoices/edit?id=' . $license->getId() . '" class="material-btn btn-primary"><button>Edytuj</button></a>'; ?></td>
+                        <td><?php echo '<a href="/invoices/delete?id=' . $license->getId() . '"><button>Usuń</button></a>' ?></td>
                     </tr>
                 <?php }
             } ?>

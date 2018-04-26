@@ -118,7 +118,7 @@ class License extends Model
     }
     public function getInventaryNumber(): string
     {
-        return $this->InventaryNumber;
+        return $this->inventary_number;
     }
     public function getName(): string
     {
@@ -134,7 +134,7 @@ class License extends Model
     }
     public function getTechSupportEndDate(): string
     {
-        return $this->TechSupportEndDate;
+        return $this->tech_support_end_date;
     }
     public function getPurchaseDate(): string
     {

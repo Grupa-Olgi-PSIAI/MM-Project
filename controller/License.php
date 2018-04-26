@@ -125,4 +125,43 @@ class License extends Controller
         View::render('licenseEdit.php', ["license" => $licence]);
     }
 
+    public function search() {
+
+        $criterium = $_POST['criterium'];
+
+        $con = array('id LIKE ?','version LIKE ?','user_id LIKE ?','inventary_number LIKE ?',
+            'name LIKE ?','serial_key LIKE ?','notes LIKE ?','price_net LIKE ?');
+
+        $val = array($criterium,$criterium,$criterium,$criterium,"%" . $criterium . "%",$criterium,"%" . $criterium . "%",$criterium);
+
+        $repository = new LicenseRepository();
+        $licenses = $repository->findOr($con, $val);
+        View::render('licenseList.php', ["licenses" => $licenses]);
+    }
+
+    public function filterAction()
+    {
+        $dateFrom = $_POST['dateFrom'];
+        $dateTo = $_POST['dateTo'];
+
+        if($dateTo == NULL){
+            $con = array('date_created >= ?');
+            $val = array($dateFrom);
+        }
+        else if($dateFrom == NULL){
+            $con = array('date_created <= ?');
+            $val = array($dateTo);
+        }
+        else{
+            $con = array('date_created >= ?','date_created <= ?');
+            $val = array($dateFrom,$dateTo);
+        }
+
+        $repository = new LicenseRepository();
+        $licenses = $repository->find($con, $val);
+
+
+        View::render('licenseList.php', ["licenses" => $licenses]);
+    }
+
 }

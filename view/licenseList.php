@@ -6,8 +6,33 @@ use util\DateUtils;
 
 <div id="page">
 
-    <a href="/license/add" class="material-btn"
-       style="font-size: larger; background-color: #FFC400; color: white; padding: 5px;">Dodaj nową licencję</a>
+    <ul id="content-nav">
+        <li><a href="/license/add" class="material-btn">Nowa</a></li>
+        <li><a href="#filter_popup" class="material-btn">Filtruj</a></li>
+        <li>
+            <form class="search-bar" action="/license/search" method="post">
+                <input type="search" placeholder="Szukaj licencji..." name="criterium">
+            </form>
+        </li>
+    </ul>
+
+    <a id="filter_popup" href="#" class="popup"></a>
+    <div class="popup">
+        <form title="filter" action="/license/filter" method="post">
+            <div class="row">
+                <div class="material-input">
+                    <input type="date" name='dateFrom' title="filter"/>
+                    <input type="date" name='dateTo' title="filter"/>
+                </div>
+                <div class="material-input">
+                    <input type="submit"/>
+                </div>
+            </div>
+
+        </form>
+        <a class="close x" href="#">x</a>
+    </div>
+
     <br>
     <h2>Lista licencji</h2>
     <div class="tbl-header">

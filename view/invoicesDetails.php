@@ -48,4 +48,11 @@
         <span class="material-input-highlight"></span>
         <span class="material-input-bar"></span>
     </div>
+
+    <div class="material-input">
+        <?php if (isset($invoice)) {
+            echo "<a href=\"/invoices/" . $invoice->getFileId() . "/download\" class=\"btn btn-primary\" " .
+                "style=\"font-size: larger; background-color: #FFC400; color: white; padding: 5px;\">Pobierz</a>";
+        } ?>
+    </div>
 </div>

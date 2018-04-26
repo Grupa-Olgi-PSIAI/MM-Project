@@ -66,6 +66,11 @@ class Invoice extends Model
      */
     private $contractor_id;
 
+    /**
+     * @var null|int
+     */
+    private $file_id;
+
     public function getFields(): array
     {
         return get_object_vars($this);
@@ -284,6 +289,24 @@ class Invoice extends Model
     public function setContractorId(?int $contractor_id): Invoice
     {
         $this->contractor_id = $contractor_id;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getFileId(): ?int
+    {
+        return $this->file_id;
+    }
+
+    /**
+     * @param int|null $file_id
+     * @return Invoice
+     */
+    public function setFileId(?int $file_id): Invoice
+    {
+        $this->file_id = $file_id;
         return $this;
     }
 }

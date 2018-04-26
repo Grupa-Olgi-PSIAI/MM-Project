@@ -2,7 +2,7 @@
     <h2>Dodaj fakturę</h2>
     <br>
 
-    <form action="/invoices/create" method="post">
+    <form action="/invoices/create" method="post" enctype="multipart/form-data">
         <div class="material-input">
             <input type='text' name='number' required/>
             <span class="material-input-highlight"></span>
@@ -36,6 +36,13 @@
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label>Waluta</label>
+        </div>
+
+        <div class="material-input">
+            <input type='file' name='file'/>
+            <span class="material-input-highlight"></span>
+            <span class="material-input-bar"></span>
+            <label>Plik</label>
         </div>
 
         Kontrahent <br>

@@ -42,8 +42,9 @@ class FileStorage
     /**
      * @param array $file $_FILE array for uploaded file
      * @param string $fileCategory category of file e.g. invoice, document etc.
+     * @return int id of file
      */
-    public function store(array $file, string $fileCategory)
+    public function store(array $file, string $fileCategory): int
     {
         if ($file['error'] != UPLOAD_ERR_OK) {
             throw new \RuntimeException("Error uploading file");
@@ -61,7 +62,7 @@ class FileStorage
             throw new \RuntimeException("Error saving file");
         }
 
-        $this->saveToDatabase($file, $fileCategory, $path);
+        return $this->saveToDatabase($file, $fileCategory, $path);
     }
 
     /**
@@ -110,7 +111,7 @@ class FileStorage
         }
     }
 
-    private function saveToDatabase(array $file, string $fileCategory, string $path)
+    private function saveToDatabase(array $file, string $fileCategory, string $path): int
     {
         $storedFile = new File();
         $storedFile->setName($file['name'])
@@ -120,6 +121,7 @@ class FileStorage
             ->setPath($path);
 
         $this->fileRepository->add($storedFile);
+        return $this->fileRepository->getLastInsertId();
     }
 
     /**

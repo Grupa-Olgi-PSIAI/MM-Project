@@ -6,7 +6,7 @@ use util\DateUtils;
 
 <div id="page">
 
-    <a href="/documents/add" class="btn btn-primary"
+    <a href="/documents/add" class="material-btn"
        style="font-size: larger; background-color: #FFC400; color: white; padding: 5px;">Dodaj nową fakturę</a>
     <br>
     <h2>Lista faktur</h2>
@@ -53,8 +53,8 @@ use util\DateUtils;
                         <td><?php echo $license->getPurchaseDate() ?></td>
                         <td><?php echo $license->getPriceNet() ?></td>
                         <td><?php echo $license->getNotes() ?></td>
-                        <td><?php echo '<a href="/invoices/details?id=' . $document->getId() . '" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/invoices/edit?id=' . $document->getId() . '" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
+                        <td><?php echo '<a href="/invoices/details?id=' . $document->getId() . '" class="material-btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
+                        <td><?php echo '<a href="/invoices/edit?id=' . $document->getId() . '" class="material-btn btn-primary"><button>Edytuj</button></a>'; ?></td>
                         <td><?php echo '<a href="/invoices/delete?id=' . $document->getId() . '"><button>Usuń</button></a>' ?></td>
                     </tr>
                 <?php }
@@ -68,8 +68,12 @@ use util\DateUtils;
                     <td><?php if(isset($invoice)){echo $invoice->getAmountTax(); } ?></td>
                     <td><?php if(isset($invoice)){echo $invoice->getCurrency() ; }?></td>
                     <td><?php if(isset($invoice)){echo $invoice->getContractorId() ; }?></td>
-                    <td><?php if(isset($invoice)){echo '<a href="/invoices/details?id=' . $invoice->getId() . '" class="btn btn-primary">Szczegóły</a>'; ; }?></td>
-                    <td><?php if(isset($invoice)){echo '<a href="/invoices/edit?id=' . $invoice->getId() . '" class="btn btn-primary">Edytuj</a>';; } ?></td>
+                    <td><?php if (isset($invoice)) {
+                            echo '<a href="/invoices/details?id=' . $invoice->getId() . '" class="material-btn btn-primary">Szczegóły</a>';;
+                        } ?></td>
+                    <td><?php if (isset($invoice)) {
+                            echo '<a href="/invoices/edit?id=' . $invoice->getId() . '" class="material-btn btn-primary">Edytuj</a>';;
+                        } ?></td>
                     <td><?php if(isset($invoice)){echo '<a href="/invoices/delete?id=' . $invoice->getId() . '">Usuń</a>' ; }?></td>
                 </tr>
                 <?php
@@ -86,8 +90,8 @@ use util\DateUtils;
                         <td><?php echo $invoice->getAmountTax() ?></td>
                         <td><?php echo $invoice->getCurrency() ?></td>
                         <td><?php echo $invoice->getContractorId() ?></td>
-                        <td><?php echo '<a href="/invoices/details?id=' . $invoice->getId() . '" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/invoices/edit?id=' . $invoice->getId() . '" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
+                        <td><?php echo '<a href="/invoices/details?id=' . $invoice->getId() . '" class="material-btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
+                        <td><?php echo '<a href="/invoices/edit?id=' . $invoice->getId() . '" class="material-btn btn-primary"><button>Edytuj</button></a>'; ?></td>
                         <td><?php echo '<a href="/invoices/delete?id=' . $invoice->getId() . '"><button>Usuń</button></a>' ?></td>
                     </tr>
                 <?php }

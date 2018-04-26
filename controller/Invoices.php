@@ -125,8 +125,8 @@ class Invoices extends Controller
         //"%" . $criterium . "%",
 
         $repository = new InvoicesRepository();
-        $invoiceSearch = $repository->findOr($con,$val);
-        View::render('invoicesList.php', ["invoiceSearch" => $invoiceSearch]);
+        $invoices = $repository->findOr($con, $val);
+        View::render('invoicesList.php', ["invoices" => $invoices]);
     }
 
     public function filterAction()
@@ -137,10 +137,10 @@ class Invoices extends Controller
         $val = array($dateFrom,$dateTo);
 
         $repository = new InvoicesRepository();
-        $invoiceFilter = $repository->find($con,$val);
+        $invoices = $repository->find($con, $val);
 
 
-        View::render('invoicesList.php', ["invoiceFilter" => $invoiceFilter]);
+        View::render('invoicesList.php', ["invoices" => $invoices]);
     }
 
     /**

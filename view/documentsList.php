@@ -1,6 +1,6 @@
 <div id="page">
 
-    <a href="/documents/add" class="btn btn-primary"
+    <a href="/documents/add" class="material-btn btn-primary"
        style="font-size: larger; background-color: #FFC400; color: white; padding: 5px;">Dodaj nowy dokument</a>
 
     <form action="/documents/search" method="post">
@@ -64,8 +64,8 @@
                         <td><?php echo $document->getIdInternal() ?></td>
                         <td><?php echo $document->getDescription() ?></td>
                         <td><?php echo $document->getContractorId() ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="material-btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="material-btn btn-primary"><button>Edytuj</button></a>'; ?></td>
                         <td><?php echo '<a href="/documents/' . $document->getId() . '/delete"><button>Usuń</button></a>' ?></td>
                     </tr>
                 <?php }
@@ -81,8 +81,8 @@
                         <td><?php echo $document->getIdInternal() ?></td>
                         <td><?php echo $document->getDescription() ?></td>
                         <td><?php echo $document->getContractorId() ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="material-btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="material-btn btn-primary"><button>Edytuj</button></a>'; ?></td>
                         <td><?php echo '<a href="/documents/' . $document->getId() . '/delete"><button>Usuń</button></a>' ?></td>
                     </tr>
                 <?php }
@@ -98,8 +98,8 @@
                         <td><?php echo $document->getIdInternal() ?></td>
                         <td><?php echo $document->getDescription() ?></td>
                         <td><?php echo $document->getContractorId() ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="btn btn-primary"><button>Edytuj</button></a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="material-btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="material-btn btn-primary"><button>Edytuj</button></a>'; ?></td>
                         <td><?php echo '<a href="/documents/' . $document->getId() . '/delete"><button>Usuń</button></a>' ?></td>
                     </tr>
                 <?php }

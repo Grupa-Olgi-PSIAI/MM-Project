@@ -75,8 +75,18 @@ class Documents extends Controller
     {
         $dateFrom = $_POST['dateFrom'];
         $dateTo = $_POST['dateTo'];
-        $con = array('date_created >= ?', 'date_created <= ?');
-        $val = array($dateFrom, $dateTo);
+        if($dateTo == NULL){
+            $con = array('date_created >= ?');
+            $val = array($dateFrom);
+        }
+        else if($dateFrom == NULL){
+            $con = array('date_created <= ?');
+            $val = array($dateTo);
+        }
+        else{
+            $con = array('date_created >= ?', 'date_created <= ?');
+            $val = array($dateFrom, $dateTo);
+        }
 
         $repository = new DocumentRepository();
         $documents = $repository->find($con, $val);

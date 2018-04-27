@@ -125,4 +125,66 @@ class License extends Controller
         View::render('licenseEdit.php', ["license" => $licence]);
     }
 
+    public function search() {
+
+        $criterium = $_POST['criterium'];
+
+        $con = array('id LIKE ?','version LIKE ?','user_id LIKE ?','inventary_number LIKE ?',
+            'name LIKE ?','serial_key LIKE ?','notes LIKE ?','price_net LIKE ?','user_id IN (SELECT id FROM users WHERE last_name = ?)');
+
+        $val = array($criterium,$criterium,$criterium,$criterium,"%" . $criterium . "%",$criterium,"%" . $criterium . "%",$criterium,$criterium);
+
+        $repository = new LicenseRepository();
+        $licenses = $repository->findOr($con, $val);
+        View::render('licenseList.php', ["licenses" => $licenses]);
+    }
+
+    public function filterAction()
+    {
+        $dateFrom = $_POST['dateFrom'];
+        $dateTo = $_POST['dateTo'];
+        $whichDate = $_POST['whichDate'];
+
+        if($whichDate == 'purchaseDate') {
+            if ($dateTo == NULL) {
+                $con = array('purchase_date >= ?');
+                $val = array($dateFrom);
+            } else if ($dateFrom == NULL) {
+                $con = array('purchase_date <= ?');
+                $val = array($dateTo);
+            } else {
+                $con = array('purchase_date >= ?', 'purchase_date <= ?');
+                $val = array($dateFrom, $dateTo);
+            }
+        } else if($whichDate == 'reviewDate'){
+            if ($dateTo == NULL) {
+                $con = array('tech_support_end_date >= ?');
+                $val = array($dateFrom);
+            } else if ($dateFrom == NULL) {
+                $con = array('tech_support_end_date <= ?');
+                $val = array($dateTo);
+            } else {
+                $con = array('tech_support_end_date >= ?', 'tech_support_end_date <= ?');
+                $val = array($dateFrom, $dateTo);
+            }
+        } else{
+            if ($dateTo == NULL) {
+                $con = array('date_created >= ?');
+                $val = array($dateFrom);
+            } else if ($dateFrom == NULL) {
+                $con = array('date_created <= ?');
+                $val = array($dateTo);
+            } else {
+                $con = array('date_created >= ?', 'date_created <= ?');
+                $val = array($dateFrom, $dateTo);
+            }
+        }
+
+        $repository = new LicenseRepository();
+        $licenses = $repository->find($con, $val);
+
+
+        View::render('licenseList.php', ["licenses" => $licenses]);
+    }
+
 }

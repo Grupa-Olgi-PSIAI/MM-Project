@@ -51,7 +51,7 @@ use util\DateUtils;
                 <th>Data utworzenia</th>
                 <th>Data modyfikacji</th>
                 <th>ID użytkownika</th>
-                <th>inventary_number</th>
+                <th>Numer inwentarza</th>
                 <th>Nazwa</th>
                 <th>Klucz</th>
                 <th>Data validacji</th>
@@ -70,6 +70,7 @@ use util\DateUtils;
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
             <?php if (isset($licenses)) {
+                /** @var \model\Licenses $license */
                 foreach ($licenses as $key => $license) { ?>
                     <tr>
                         <td><?php echo $license->getId() ?></td>
@@ -85,46 +86,9 @@ use util\DateUtils;
                         <td><?php echo $license->getPurchaseDate() ?></td>
                         <td><?php echo $license->getPriceNet() ?></td>
                         <td><?php echo $license->getNotes() ?></td>
-                        <td><?php echo '<a href="/license/details?id=' . $license->getId() . '" class="material-btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/license/edit?id=' . $license->getId() . '" class="material-btn btn-primary"><button>Edytuj</button></a>'; ?></td>
-                        <td><?php echo '<a href="/license/delete?id=' . $license->getId() . '"><button>Usuń</button></a>' ?></td>
-                    </tr>
-                <?php }
-            } ?>
-            <?php  if (isset($invoice)) { ?>
-                <tr>
-                    <td><?php if(isset($invoice)){ echo $invoice->getNumber() ;}?></td>
-                    <td><?php if(isset($invoice)){ DateUtils::getPlainDate($invoice->getInvoiceDate()); } ?></td>
-                    <td><?php if(isset($invoice)){echo $invoice->getAmountNet(); } ?></td>
-                    <td><?php if(isset($invoice)){echo $invoice->getAmountGross() ; }?></td>
-                    <td><?php if(isset($invoice)){echo $invoice->getAmountTax(); } ?></td>
-                    <td><?php if(isset($invoice)){echo $invoice->getCurrency() ; }?></td>
-                    <td><?php if(isset($invoice)){echo $invoice->getContractorId() ; }?></td>
-                    <td><?php if (isset($invoice)) {
-                            echo '<a href="/license/details?id=' . $invoice->getId() . '" class="material-btn btn-primary">Szczegóły</a>';;
-                        } ?></td>
-                    <td><?php if (isset($invoice)) {
-                            echo '<a href="/license/edit?id=' . $invoice->getId() . '" class="material-btn btn-primary">Edytuj</a>';;
-                        } ?></td>
-                    <td><?php if(isset($invoice)){echo '<a href="/license/delete?id=' . $invoice->getId() . '">Usuń</a>' ; }?></td>
-                </tr>
-                <?php
-            } ?>
-
-            <?php if (isset($invoiceFilter)) {
-                foreach ($invoiceFilter
-                         as $key => $invoice) { ?>
-                    <tr>
-                        <td><?php echo $invoice->getNumber() ?></td>
-                        <td><?php DateUtils::getPlainDate($invoice->getInvoiceDate()) ?></td>
-                        <td><?php echo $invoice->getAmountNet() ?></td>
-                        <td><?php echo $invoice->getAmountGross() ?></td>
-                        <td><?php echo $invoice->getAmountTax() ?></td>
-                        <td><?php echo $invoice->getCurrency() ?></td>
-                        <td><?php echo $invoice->getContractorId() ?></td>
-                        <td><?php echo '<a href="/license/details?id=' . $invoice->getId() . '" class="material-btn btn-primary"><button>Szczegóły</button></a>'; ?></td>
-                        <td><?php echo '<a href="/license/edit?id=' . $invoice->getId() . '" class="material-btn btn-primary"><button>Edytuj</button></a>'; ?></td>
-                        <td><?php echo '<a href="/license/delete?id=' . $invoice->getId() . '"><button>Usuń</button></a>' ?></td>
+                        <td><?php echo '<a href="/license/details?id=' . $license->getId() . '" class="material-btn">Szczegóły</a>'; ?></td>
+                        <td><?php echo '<a href="/license/edit?id=' . $license->getId() . '" class="material-btn">Edytuj</a>'; ?></td>
+                        <td><?php echo '<a href="/license/delete?id=' . $license->getId() . '" class="material-btn">Usuń</a>' ?></td>
                     </tr>
                 <?php }
             } ?>

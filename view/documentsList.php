@@ -33,7 +33,6 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Wersja</th>
                 <th>Data utworzenia</th>
                 <th>Data modyfikacji</th>
                 <th>ID faktury</th>
@@ -56,7 +55,6 @@
                 foreach ($documents as $key => $document) { ?>
                     <tr>
                         <td><?php echo $document->getId() ?></td>
-                        <td><?php echo $document->getVersion() ?></td>
                         <td><?php DateUtils::getPlainDate($document->getDateCreated()) ?></td>
                         <td><?php DateUtils::getPlainDate($document->getLastUpdated()) ?></td>
                         <td><?php echo $document->getIdInternal() ?></td>

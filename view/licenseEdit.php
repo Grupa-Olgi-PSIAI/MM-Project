@@ -2,87 +2,80 @@
     <h2>Edytuj licencję</h2>
     <br>
 
-    <form action="/license/update?id=<?php if(isset($license)){echo $license->getId();}?>" method="post">
+    <form action="/license/update?id=<?php if (isset($license)) {
+        echo $license->getId();
+    } ?>" method="post">
         <div class="material-input">
-            <input type='text' name='id' <?php if(isset($license)){ echo "value=" . $license->getId() . "";}?> required/>
+            <input type='text' id="user_id" name='user_id' <?php if (isset($license)) {
+                echo "value=" . $license->getUserId() . "";
+            } ?> required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>ID</label>
+            <label for="user_id">ID użytkownika</label>
         </div>
         <div class="material-input">
-            <input type='text' name='version' <?php if(isset($license)){ echo "value=" . $license->getVersion() . "";}?> required/>
+            <input type='text' id="inventary_number" name='inventary_number' <?php if (isset($license)) {
+                echo "value=" . $license->getInventaryNumber() . "";
+            } ?> required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Wersja</label>
-        </div>
-
-        <div class="material-input">
-            <input type='date' name='date_created' <?php if(isset($license)){ echo "value=" . $license->getDateCreated() . "";}?> required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>Data utworzenia</label>
-        </div>
-
-        <div class="material-input">
-            <input type='date' name='last_updated' <?php if(isset($license)){ echo "value=" . $license->getLastUpdated() . "";}?> required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>Data aktualizacji</label>
-        </div>
-
-        <div class="material-input">
-            <input type='text' name='user_id' <?php if(isset($license)){ echo "value=" . $license->getUserId() . "";}?> required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>ID użytkownika</label>
+            <label for="inventary_number">Numer inwentaryzacyjny</label>
         </div>
         <div class="material-input">
-            <input type='text' name='inventary_number' <?php if(isset($license)){ echo "value=" . $license->getInventaryNumber() . "";}?> required/>
+            <input type='text' id="name" name='name' <?php if (isset($license)) {
+                echo "value=" . $license->getName() . "";
+            } ?> required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Numer inwentaryzacyjny</label>
+            <label for="name">Nazwa</label>
         </div>
         <div class="material-input">
-            <input type='text' name='name' <?php if(isset($license)){ echo "value=" . $license->getName() . "";}?> required/>
+            <input type='text' id="serial_key" name='serial_key' <?php if (isset($license)) {
+                echo "value=" . $license->getSerialKey() . "";
+            } ?> required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Nazwa</label>
+            <label for="serial_key">Klucz</label>
         </div>
         <div class="material-input">
-            <input type='text' name='serial_key' <?php if(isset($license)){ echo "value=" . $license->getSerialKey() . "";}?> required/>
+            <input type='date' id="validation_date" name='validation_date' <?php if (isset($license)) {
+                echo "value=" . $license->getValidationDate() . "";
+            } ?> required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Klucz</label>
+            <label for="validation_date">Data walidacji</label>
         </div>
         <div class="material-input">
-            <input type='date' name='validation_date' <?php if(isset($license)){ echo "value=" . $license->getValidationDate() . "";}?> required/>
+            <input type='date' id="tech_support_end_date" name='tech_support_end_date' <?php if (isset($license)) {
+                echo "value=" . $license->getTechSupportEndDate() . "";
+            } ?> required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Data walidacji</label>
+            <label for="tech_support_end_date">Data przeglądu</label>
         </div>
         <div class="material-input">
-            <input type='date' name='tech_support_end_date'<?php if(isset($license)){ echo "value=" . $license->getTechSupportEndDate() . "";}?> required/>
+            <input type='date' id="purchase_date" name='purchase_date' <?php if (isset($license)) {
+                echo "value=" . $license->getPurchaseDate() . "";
+            } ?> required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Data przeglądu</label>
+            <label for="purchase_date">Data zakupu</label>
         </div>
         <div class="material-input">
-            <input type='date' name='purchase_date' <?php if(isset($license)){ echo "value=" . $license->getPurchaseDate() . "";}?> required/>
+            <input type='text' id="price_net" name='price_net' <?php if (isset($license)) {
+                echo "value=" . $license->getPriceNet() . "";
+            } ?> required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Data zakupu</label>
+            <label for="price_net">Cena netto</label>
         </div>
         <div class="material-input">
-            <input type='text' name='price_net' <?php if(isset($license)){ echo "value=" . $license->getPriceNet() . "";}?> required/>
+            <input type='text' id="notes" name='notes' <?php if (isset($license)) {
+                echo "value=" . $license->getNotes() . "";
+            } ?> required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Cena netto</label>
-        </div>
-        <div class="material-input">
-            <input type='text' name='notes' <?php if(isset($license)){ echo "value=" . $license->getNotes() . "";}?> required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>Notatki</label>
+            <label for="notes">Notatki</label>
         </div>
         <div class="material-input">
             <input type="submit" name="invoice_add" value="Wyślij">

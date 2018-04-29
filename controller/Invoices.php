@@ -45,8 +45,6 @@ class Invoices extends Controller
      */
     public function createAction()
     {
-        unset($error);
-
         $file = $_FILES['file'];
         $fileStorage = FileStorage::getInstance();
         $fileId = $fileStorage->store($file, 'invoice');
@@ -173,8 +171,6 @@ class Invoices extends Controller
      */
     public function updateAction()
     {
-        unset($error);
-
         $number = $_POST['number'];
         $invoice_date = $_POST['invoice_date'];
         $amount_net = $_POST['amount_net'];

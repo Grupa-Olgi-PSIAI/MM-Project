@@ -4,45 +4,45 @@
         } ?></h2>
     <br>
 
-    <label>Numer faktury</label>
+    <label for="number">Numer faktury</label>
     <div class="material-input">
-        <input type='text' disabled name='number' <?php if (isset($invoice)) {
+        <input type='text' disabled id="number" name='number' <?php if (isset($invoice)) {
             echo "value=" . $invoice->getNumber() . "";
         } ?> required/>
         <span class="material-input-highlight"></span>
         <span class="material-input-bar"></span>
     </div>
 
-    <label>Data faktury</label>
+    <label for="invoice_date">Data faktury</label>
     <div class="material-input">
-        <input type='date' disabled name='invoice_date' <?php if (isset($invoice)) {
+        <input type='date' disabled id="invoice_date" name='invoice_date' <?php if (isset($invoice)) {
             echo "value=" . $invoice->getInvoiceDate() . "";
         } ?> required/>
         <span class="material-input-highlight"></span>
         <span class="material-input-bar"></span>
     </div>
 
-    <label>Kwota netto</label>
+    <label for="amount_net">Kwota netto</label>
     <div class="material-input">
-        <input type='number' disabled step="0.01" name='amount_net' <?php if (isset($invoice)) {
+        <input type='number' disabled step="0.01" id="amount_net" name='amount_net' <?php if (isset($invoice)) {
             echo "value=" . $invoice->getAmountNet() . "";
         } ?> required/>
         <span class="material-input-highlight"></span>
         <span class="material-input-bar"></span>
     </div>
 
-    <label>Kwota brutto</label>
+    <label for="amount_gross">Kwota brutto</label>
     <div class="material-input">
-        <input type='number' disabled step="0.01" name='amount_gross' <?php if (isset($invoice)) {
+        <input type='number' disabled step="0.01" id="amount_gross" name='amount_gross' <?php if (isset($invoice)) {
             echo "value=" . $invoice->getAmountGross() . "";
         } ?> required/>
         <span class="material-input-highlight"></span>
         <span class="material-input-bar"></span>
     </div>
 
-    <label>Waluta</label>
+    <label for="currency">Waluta</label>
     <div class="material-input">
-        <input type='text' disabled name='currency' value="PLN" <?php if (isset($invoice)) {
+        <input type='text' disabled id="currency" name='currency' value="PLN" <?php if (isset($invoice)) {
             echo "value=" . $invoice->getCurrency() . "";
         } ?> required/>
         <span class="material-input-highlight"></span>
@@ -51,7 +51,7 @@
 
     <div class="material-input">
         <?php if (isset($invoice)) {
-            echo "<a href=\"/invoices/" . $invoice->getFileId() . "/download\" class=\"btn btn-primary\" " .
+            echo "<a href=\"/invoices/" . $invoice->getFileId() . "/download\" class=\"btn\" " .
                 "style=\"font-size: larger; background-color: #FFC400; color: white; padding: 5px;\">Pobierz</a>";
         } ?>
     </div>

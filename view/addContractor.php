@@ -4,7 +4,7 @@
 
     <form action="/addcontractor" method="post">
         <div class="material-input">
-            <?php echo "<input type='text' name='contractor_name' value= '". (isset($name) ? $name : '') ."'/>"; ?>
+            <?php echo "<input type='text' name='contractor_name' value= '" . (isset($name) ? $name : '') . "'/>"; ?>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label>Nazwa</label>
@@ -12,7 +12,7 @@
         </div>
 
         <div class="material-input">
-            <?php echo "<input type='text' name='contractor_vat_id' value= '". (isset($vat_id) ? $vat_id : '') ."'/>"; ?>
+            <?php echo "<input type='text' name='contractor_vat_id' value= '" . (isset($vat_id) ? $vat_id : '') . "'/>"; ?>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label>VAT ID</label>

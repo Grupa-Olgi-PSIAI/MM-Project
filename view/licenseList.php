@@ -47,7 +47,6 @@ use util\DateUtils;
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Wersja</th>
                 <th>Data utworzenia</th>
                 <th>Data modyfikacji</th>
                 <th>ID użytkownika</th>
@@ -74,7 +73,6 @@ use util\DateUtils;
                 foreach ($licenses as $key => $license) { ?>
                     <tr>
                         <td><?php echo $license->getId() ?></td>
-                        <td><?php echo $license->getVersion() ?></td>
                         <td><?php DateUtils::getPlainDate($license->getDateCreated()) ?></td>
                         <td><?php DateUtils::getPlainDate($license->getLastUpdated()) ?></td>
                         <td><?php echo $license->getUserId() ?></td>

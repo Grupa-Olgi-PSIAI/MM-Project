@@ -7,27 +7,28 @@
     </h2>
     <br>
 
-    <label title="creation_date">Data dodania</label>
+    <label for="date_created">Data dodania</label>
     <div class="material-input">
-        <input title="creation_date" type='date' disabled name='date_created' <?php if (isset($document)) {
+        <input id="date_created" type='date' disabled name='date_created' <?php if (isset($document)) {
             echo "value=" . $document->getDateCreated() . "";
         } ?> required/>
         <span class="material-input-highlight"></span>
         <span class="material-input-bar"></span>
     </div>
 
-    <label title="desc">Opis</label>
+    <label for="description">Opis</label>
     <div class="material-input">
-        <input title="desc" type='text' disabled name='description' <?php if (isset($document)) {
+        <input id="description" type='text' disabled name='description' <?php if (isset($document)) {
             echo "value='" . $document->getDescription() . "'";
         } ?> required/>
         <span class="material-input-highlight"></span>
         <span class="material-input-bar"></span>
     </div>
 
-    <label title="contractor">Kontrahent</label>
+    <label for="contractor">Kontrahent</label>
     <div class="material-input">
-        <input title="contractor" type='text' disabled name='contractor' <?php /** @var \model\Contractor $contractor */
+        <input id="contractor" type='text' disabled name='contractor' <?php
+        /** @var \model\Contractor $contractor */
         if (isset($contractor)) {
             echo "value='" . $contractor->getName() . "'";
         } ?> required/>

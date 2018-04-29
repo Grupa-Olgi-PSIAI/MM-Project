@@ -38,28 +38,21 @@ class Documents extends Controller
     {
         $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_CREATE);
 
-        $documents = $this->repository->findAll();
-        View::render('documentsAdd.php', ["documents" => $documents]);
+        $contractorRepository = new ContractorRepository();
+        $contractors = $contractorRepository->findAll();
+        View::render('documentsAdd.php', ["contractors" => $contractors]);
     }
 
     public function createAction()
     {
         $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_CREATE);
 
-        unset($error);
-
-
-        $version = $_POST['version'];
-        $date_created = $_POST['date_created'];
-        $last_updated = $_POST['last_updated'];
         $id_internal = $_POST['id_internal'];
         $description = $_POST['description'];
         $contractor_id = $_POST['contractor_id'];
 
         $document = new Document();
         $document->setVersion(1);
-        $document->setDateCreated($date_created);
-        $document->setLastUpdated($last_updated);
         $document->setIdInternal($id_internal);
         $document->setDescription($description);
         $document->setContractorId($contractor_id);
@@ -75,15 +68,13 @@ class Documents extends Controller
     {
         $dateFrom = $_POST['dateFrom'];
         $dateTo = $_POST['dateTo'];
-        if($dateTo == NULL){
+        if ($dateTo == NULL) {
             $con = array('date_created >= ?');
             $val = array($dateFrom);
-        }
-        else if($dateFrom == NULL){
+        } else if ($dateFrom == NULL) {
             $con = array('date_created <= ?');
             $val = array($dateTo);
-        }
-        else{
+        } else {
             $con = array('date_created >= ?', 'date_created <= ?');
             $val = array($dateFrom, $dateTo);
         }
@@ -141,7 +132,8 @@ class Documents extends Controller
     /**
      * @throws \Exception
      */
-    public function edit() {
+    public function editAction()
+    {
         $id = $_GET['id'];
         $repository = new DocumentRepository();
 
@@ -156,26 +148,18 @@ class Documents extends Controller
     {
         $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_CREATE);
 
-        unset($error);
-
-
-        $version = $_POST['version'];
-        $date_created = $_POST['date_created'];
-        $last_updated = $_POST['last_updated'];
         $id_internal = $_POST['id_internal'];
         $description = $_POST['description'];
         $contractor_id = $_POST['contractor_id'];
 
         $document = new Document();
         $document->setVersion(1);
-        $document->setDateCreated($date_created);
-        $document->setLastUpdated($last_updated);
         $document->setIdInternal($id_internal);
         $document->setDescription($description);
         $document->setContractorId($contractor_id);
 
         $repository = new DocumentRepository();
-        $repository->update($_GET['id'],$document);
+        $repository->update($_GET['id'], $document);
         $documents = $repository->findAll();
 
         View::render('documentsList.php', ["documents" => $documents]);

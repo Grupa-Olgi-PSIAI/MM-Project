@@ -8,10 +8,10 @@
 
 namespace controller;
 
-use core\View;
 use core\Controller;
-use repository\LicenseRepository;
+use core\View;
 use model\Licenses;
+use repository\LicenseRepository;
 
 class License extends Controller
 {
@@ -24,23 +24,14 @@ class License extends Controller
 
     public function showAction()
     {
-
         $repository = new LicenseRepository();
-
         $licenses = $repository->findAll();
-
-
         View::render('licenseList.php', ["licenses" => $licenses]);
     }
 
 
     public function createAction()
     {
-        unset($error);
-
-        $version = $_POST['version'];
-        $date_created = $_POST['date_created'];
-        $last_updated = $_POST['last_updated'];
         $user_id = $_POST['user_id'];
         $inventary_number = $_POST['inventary_number'];
         $name = $_POST['name'];
@@ -53,10 +44,7 @@ class License extends Controller
 
 
         $license = new Licenses();
-
         $license->setVersion(1);
-        $license->setDateCreated(date_create($date_created)->format('Y-m-d h:m:s'));
-        $license->setLastUpdated(date_create($last_updated)->format('Y-m-d h:m:s'));
         $license->setUserId($user_id);
         $license->setInventaryNumber($inventary_number);
         $license->setName($name);
@@ -76,11 +64,6 @@ class License extends Controller
 
     public function updateAction()
     {
-        unset($error);
-
-        $version = $_POST['version'];
-        $date_created = $_POST['date_created'];
-        $last_updated = $_POST['last_updated'];
         $user_id = $_POST['user_id'];
         $inventary_number = $_POST['inventary_number'];
         $name = $_POST['name'];
@@ -91,12 +74,9 @@ class License extends Controller
         $price_net = $_POST['price_net'];
         $notes = $_POST['notes'];
 
-
         $license = new Licenses();
 
         $license->setVersion(1);
-        $license->setDateCreated(date_create($date_created)->format('Y-m-d h:m:s'));
-        $license->setLastUpdated(date_create($last_updated)->format('Y-m-d h:m:s'));
         $license->setUserId($user_id);
         $license->setInventaryNumber($inventary_number);
         $license->setName($name);
@@ -108,7 +88,7 @@ class License extends Controller
         $license->setNotes($notes);
 
         $repository = new LicenseRepository();
-        $repository->update($_GET['id'],$license);
+        $repository->update($_GET['id'], $license);
         $licenses = $repository->findAll();
 
         View::render('licenseList.php', ["licenses" => $licenses]);
@@ -117,7 +97,8 @@ class License extends Controller
     /**
      * @throws \Exception
      */
-    public function edit() {
+    public function edit()
+    {
         $id = $_GET['id'];
         $repository = new LicenseRepository();
 
@@ -125,14 +106,15 @@ class License extends Controller
         View::render('licenseEdit.php', ["license" => $licence]);
     }
 
-    public function search() {
+    public function search()
+    {
 
         $criterium = $_POST['criterium'];
 
-        $con = array('id LIKE ?','version LIKE ?','user_id LIKE ?','inventary_number LIKE ?',
-            'name LIKE ?','serial_key LIKE ?','notes LIKE ?','price_net LIKE ?','user_id IN (SELECT id FROM users WHERE last_name = ?)');
+        $con = array('id LIKE ?', 'version LIKE ?', 'user_id LIKE ?', 'inventary_number LIKE ?',
+            'name LIKE ?', 'serial_key LIKE ?', 'notes LIKE ?', 'price_net LIKE ?', 'user_id IN (SELECT id FROM users WHERE last_name = ?)');
 
-        $val = array($criterium,$criterium,$criterium,$criterium,"%" . $criterium . "%",$criterium,"%" . $criterium . "%",$criterium,$criterium);
+        $val = array($criterium, $criterium, $criterium, $criterium, "%" . $criterium . "%", $criterium, "%" . $criterium . "%", $criterium, $criterium);
 
         $repository = new LicenseRepository();
         $licenses = $repository->findOr($con, $val);
@@ -145,7 +127,7 @@ class License extends Controller
         $dateTo = $_POST['dateTo'];
         $whichDate = $_POST['whichDate'];
 
-        if($whichDate == 'purchaseDate') {
+        if ($whichDate == 'purchaseDate') {
             if ($dateTo == NULL) {
                 $con = array('purchase_date >= ?');
                 $val = array($dateFrom);
@@ -156,7 +138,7 @@ class License extends Controller
                 $con = array('purchase_date >= ?', 'purchase_date <= ?');
                 $val = array($dateFrom, $dateTo);
             }
-        } else if($whichDate == 'reviewDate'){
+        } else if ($whichDate == 'reviewDate') {
             if ($dateTo == NULL) {
                 $con = array('tech_support_end_date >= ?');
                 $val = array($dateFrom);
@@ -167,7 +149,7 @@ class License extends Controller
                 $con = array('tech_support_end_date >= ?', 'tech_support_end_date <= ?');
                 $val = array($dateFrom, $dateTo);
             }
-        } else{
+        } else {
             if ($dateTo == NULL) {
                 $con = array('date_created >= ?');
                 $val = array($dateFrom);

@@ -4,49 +4,34 @@
 
     <form action="/documents/create" method="post">
         <div class="material-input">
-            <input type='text' name='version' required/>
+            <input type='text' id="id_internal" name='id_internal' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Wersja dokumantu</label>
+            <label for="id_internal">Id wewnętrzne</label>
         </div>
 
         <div class="material-input">
-            <input type='date' name='date_created' required/>
+            <input type='text' id="description" name='description' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label></label>
+            <label for="description">Opis</label>
         </div>
 
-        <div class="material-input">
-            <input type='date' name='last_updated' required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label></label>
-        </div>
-
-        <div class="material-input">
-            <input type='text' name='id_internal' required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>Id wewnątrzne</label>
-        </div>
-
-        <div class="material-input">
-            <input type='text' name='description' required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>Opis</label>
-        </div>
-
-        <div class="material-input">
-            <input type='text' name='contractor_id' required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>ID</label>
-        </div>
-        <div class="material-input">
-            <input type="submit" name="invoice_add" value="Wyślij">
-        </div>
+        <?php if (isset($contractors)) { ?>
+            <label for="contractor_id">Kontrahent<br></label>
+            <select id="contractor_id" name="contractor_id">
+                <?php /** @var \model\Contractor $value */
+                foreach ($contractors as &$value) {
+                    echo "<option value=" . $value->getId() . ">" . $value->getName() . "</option>";
+                } ?>
+            </select>
+            <br><br><br>
+            <div class="material-input">
+                <input type="submit" name="add" value="Wyślij">
+            </div>
+        <?php } else { ?>
+            <a href="/addContractor/show" class="material-btn"> Dodaj nowego kontrahenta </a>
+        <?php } ?>
     </form>
 
 </div>

@@ -4,88 +4,64 @@
 
     <form action="/license/create" method="post">
         <div class="material-input">
-            <input type='text' name='id' required/>
+            <input type='text' id="user_id" name='user_id' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>ID</label>
+            <label for="user_id">ID użytkownika</label>
         </div>
         <div class="material-input">
-            <input type='text' name='version' required/>
+            <input type='text' id="inventary_number" name='inventary_number' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Wersja</label>
+            <label for="inventary_number">Numer inwentaryzacyjny</label>
         </div>
-
         <div class="material-input">
-            <input type='date' name='date_created' required/>
+            <input type='text' id="name" name='name' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label></label>
+            <label for="name">Nazwa</label>
         </div>
-
         <div class="material-input">
-            <input type='date' name='last_updated' required/>
+            <input type='text' id="serial_key" name='serial_key' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label></label>
+            <label for="serial_key">Klucz</label>
         </div>
-
         <div class="material-input">
-            <input type='text' name='user_id' required/>
+            <input type='text' id="validation_date" name='validation_date' onfocus="(this.type='date')"
+                   onblur="(this.type='text')" required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>ID użytkownika</label>
+            <label for="validation_date">Data ważności</label>
         </div>
         <div class="material-input">
-            <input type='text' name='inventary_number' required/>
+            <input type='text' id="tech_support_end_date" name='tech_support_end_date'
+                   onfocus="(this.type='date')" onblur="(this.type='text')" required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Numer inwentaryzacyjny</label>
+            <label for="tech_support_end_date">Data wspacia technicznego</label>
         </div>
         <div class="material-input">
-            <input type='text' name='name' required/>
+            <input type='text' id="purchase_date" name='purchase_date'
+                   onfocus="(this.type='date')" onblur="(this.type='text')" required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Nazwa</label>
+            <label for="purchase_date">Data zakupu</label>
         </div>
         <div class="material-input">
-            <input type='text' name='serial_key' required/>
+            <input type='text' id="price_net" name='price_net' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Klucz</label>
+            <label for="price_net">Cena netto</label>
         </div>
         <div class="material-input">
-            <input type='date' name='validation_date' required/>
+            <input type='text' id="notes" name='notes' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label></label>
+            <label for="notes">Notatki</label>
         </div>
         <div class="material-input">
-            <input type='date' name='tech_support_end_date' required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label></label>
-        </div>
-        <div class="material-input">
-            <input type='date' name='purchase_date' required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label></label>
-        </div>
-        <div class="material-input">
-            <input type='text' name='price_net' required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>Cena netto</label>
-        </div>
-        <div class="material-input">
-            <input type='text' name='notes' required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>Notatki</label>
-        </div>
-        <div class="material-input">
-            <input type="submit" name="invoice_add" value="Wyślij">
+            <input type="submit" name="add" value="Wyślij">
         </div>
     </form>
 

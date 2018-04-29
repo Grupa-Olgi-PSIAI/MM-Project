@@ -12,9 +12,23 @@ use core\Controller;
 use core\View;
 use model\Licenses;
 use repository\LicenseRepository;
+use repository\UserRepository;
 
 class License extends Controller
 {
+    private const RESOURCE = "license";
+
+    /**
+     * @var LicenseRepository
+     */
+    private $repository;
+
+    public function __construct(array $route_params)
+    {
+        parent::__construct($route_params);
+        $this->repository = new LicenseRepository();
+    }
+
     public function addAction()
     {
         $repository = new LicenseRepository();
@@ -169,4 +183,14 @@ class License extends Controller
         View::render('licenseList.php', ["licenses" => $licenses]);
     }
 
+    public function detailsAction()
+    {
+        $id = $this->route_params['id'];
+        /** @var License $license */
+        $license = $this->repository->findById($id);
+        $userRepo = new UserRepository();
+        $user = $userRepo->findById($license->getUserId());
+
+        View::render('licenseDetails.php', ['license' => $license, 'user' => $user]);
+    }
 }

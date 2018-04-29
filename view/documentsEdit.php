@@ -13,7 +13,7 @@
             } ?> required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label for="id_internal">Id wewnątrzne</label>
+            <label for="id_internal">Id wewnętrzne</label>
         </div>
 
         <div class="material-input">

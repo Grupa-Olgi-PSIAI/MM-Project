@@ -4,28 +4,14 @@
 
     <form action="/documents/create" method="post">
         <div class="material-input">
-            <input type='text' name='version' required/>
+            <input type='text' name='version' pattern="^([0-9]*)\.([0-9]*)$" title="dwie liczby oddzielone kropką" required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Wersja dokumantu</label>
+            <label>Wersja dokumentu</label>
         </div>
 
         <div class="material-input">
-            <input type='date' name='date_created' required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label></label>
-        </div>
-
-        <div class="material-input">
-            <input type='date' name='last_updated' required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label></label>
-        </div>
-
-        <div class="material-input">
-            <input type='text' name='id_internal' required/>
+            <input type='text' name='id_internal' pattern="^([0-9]*)$" title="dowolna liczba" required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label>Id wewnątrzne</label>
@@ -39,10 +25,19 @@
         </div>
 
         <div class="material-input">
-            <input type='text' name='contractor_id' required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>ID</label>
+            Kontrahent <br>
+
+            <?php if (isset($contractors)) { ?>
+                <select name="contractor_id">
+                    <?php foreach ($contractors as &$value) {
+                        echo "<option value=" . $value->getId() . ">" . $value->getName() . "</option>";
+                    } ?>
+                </select>
+                <br><br><br>
+            <?php } else { ?>
+                <a href="/addContractor/show" class="material-btn"> Dodaj nowego kontrahenta </a>
+            <?php }
+            ?>
         </div>
         <div class="material-input">
             <input type="submit" name="invoice_add" value="Wyślij">

@@ -16,6 +16,15 @@
         <span class="material-input-bar"></span>
     </div>
 
+    <label title="creation_date">Ostatnio aktualizowany</label>
+    <div class="material-input">
+        <input title="last_update" type='date' disabled name='last_updated' <?php if (isset($document)) {
+            echo "value=" . $document->getLastUpdated() . "";
+        } ?> required/>
+        <span class="material-input-highlight"></span>
+        <span class="material-input-bar"></span>
+    </div>
+
     <label title="desc">Opis</label>
     <div class="material-input">
         <input title="desc" type='text' disabled name='description' <?php if (isset($document)) {

@@ -38,8 +38,9 @@ class Documents extends Controller
     {
         $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_CREATE);
 
-        $documents = $this->repository->findAll();
-        View::render('documentsAdd.php', ["documents" => $documents]);
+        $repository = new ContractorRepository();
+        $contractors = $repository->findAll();
+        View::render('documentsAdd.php', ["contractors" => $contractors]);
     }
 
     public function createAction()
@@ -50,14 +51,14 @@ class Documents extends Controller
 
 
         $version = $_POST['version'];
-        $date_created = $_POST['date_created'];
-        $last_updated = $_POST['last_updated'];
+        $date_created = date("Y-m-d H:i:s");
+        $last_updated = date("Y-m-d H:i:s");
         $id_internal = $_POST['id_internal'];
         $description = $_POST['description'];
         $contractor_id = $_POST['contractor_id'];
 
         $document = new Document();
-        $document->setVersion(1);
+        $document->setVersion($version);
         $document->setDateCreated($date_created);
         $document->setLastUpdated($last_updated);
         $document->setIdInternal($id_internal);
@@ -161,13 +162,13 @@ class Documents extends Controller
 
         $version = $_POST['version'];
         $date_created = $_POST['date_created'];
-        $last_updated = $_POST['last_updated'];
+        $last_updated = date("Y-m-d H:i:s");
         $id_internal = $_POST['id_internal'];
         $description = $_POST['description'];
         $contractor_id = $_POST['contractor_id'];
 
         $document = new Document();
-        $document->setVersion(1);
+        $document->setVersion($version);
         $document->setDateCreated($date_created);
         $document->setLastUpdated($last_updated);
         $document->setIdInternal($id_internal);

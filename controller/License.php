@@ -13,6 +13,8 @@ use core\View;
 use model\Licenses;
 use repository\LicenseRepository;
 use repository\UserRepository;
+use util\FileStorage;
+use util\Redirect;
 
 class License extends Controller
 {
@@ -69,11 +71,17 @@ class License extends Controller
         $license->setPriceNet($price_net);
         $license->setNotes($notes);
 
+        $file = $_FILES['file'];
+        if (isset($file) && $file['error'] != UPLOAD_ERR_NO_FILE) {
+            $fileStorage = FileStorage::getInstance();
+            $fileId = $fileStorage->store($file, 'license');
+            $license->setFileId($fileId);
+        }
+
         $repository = new LicenseRepository();
         $repository->add($license);
-        $licenses = $repository->findAll();
 
-        View::render('licenseList.php', ["licenses" => $licenses]);
+        Redirect::to("/license/show");
     }
 
     public function updateAction()
@@ -103,9 +111,8 @@ class License extends Controller
 
         $repository = new LicenseRepository();
         $repository->update($_GET['id'], $license);
-        $licenses = $repository->findAll();
 
-        View::render('licenseList.php', ["licenses" => $licenses]);
+        Redirect::to("/license/show");
     }
 
     /**
@@ -186,11 +193,34 @@ class License extends Controller
     public function detailsAction()
     {
         $id = $this->route_params['id'];
-        /** @var License $license */
+        /** @var Licenses $license */
         $license = $this->repository->findById($id);
         $userRepo = new UserRepository();
         $user = $userRepo->findById($license->getUserId());
 
         View::render('licenseDetails.php', ['license' => $license, 'user' => $user]);
+    }
+
+    public function deleteAction()
+    {
+        $id = $this->route_params['id'];
+        /** @var Licenses $licenses */
+        $licenses = $this->repository->findById($id);
+        $this->repository->delete($id);
+
+        $fileStorage = FileStorage::getInstance();
+        $fileId = $licenses->getFileId();
+        if (is_numeric($fileId)) {
+            $fileStorage->delete($fileId);
+        }
+
+        Redirect::to("/license/show");
+    }
+
+    public function downloadAction()
+    {
+        $id = $this->route_params['id'];
+        $fileStorage = FileStorage::getInstance();
+        $fileStorage->download($id);
     }
 }

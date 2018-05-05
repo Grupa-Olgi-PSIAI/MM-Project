@@ -2,7 +2,7 @@
     <h2>Dodaj dokument</h2>
     <br>
 
-    <form action="/license/create" method="post">
+    <form action="/license/create" method="post" enctype="multipart/form-data">
         <div class="material-input">
             <input type='text' id="user_id" name='user_id' required/>
             <span class="material-input-highlight"></span>
@@ -59,6 +59,12 @@
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label for="notes">Notatki</label>
+        </div>
+        <div class="material-input">
+            <input type='file' id="file" name='file'/>
+            <span class="material-input-highlight"></span>
+            <span class="material-input-bar"></span>
+            <label for="file">Plik</label>
         </div>
         <div class="material-input">
             <input type="submit" name="add" value="Wyślij">

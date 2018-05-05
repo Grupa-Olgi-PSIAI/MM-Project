@@ -44,4 +44,10 @@
         <span class="material-input-highlight"></span>
         <span class="material-input-bar"></span>
     </div>
+
+    <div class="material-input">
+        <?php if (isset($document) && is_numeric($document->getFileId())) {
+            echo "<a href=\"/documents/" . $document->getFileId() . "/download\" class=\"material-btn\">Pobierz</a>";
+        } ?>
+    </div>
 </div>

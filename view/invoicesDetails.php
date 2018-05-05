@@ -50,9 +50,8 @@
     </div>
 
     <div class="material-input">
-        <?php if (isset($invoice)) {
-            echo "<a href=\"/invoices/" . $invoice->getFileId() . "/download\" class=\"btn\" " .
-                "style=\"font-size: larger; background-color: #FFC400; color: white; padding: 5px;\">Pobierz</a>";
+        <?php if (isset($invoice) && is_numeric($invoice->getFileId())) {
+            echo "<a href=\"/invoices/" . $invoice->getFileId() . "/download\" class=\"material-btn\">Pobierz</a>";
         } ?>
     </div>
 </div>

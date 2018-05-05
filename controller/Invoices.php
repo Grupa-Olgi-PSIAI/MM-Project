@@ -45,10 +45,6 @@ class Invoices extends Controller
      */
     public function createAction()
     {
-        $file = $_FILES['file'];
-        $fileStorage = FileStorage::getInstance();
-        $fileId = $fileStorage->store($file, 'invoice');
-
         $number = $_POST['number'];
         $invoice_date = $_POST['invoice_date'];
         $amount_net = $_POST['amount_net'];
@@ -69,7 +65,13 @@ class Invoices extends Controller
         $invoice->setCurrency($currency);
         $invoice->setAmountNetCurrency($amount_net_currency);
         $invoice->setContractorId($contractor_id);
-        $invoice->setFileId($fileId);
+
+        $file = $_FILES['file'];
+        if (isset($file) && $file['error'] != UPLOAD_ERR_NO_FILE) {
+            $fileStorage = FileStorage::getInstance();
+            $fileId = $fileStorage->store($file, 'invoice');
+            $invoice->setFileId($fileId);
+        }
 
         $repository = new InvoicesRepository();
         $repository->add($invoice);
@@ -79,11 +81,7 @@ class Invoices extends Controller
 
     public function delete()
     {
-
         $id = $_GET['id'];
-
-        echo "<script>console.log( 'Debug Objects: " . $id . "' );</script>";
-
         $repository = new InvoicesRepository();
 
         /** @var Invoice $invoice */
@@ -91,7 +89,10 @@ class Invoices extends Controller
         $repository->delete($id);
 
         $fileStorage = FileStorage::getInstance();
-        $fileStorage->delete($invoice->getFileId());
+        $fileId = $invoice->getFileId();
+        if (is_numeric($fileId)) {
+            $fileStorage->delete($fileId);
+        }
 
         Redirect::to("/invoices/show");
     }
@@ -146,15 +147,13 @@ class Invoices extends Controller
         $dateFrom = $_POST['dateFrom'];
         $dateTo = $_POST['dateTo'];
 
-        if($dateTo == NULL){
+        if ($dateTo == NULL) {
             $con = array('invoice_date >= ?');
             $val = array($dateFrom);
-        }
-        else if($dateFrom == NULL){
+        } else if ($dateFrom == NULL) {
             $con = array('invoice_date <= ?');
             $val = array($dateTo);
-        }
-        else{
+        } else {
             $con = array('invoice_date >= ?', 'invoice_date <= ?');
             $val = array($dateFrom, $dateTo);
         }

@@ -86,7 +86,7 @@ use util\DateUtils;
                         <td><?php echo $license->getNotes() ?></td>
                         <td><?php echo '<a href="/license/' . $license->getId() . '/details" class="material-btn">Szczegóły</a>'; ?></td>
                         <td><?php echo '<a href="/license/edit?id=' . $license->getId() . '" class="material-btn">Edytuj</a>'; ?></td>
-                        <td><?php echo '<a href="/license/delete?id=' . $license->getId() . '" class="material-btn">Usuń</a>' ?></td>
+                        <td><?php echo '<a href="/license/' . $license->getId() . '/delete" class="material-btn">Usuń</a>' ?></td>
                     </tr>
                 <?php }
             } ?>

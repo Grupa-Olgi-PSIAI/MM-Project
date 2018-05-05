@@ -41,6 +41,11 @@ class Document extends Model
      */
     private $contractor_id;
 
+    /**
+     * @var null|int
+     */
+    private $file_id;
+
     public function getFields(): array
     {
         return get_object_vars($this);
@@ -169,6 +174,24 @@ class Document extends Model
     public function setContractorId(?int $contractor_id): Document
     {
         $this->contractor_id = $contractor_id;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getFileId(): ?int
+    {
+        return $this->file_id;
+    }
+
+    /**
+     * @param int|null $file_id
+     * @return Document
+     */
+    public function setFileId(?int $file_id): Document
+    {
+        $this->file_id = $file_id;
         return $this;
     }
 }

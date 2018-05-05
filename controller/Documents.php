@@ -10,6 +10,7 @@ use model\Document;
 use repository\ContractorRepository;
 use repository\DocumentRepository;
 use util\AuthFlags;
+use util\FileStorage;
 use util\Redirect;
 
 class Documents extends Controller
@@ -57,11 +58,15 @@ class Documents extends Controller
         $document->setDescription($description);
         $document->setContractorId($contractor_id);
 
+        $file = $_FILES['file'];
+        if (isset($file) && $file['error'] != UPLOAD_ERR_NO_FILE) {
+            $fileStorage = FileStorage::getInstance();
+            $fileId = $fileStorage->store($file, 'document');
+            $document->setFileId($fileId);
+        }
+
         $this->repository->add($document);
-
-        $documents = $this->repository->findAll();
-
-        View::render('documentsList.php', ["documents" => $documents]);
+        Redirect::to("/documents/show");
     }
 
     public function filterAction()
@@ -124,7 +129,15 @@ class Documents extends Controller
         $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_DELETE);
 
         $id = $this->route_params['id'];
+        /** @var Document $document */
+        $document = $this->repository->findById($id);
         $this->repository->delete($id);
+
+        $fileStorage = FileStorage::getInstance();
+        $fileId = $document->getFileId();
+        if (is_numeric($fileId)) {
+            $fileStorage->delete($fileId);
+        }
 
         Redirect::to('/documents/show');
     }
@@ -160,8 +173,14 @@ class Documents extends Controller
 
         $repository = new DocumentRepository();
         $repository->update($_GET['id'], $document);
-        $documents = $repository->findAll();
 
-        View::render('documentsList.php', ["documents" => $documents]);
+        Redirect::to('/documents/show');
+    }
+
+    public function downloadAction()
+    {
+        $id = $this->route_params['id'];
+        $fileStorage = FileStorage::getInstance();
+        $fileStorage->download($id);
     }
 }

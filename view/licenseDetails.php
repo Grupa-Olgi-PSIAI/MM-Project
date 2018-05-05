@@ -1,6 +1,6 @@
 <div id="page">
     <h2>Szczegóły licencji o numerze inwentarza: <?php
-        /** @var \model\License $license */
+        /** @var \model\Licenses $license */
         if (isset($license)) {
             echo $license->getInventaryNumber();
         } ?>
@@ -97,5 +97,11 @@
         } ?> required/>
         <span class="material-input-highlight"></span>
         <span class="material-input-bar"></span>
+    </div>
+
+    <div class="material-input">
+        <?php if (isset($license) && is_numeric($license->getFileId())) {
+            echo "<a href=\"/license/" . $license->getFileId() . "/download\" class=\"material-btn\">Pobierz</a>";
+        } ?>
     </div>
 </div>

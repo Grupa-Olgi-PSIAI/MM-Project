@@ -21,6 +21,11 @@ final class AuthFlags
     const OTHER_UPDATE = 0x002;
     const OTHER_DELETE = 0x001;
 
+    const ALL_CREATE = AuthFlags::OWN_CREATE | AuthFlags::GROUP_CREATE | AuthFlags::OTHER_CREATE;
+    const ALL_READ = AuthFlags::OWN_READ | AuthFlags::GROUP_READ | AuthFlags::OTHER_READ;
+    const ALL_UPDATE = AuthFlags::OWN_UPDATE | AuthFlags::GROUP_UPDATE | AuthFlags::OTHER_UPDATE;
+    const ALL_DELETE = AuthFlags::OWN_DELETE | AuthFlags::GROUP_DELETE | AuthFlags::OTHER_DELETE;
+
     private function __construct()
     {
     }

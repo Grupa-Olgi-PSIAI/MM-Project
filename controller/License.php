@@ -13,12 +13,14 @@ use core\View;
 use model\Licenses;
 use repository\LicenseRepository;
 use repository\UserRepository;
+use util\AuthFlags;
 use util\FileStorage;
 use util\Redirect;
 
 class License extends Controller
 {
-    private const RESOURCE = "license";
+    private const RESOURCE_LICENSE = "license";
+    private const RESOURCE_LICENSE_FILE = "license-file";
 
     /**
      * @var LicenseRepository
@@ -31,23 +33,28 @@ class License extends Controller
         $this->repository = new LicenseRepository();
     }
 
-    public function addAction()
-    {
-        $repository = new LicenseRepository();
-        $licenses = $repository->findAll();
-        View::render('licenseAdd.php', ["licenses" => $licenses]);
-    }
-
     public function showAction()
     {
+        $this->checkPermissions(self::RESOURCE_LICENSE, AuthFlags::ALL_READ);
+
         $repository = new LicenseRepository();
         $licenses = $repository->findAll();
         View::render('licenseList.php', ["licenses" => $licenses]);
     }
 
+    public function addAction()
+    {
+        $this->checkPermissions(self::RESOURCE_LICENSE, AuthFlags::OWN_CREATE);
+
+        $repository = new LicenseRepository();
+        $licenses = $repository->findAll();
+        View::render('licenseAdd.php', ["licenses" => $licenses]);
+    }
 
     public function createAction()
     {
+        $this->checkPermissions(self::RESOURCE_LICENSE, AuthFlags::OWN_CREATE);
+
         $user_id = $_POST['user_id'];
         $inventary_number = $_POST['inventary_number'];
         $name = $_POST['name'];
@@ -57,7 +64,6 @@ class License extends Controller
         $purchase_date = $_POST['purchase_date'];
         $price_net = $_POST['price_net'];
         $notes = $_POST['notes'];
-
 
         $license = new Licenses();
         $license->setVersion(1);
@@ -73,6 +79,7 @@ class License extends Controller
 
         $file = $_FILES['file'];
         if (isset($file) && $file['error'] != UPLOAD_ERR_NO_FILE) {
+            $this->checkPermissions(self::RESOURCE_LICENSE_FILE, AuthFlags::OWN_CREATE);
             $fileStorage = FileStorage::getInstance();
             $fileId = $fileStorage->store($file, 'license');
             $license->setFileId($fileId);
@@ -86,6 +93,8 @@ class License extends Controller
 
     public function updateAction()
     {
+        $this->checkPermissions(self::RESOURCE_LICENSE, AuthFlags::ALL_UPDATE);
+
         $user_id = $_POST['user_id'];
         $inventary_number = $_POST['inventary_number'];
         $name = $_POST['name'];
@@ -97,7 +106,6 @@ class License extends Controller
         $notes = $_POST['notes'];
 
         $license = new Licenses();
-
         $license->setVersion(1);
         $license->setUserId($user_id);
         $license->setInventaryNumber($inventary_number);
@@ -115,11 +123,10 @@ class License extends Controller
         Redirect::to("/license/show");
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function edit()
+    public function editAction()
     {
+        $this->checkPermissions(self::RESOURCE_LICENSE, AuthFlags::ALL_UPDATE);
+
         $id = $_GET['id'];
         $repository = new LicenseRepository();
 
@@ -127,8 +134,9 @@ class License extends Controller
         View::render('licenseEdit.php', ["license" => $licence]);
     }
 
-    public function search()
+    public function searchAction()
     {
+        $this->checkPermissions(self::RESOURCE_LICENSE, AuthFlags::ALL_READ);
 
         $criterium = $_POST['criterium'];
 
@@ -144,6 +152,8 @@ class License extends Controller
 
     public function filterAction()
     {
+        $this->checkPermissions(self::RESOURCE_LICENSE, AuthFlags::ALL_READ);
+
         $dateFrom = $_POST['dateFrom'];
         $dateTo = $_POST['dateTo'];
         $whichDate = $_POST['whichDate'];
@@ -186,12 +196,13 @@ class License extends Controller
         $repository = new LicenseRepository();
         $licenses = $repository->find($con, $val);
 
-
         View::render('licenseList.php', ["licenses" => $licenses]);
     }
 
     public function detailsAction()
     {
+        $this->checkPermissions(self::RESOURCE_LICENSE, AuthFlags::ALL_READ);
+
         $id = $this->route_params['id'];
         /** @var Licenses $license */
         $license = $this->repository->findById($id);
@@ -203,6 +214,8 @@ class License extends Controller
 
     public function deleteAction()
     {
+        $this->checkPermissions(self::RESOURCE_LICENSE, AuthFlags::ALL_DELETE);
+
         $id = $this->route_params['id'];
         /** @var Licenses $licenses */
         $licenses = $this->repository->findById($id);
@@ -211,6 +224,7 @@ class License extends Controller
         $fileStorage = FileStorage::getInstance();
         $fileId = $licenses->getFileId();
         if (is_numeric($fileId)) {
+            $this->checkPermissions(self::RESOURCE_LICENSE_FILE, AuthFlags::ALL_DELETE);
             $fileStorage->delete($fileId);
         }
 
@@ -219,6 +233,8 @@ class License extends Controller
 
     public function downloadAction()
     {
+        $this->checkPermissions(self::RESOURCE_LICENSE_FILE, AuthFlags::ALL_READ);
+
         $id = $this->route_params['id'];
         $fileStorage = FileStorage::getInstance();
         $fileStorage->download($id);

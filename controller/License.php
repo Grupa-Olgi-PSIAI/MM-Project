@@ -39,7 +39,7 @@ class License extends Controller
 
         $repository = new LicenseRepository();
         $licenses = $repository->findAll();
-        View::render('licenseList.php', ["licenses" => $licenses]);
+        View::render('licenses/licenseList.php', ["licenses" => $licenses]);
     }
 
     public function addAction()
@@ -48,7 +48,7 @@ class License extends Controller
 
         $repository = new LicenseRepository();
         $licenses = $repository->findAll();
-        View::render('licenseAdd.php', ["licenses" => $licenses]);
+        View::render('licenses/licenseAdd.php', ["licenses" => $licenses]);
     }
 
     public function createAction()
@@ -131,7 +131,7 @@ class License extends Controller
         $repository = new LicenseRepository();
 
         $licence = $repository->findById($id);
-        View::render('licenseEdit.php', ["license" => $licence]);
+        View::render('licenses/licenseEdit.php', ["license" => $licence]);
     }
 
     public function searchAction()
@@ -147,7 +147,7 @@ class License extends Controller
 
         $repository = new LicenseRepository();
         $licenses = $repository->findOr($con, $val);
-        View::render('licenseList.php', ["licenses" => $licenses]);
+        View::render('licenses/licenseList.php', ["licenses" => $licenses]);
     }
 
     public function filterAction()
@@ -196,7 +196,7 @@ class License extends Controller
         $repository = new LicenseRepository();
         $licenses = $repository->find($con, $val);
 
-        View::render('licenseList.php', ["licenses" => $licenses]);
+        View::render('licenses/licenseList.php', ["licenses" => $licenses]);
     }
 
     public function detailsAction()
@@ -209,7 +209,7 @@ class License extends Controller
         $userRepo = new UserRepository();
         $user = $userRepo->findById($license->getUserId());
 
-        View::render('licenseDetails.php', ['license' => $license, 'user' => $user]);
+        View::render('licenses/licenseDetails.php', ['license' => $license, 'user' => $user]);
     }
 
     public function deleteAction()

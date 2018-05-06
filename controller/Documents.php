@@ -15,8 +15,8 @@ use util\Redirect;
 
 class Documents extends Controller
 {
-    private const RESOURCE_DOCUMENTS = "documents";
-    private const RESOURCE_DOCUMENTS_FILE = "documents-file";
+    private const RESOURCE_DOCUMENTS = "document";
+    private const RESOURCE_DOCUMENTS_FILE = "document-file";
 
     /**
      * @var DocumentRepository

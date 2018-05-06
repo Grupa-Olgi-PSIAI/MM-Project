@@ -178,6 +178,18 @@ WHERE `resource_id` = @`equipment_id` AND `role_id` = @`auditor_id`;
 INSERT INTO `permissions` (`resource_id`, `role_id`, `own_perms`, `group_perms`, `other_perms`) VALUES
   (@`equipment_id`, @`auditor_id`, 'read', 'read', 'read');
 
+DELETE FROM `users`
+WHERE `email` = 'auditor@mail.com';
+INSERT INTO `users` (`version`, `date_created`, `last_updated`, `first_name`, `last_name`, `phone_number`,
+                     `zipcode`, `address`, `street_with_no`, `country_code`, `city`, `password`, `status`, `email`)
+VALUES (1, DEFAULT, DEFAULT, 'Audytor', 'Audytor', '123456789', '11-111', 'Żołnierska', '49', 'PL', 'Szczecin',
+        '$2y$10$Gv5SrDIL57OXMYAikAAhhuFWdBAQ54KdWjgPLdMNpyjxomrCLBXDW', 'active', 'auditor@mail.com');
+SET @`auditor_account_id` = LAST_INSERT_ID();
+
+DELETE FROM `user_role`
+WHERE `role_id` = @`auditor_id`;
+INSERT INTO `user_role` (`role_id`, `user_id`) VALUES (@`auditor_id`, @`auditor_account_id`);
+
 DELETE FROM `versions`
 WHERE `id` = 12;
 INSERT INTO `versions` (`id`, `file`) VALUES (12, '12.sql');

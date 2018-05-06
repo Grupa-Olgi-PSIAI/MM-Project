@@ -15,7 +15,8 @@ use util\Redirect;
 
 class Documents extends Controller
 {
-    private const RESOURCE = "documents";
+    private const RESOURCE_DOCUMENTS = "documents";
+    private const RESOURCE_DOCUMENTS_FILE = "documents-file";
 
     /**
      * @var DocumentRepository
@@ -30,14 +31,14 @@ class Documents extends Controller
 
     public function showAction()
     {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_READ);
+        $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::ALL_READ);
         $documents = $this->repository->findAll();
         View::render('documentsList.php', ["documents" => $documents]);
     }
 
     public function addAction()
     {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_CREATE);
+        $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::OWN_CREATE);
 
         $contractorRepository = new ContractorRepository();
         $contractors = $contractorRepository->findAll();
@@ -46,7 +47,7 @@ class Documents extends Controller
 
     public function createAction()
     {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_CREATE);
+        $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::OWN_CREATE);
 
         $id_internal = $_POST['id_internal'];
         $description = $_POST['description'];
@@ -60,6 +61,8 @@ class Documents extends Controller
 
         $file = $_FILES['file'];
         if (isset($file) && $file['error'] != UPLOAD_ERR_NO_FILE) {
+            $this->checkPermissions(self::RESOURCE_DOCUMENTS_FILE, AuthFlags::OWN_CREATE);
+
             $fileStorage = FileStorage::getInstance();
             $fileId = $fileStorage->store($file, 'document');
             $document->setFileId($fileId);
@@ -71,6 +74,8 @@ class Documents extends Controller
 
     public function filterAction()
     {
+        $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::ALL_READ);
+
         $dateFrom = $_POST['dateFrom'];
         $dateTo = $_POST['dateTo'];
         if ($dateTo == NULL) {
@@ -90,12 +95,9 @@ class Documents extends Controller
         View::render('documentsList.php', ["documents" => $documents]);
     }
 
-    /**
-     * @throws \Exception
-     */
-
-    public function search()
+    public function searchAction()
     {
+        $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::ALL_READ);
 
         $criterium = $_POST['criterium'];
 
@@ -113,7 +115,7 @@ class Documents extends Controller
 
     public function detailsAction()
     {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_READ);
+        $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::ALL_READ);
 
         $id = $this->route_params['id'];
         /** @var Document $document */
@@ -126,7 +128,7 @@ class Documents extends Controller
 
     public function deleteAction()
     {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_DELETE);
+        $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::ALL_DELETE);
 
         $id = $this->route_params['id'];
         /** @var Document $document */
@@ -136,17 +138,17 @@ class Documents extends Controller
         $fileStorage = FileStorage::getInstance();
         $fileId = $document->getFileId();
         if (is_numeric($fileId)) {
+            $this->checkPermissions(self::RESOURCE_DOCUMENTS_FILE, AuthFlags::ALL_DELETE);
             $fileStorage->delete($fileId);
         }
 
         Redirect::to('/documents/show');
     }
 
-    /**
-     * @throws \Exception
-     */
     public function editAction()
     {
+        $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::ALL_UPDATE);
+
         $id = $_GET['id'];
         $repository = new DocumentRepository();
 
@@ -159,7 +161,7 @@ class Documents extends Controller
 
     public function updateAction()
     {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_CREATE);
+        $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::ALL_UPDATE);
 
         $id_internal = $_POST['id_internal'];
         $description = $_POST['description'];
@@ -179,6 +181,8 @@ class Documents extends Controller
 
     public function downloadAction()
     {
+        $this->checkPermissions(self::RESOURCE_DOCUMENTS_FILE, AuthFlags::ALL_READ);
+
         $id = $this->route_params['id'];
         $fileStorage = FileStorage::getInstance();
         $fileStorage->download($id);

@@ -11,23 +11,17 @@ use util\AuthFlags;
 
 class AddContractor extends Controller
 {
-    private const RESOURCE = "contractor";
+    private const RESOURCE_CONTRACTOR = "contractor";
 
-    /**
-     * @throws \Exception
-     */
     public function showAction()
     {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_CREATE);
+        $this->checkPermissions(self::RESOURCE_CONTRACTOR, AuthFlags::OWN_CREATE);
         View::render('addContractor.php');
     }
 
-    /**
-     * @throws \Exception
-     */
     public function addContractorAction()
     {
-        $this->checkPermissions(self::RESOURCE, AuthFlags::OWN_CREATE);
+        $this->checkPermissions(self::RESOURCE_CONTRACTOR, AuthFlags::OWN_CREATE);
 
         unset($error_contractor_name);
         unset($error_contractor_vat_id);

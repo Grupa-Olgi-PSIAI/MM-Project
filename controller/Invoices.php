@@ -28,7 +28,7 @@ class Invoices extends Controller
 
         $repository = new InvoicesRepository();
         $invoices = $repository->findAll();
-        View::render('invoicesList.php', ["invoices" => $invoices]);
+        View::render('invoices/invoicesList.php', ["invoices" => $invoices]);
     }
 
     public function addAction()
@@ -37,7 +37,7 @@ class Invoices extends Controller
 
         $repository = new ContractorRepository();
         $contractors = $repository->findAll();
-        View::render('invoicesAdd.php', ["contractors" => $contractors]);
+        View::render('invoices/invoicesAdd.php', ["contractors" => $contractors]);
     }
 
     public function createAction()
@@ -111,7 +111,7 @@ class Invoices extends Controller
         $contractors = $contractorRepository->findAll();
 
         $invoice = $repository->findById($id);
-        View::render('invoicesEdit.php', ["invoice" => $invoice, "contractors" => $contractors]);
+        View::render('invoices/invoicesEdit.php', ["invoice" => $invoice, "contractors" => $contractors]);
     }
 
     public function updateAction()
@@ -152,7 +152,7 @@ class Invoices extends Controller
         $repository = new InvoicesRepository();
 
         $invoice = $repository->findById($id);
-        View::render('invoicesDetails.php', ["invoice" => $invoice]);
+        View::render('invoices/invoicesDetails.php', ["invoice" => $invoice]);
     }
 
     public function searchAction()
@@ -170,7 +170,7 @@ class Invoices extends Controller
 
         $repository = new InvoicesRepository();
         $invoices = $repository->findOr($con, $val);
-        View::render('invoicesList.php', ["invoices" => $invoices]);
+        View::render('invoices/invoicesList.php', ["invoices" => $invoices]);
     }
 
     public function filterAction()
@@ -194,7 +194,7 @@ class Invoices extends Controller
         $repository = new InvoicesRepository();
         $invoices = $repository->find($con, $val);
 
-        View::render('invoicesList.php', ["invoices" => $invoices]);
+        View::render('invoices/invoicesList.php', ["invoices" => $invoices]);
     }
 
     public function downloadAction()

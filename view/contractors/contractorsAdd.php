@@ -2,7 +2,7 @@
     <h2>Dodaj kontrahenta</h2>
     <br>
 
-    <form action="/addcontractor" method="post">
+    <form action="/contractors/create" method="post">
         <div class="material-input">
             <?php echo "<input type='text' name='contractor_name' value= '" . (isset($name) ? $name : '') . "'/>"; ?>
             <span class="material-input-highlight"></span>

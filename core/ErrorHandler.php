@@ -46,7 +46,7 @@ class ErrorHandler
             echo "<p>Stack trace:<pre>" . $exception->getTraceAsString() . "</pre></p>";
             echo "<p>Thrown in '" . $exception->getFile() . "' on line " . $exception->getLine() . "</p>";
         } else {
-            View::renderWithoutMenu("$code.html");
+            View::renderWithoutMenu("error/$code.html");
         }
 
         if (Config::logErrors()) {

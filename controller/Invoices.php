@@ -22,22 +22,37 @@ class Invoices extends Controller
     private const RESOURCE_INVOICE = "invoice";
     private const RESOURCE_INVOICE_FILE = "invoice-file";
 
+    /**
+     * @var InvoicesRepository
+     */
+    private $invoiceRepository;
+
+    /**
+     * @var ContractorRepository
+     */
+    private $contractorRepository;
+
+    public function __construct(array $route_params)
+    {
+        parent::__construct($route_params);
+        $this->invoiceRepository = new InvoicesRepository();
+        $this->contractorRepository = new ContractorRepository();
+    }
+
     public function showAction()
     {
         $this->checkPermissions(self::RESOURCE_INVOICE, AuthFlags::ALL_READ);
 
-        $repository = new InvoicesRepository();
-        $invoices = $repository->findAll();
-        View::render('invoicesList.php', ["invoices" => $invoices]);
+        $invoices = $this->invoiceRepository->findAll();
+        View::render('invoices/invoicesList.php', ["invoices" => $invoices]);
     }
 
     public function addAction()
     {
         $this->checkPermissions(self::RESOURCE_INVOICE, AuthFlags::OWN_CREATE);
 
-        $repository = new ContractorRepository();
-        $contractors = $repository->findAll();
-        View::render('invoicesAdd.php', ["contractors" => $contractors]);
+        $contractors = $this->contractorRepository->findAll();
+        View::render('invoices/invoicesAdd.php', ["contractors" => $contractors]);
     }
 
     public function createAction()
@@ -56,7 +71,7 @@ class Invoices extends Controller
         $invoice = new Invoice();
         $invoice->setVersion(1);
         $invoice->setNumber($number);
-        $invoice->setInvoiceDate(date_create($invoice_date)->format('Y-m-d h:m:s'));
+        $invoice->setInvoiceDate($invoice_date);
         $invoice->setAmountNet($amount_net);
         $invoice->setAmountGross($amount_gross);
         $invoice->setAmountTax($amount_tax);
@@ -73,8 +88,7 @@ class Invoices extends Controller
             $invoice->setFileId($fileId);
         }
 
-        $repository = new InvoicesRepository();
-        $repository->add($invoice);
+        $this->invoiceRepository->add($invoice);
 
         Redirect::to("/invoices/show");
     }
@@ -83,12 +97,10 @@ class Invoices extends Controller
     {
         $this->checkPermissions(self::RESOURCE_INVOICE, AuthFlags::ALL_DELETE);
 
-        $id = $_GET['id'];
-        $repository = new InvoicesRepository();
-
+        $id = $this->route_params['id'];
         /** @var Invoice $invoice */
-        $invoice = $repository->findById($id);
-        $repository->delete($id);
+        $invoice = $this->invoiceRepository->findById($id);
+        $this->invoiceRepository->delete($id);
 
         $fileStorage = FileStorage::getInstance();
         $fileId = $invoice->getFileId();
@@ -104,14 +116,10 @@ class Invoices extends Controller
     {
         $this->checkPermissions(self::RESOURCE_INVOICE, AuthFlags::ALL_UPDATE);
 
-        $id = $_GET['id'];
-        $repository = new InvoicesRepository();
-
-        $contractorRepository = new ContractorRepository();
-        $contractors = $contractorRepository->findAll();
-
-        $invoice = $repository->findById($id);
-        View::render('invoicesEdit.php', ["invoice" => $invoice, "contractors" => $contractors]);
+        $contractors = $this->contractorRepository->findAll();
+        $id = $this->route_params['id'];
+        $invoice = $this->invoiceRepository->findById($id);
+        View::render('invoices/invoicesEdit.php', ["invoice" => $invoice, "contractors" => $contractors]);
     }
 
     public function updateAction()
@@ -130,7 +138,7 @@ class Invoices extends Controller
         $invoice = new Invoice();
         $invoice->setVersion(1);
         $invoice->setNumber($number);
-        $invoice->setInvoiceDate(date_create($invoice_date)->format('Y-m-d h:m:s'));
+        $invoice->setInvoiceDate($invoice_date);
         $invoice->setAmountNet($amount_net);
         $invoice->setAmountGross($amount_gross);
         $invoice->setAmountTax($amount_tax);
@@ -138,8 +146,8 @@ class Invoices extends Controller
         $invoice->setAmountNetCurrency($amount_net_currency);
         $invoice->setContractorId($contractor_id);
 
-        $repository = new InvoicesRepository();
-        $repository->update($_GET['id'], $invoice);
+        $id = $this->route_params['id'];
+        $this->invoiceRepository->update($id, $invoice);
 
         Redirect::to("/invoices/show");
     }
@@ -148,11 +156,9 @@ class Invoices extends Controller
     {
         $this->checkPermissions(self::RESOURCE_INVOICE, AuthFlags::ALL_READ);
 
-        $id = $_GET['id'];
-        $repository = new InvoicesRepository();
-
-        $invoice = $repository->findById($id);
-        View::render('invoicesDetails.php', ["invoice" => $invoice]);
+        $id = $this->route_params['id'];
+        $invoice = $this->invoiceRepository->findById($id);
+        View::render('invoices/invoicesDetails.php', ["invoice" => $invoice]);
     }
 
     public function searchAction()
@@ -168,9 +174,8 @@ class Invoices extends Controller
         $val = array($criterium, $criterium, $criterium, $criterium, $criterium, $criterium, $criterium);
         //"%" . $criterium . "%",
 
-        $repository = new InvoicesRepository();
-        $invoices = $repository->findOr($con, $val);
-        View::render('invoicesList.php', ["invoices" => $invoices]);
+        $invoices = $this->invoiceRepository->findOr($con, $val);
+        View::render('invoices/invoicesList.php', ["invoices" => $invoices]);
     }
 
     public function filterAction()
@@ -191,10 +196,9 @@ class Invoices extends Controller
             $val = array($dateFrom, $dateTo);
         }
 
-        $repository = new InvoicesRepository();
-        $invoices = $repository->find($con, $val);
+        $invoices = $this->invoiceRepository->find($con, $val);
 
-        View::render('invoicesList.php', ["invoices" => $invoices]);
+        View::render('invoices/invoicesList.php', ["invoices" => $invoices]);
     }
 
     public function downloadAction()

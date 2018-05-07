@@ -33,7 +33,7 @@ class Documents extends Controller
     {
         $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::ALL_READ);
         $documents = $this->repository->findAll();
-        View::render('documentsList.php', ["documents" => $documents]);
+        View::render('documents/documentsList.php', ["documents" => $documents]);
     }
 
     public function addAction()
@@ -42,7 +42,7 @@ class Documents extends Controller
 
         $contractorRepository = new ContractorRepository();
         $contractors = $contractorRepository->findAll();
-        View::render('documentsAdd.php', ["contractors" => $contractors]);
+        View::render('documents/documentsAdd.php', ["contractors" => $contractors]);
     }
 
     public function createAction()
@@ -92,7 +92,7 @@ class Documents extends Controller
         $repository = new DocumentRepository();
         $documents = $repository->find($con, $val);
 
-        View::render('documentsList.php', ["documents" => $documents]);
+        View::render('documents/documentsList.php', ["documents" => $documents]);
     }
 
     public function searchAction()
@@ -110,7 +110,7 @@ class Documents extends Controller
 
         $repository = new DocumentRepository();
         $documents = $repository->findOr($con, $val);
-        View::render('documentsList.php', ["documents" => $documents]);
+        View::render('documents/documentsList.php', ["documents" => $documents]);
     }
 
     public function detailsAction()
@@ -123,7 +123,7 @@ class Documents extends Controller
         $contractorRepo = new ContractorRepository();
         $contractor = $contractorRepo->findById($document->getContractorId());
 
-        View::render('documentDetails.php', ['document' => $document, 'contractor' => $contractor]);
+        View::render('documents/documentDetails.php', ['document' => $document, 'contractor' => $contractor]);
     }
 
     public function deleteAction()
@@ -156,7 +156,7 @@ class Documents extends Controller
         $contractors = $contractorRepository->findAll();
 
         $document = $repository->findById($id);
-        View::render('documentsEdit.php', ["document" => $document, "contractors" => $contractors]);
+        View::render('documents/documentsEdit.php', ["document" => $document, "contractors" => $contractors]);
     }
 
     public function updateAction()

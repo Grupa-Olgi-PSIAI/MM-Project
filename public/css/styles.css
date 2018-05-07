@@ -32,7 +32,7 @@ html, body {
 
 #menu-fixed {
     width: 120px;
-    z-index: 2;
+    z-index: 3;
     height: 100%;
     background: #FFC400;
     position: fixed;
@@ -265,6 +265,7 @@ a:link, a:visited {
     position: fixed;
     width: 100%;
     top: 0;
+    z-index: 2;
 }
 
 #top-nav ul {
@@ -512,9 +513,8 @@ table {
 }
 
 .tbl-content {
-    height: 300px;
     overflow-x: auto;
-    margin-top: 0px;
+    margin-top: 0;
     border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
@@ -551,7 +551,7 @@ a.popup {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 3;
+    z-index: 4;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
@@ -565,7 +565,7 @@ div.popup {
     top: 50%;
     left: 50%;
     margin-right: -50%;
-    z-index: 4; /* z-index of popup background + 1 */
+    z-index: 5; /* z-index of popup background + 1 */
     padding: 8px;
 
     transform: translate(-50%, -50%);

@@ -60,49 +60,34 @@ use util\DateUtils;
             <?php
             /** @var \model\Invoice $invoice */
             if (isset($invoices)) {
-                foreach ($invoices
-                         as $key => $invoice) { ?>
+                foreach ($invoices as $invoice) { ?>
                     <tr>
-                        <td><?php echo $invoice->getNumber() ?></td>
-                        <td><?php DateUtils::getPlainDate($invoice->getInvoiceDate()) ?></td>
-                        <td><?php echo $invoice->getAmountNet() ?></td>
-                        <td><?php echo $invoice->getAmountGross() ?></td>
-                        <td><?php echo $invoice->getAmountTax() ?></td>
-                        <td><?php echo $invoice->getCurrency() ?></td>
-                        <td><?php echo $invoice->getAmountNetCurrency() ?></td>
-                        <td><?php echo $invoice->getContractorId() ?></td>
-                        <td><?php echo '<a href="/invoices/details?id=' . $invoice->getId() . '" class="material-btn">Szczegóły</a>'; ?></td>
-                        <td><?php echo '<a href="/invoices/edit?id=' . $invoice->getId() . '" class="material-btn">Edytuj</a>'; ?></td>
-                        <td><?php echo '<a href="/invoices/delete?id=' . $invoice->getId() . '" class="material-btn">Usuń</a>' ?></td>
+                        <td><?= $invoice->getNumber(); ?></td>
+                        <td><?= $invoice->getInvoiceDate()->format(DateUtils::$PATTERN_PLAIN_DATE); ?></td>
+                        <td><?= $invoice->getAmountNet(); ?></td>
+                        <td><?= $invoice->getAmountGross(); ?></td>
+                        <td><?= $invoice->getAmountTax(); ?></td>
+                        <td><?= $invoice->getCurrency(); ?></td>
+                        <td><?= $invoice->getAmountNetCurrency(); ?></td>
+                        <td><?= $invoice->getContractorId(); ?></td>
+                        <td><a href="/invoices/<?= $invoice->getId(); ?>/details" class="material-btn">Szczegóły</a>
+                        </td>
+                        <td><a href="/invoices/<?= $invoice->getId(); ?>/edit" class="material-btn">Edytuj</a></td>
+                        <td><a href="/invoices/<?= $invoice->getId(); ?>/delete" class="material-btn">Usuń</a></td>
                     </tr>
                 <?php }
             } ?>
             </tbody>
         </table>
-        <div class="tbl-summary">
-            <?php $summary = 0;
-            if (isset($invoices)) {
-
-                foreach ($invoices
-                         as $key => $invoice) {
-                    $summary += $invoice->getAmountGross();
-                }
-                echo "<p>Suma brutto: $summary</p>";
-            } else if (isset($invoiceFilter)) {
-                foreach ($invoiceFilter
-                         as $key => $invoice) {
-                    $summary += $invoice->getAmountGross();
-                }
-                echo "<p>Suma brutto: $summary</p>";
-            } else if (isset($invoiceSearch)) {
-                foreach ($invoiceSearch
-                         as $key => $invoice) {
-                    $summary += $invoice->getAmountGross();
-                }
-                echo "<p>Suma brutto: $summary</p>";
-            }
-            ?>
-        </div>
+    </div>
+    <div class="tbl-summary">
+        <?php $summary = 0;
+        if (isset($invoices)) {
+            foreach ($invoices as $invoice) {
+                $summary += $invoice->getAmountGross();
+            } ?>
+            <p>Suma brutto: <?= $summary; ?></p>
+        <?php } ?>
     </div>
 
 </div>

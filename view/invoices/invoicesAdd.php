@@ -50,9 +50,9 @@
             <label for="contractor_id">Kontrahent<br></label>
             <select id="contractor_id" name="contractor_id">
                 <?php /** @var \model\Contractor $value */
-                foreach ($contractors as &$value) {
-                    echo "<option value=" . $value->getId() . ">" . $value->getName() . "</option>";
-                } ?>
+                foreach ($contractors as &$value) { ?>
+                    <option value="<?= $value->getId(); ?>"><?= $value->getName(); ?></option>
+                <?php } ?>
             </select>
             <br><br><br>
             <div class="material-input">

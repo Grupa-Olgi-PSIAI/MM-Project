@@ -3,6 +3,7 @@
 namespace model;
 
 use core\Model;
+use util\DateUtils;
 
 class Invoice extends Model
 {
@@ -113,11 +114,11 @@ class Invoice extends Model
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getDateCreated(): string
+    public function getDateCreated(): \DateTime
     {
-        return $this->date_created;
+        return new \DateTime($this->date_created);
     }
 
     /**
@@ -126,16 +127,17 @@ class Invoice extends Model
      */
     public function setDateCreated($date_created): string
     {
-        $this->date_created = $date_created;
+        $dateTime = new \DateTime($date_created);
+        $this->date_created = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getLastUpdated(): string
+    public function getLastUpdated(): \DateTime
     {
-        return $this->last_updated;
+        return new \DateTime($this->last_updated);
     }
 
     /**
@@ -144,7 +146,8 @@ class Invoice extends Model
      */
     public function setLastUpdated($last_updated): Invoice
     {
-        $this->last_updated = $last_updated;
+        $dateTime = new \DateTime($last_updated);
+        $this->last_updated = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 
@@ -167,11 +170,11 @@ class Invoice extends Model
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getInvoiceDate(): string
+    public function getInvoiceDate(): \DateTime
     {
-        return $this->invoice_date;
+        return new \DateTime($this->invoice_date);
     }
 
     /**
@@ -180,7 +183,8 @@ class Invoice extends Model
      */
     public function setInvoiceDate(string $invoice_date): Invoice
     {
-        $this->invoice_date = $invoice_date;
+        $dateTime = new \DateTime($invoice_date);
+        $this->invoice_date = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 

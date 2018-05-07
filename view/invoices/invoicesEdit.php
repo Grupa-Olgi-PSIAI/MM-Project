@@ -1,52 +1,49 @@
 <div id="page">
-    <h2>Edytuj fakturę <?php if (isset($invoice)) {
-            echo $invoice->getNumber();
-        } ?></h2>
+    <?php
+    /** @var \model\Invoice $invoice */
+    if (!isset($invoice)) {
+        throw new RuntimeException("Invoice is missing", 404);
+    }
+    ?>
+
+    <h2>Edytuj fakturę <?= $invoice->getNumber(); ?></h2>
     <br>
 
-    <form action="/invoices/update?id=<?php if (isset($invoice)) {
-        echo $invoice->getId();
-    } ?>" method="post">
+    <form action="/invoices/<?= $invoice->getId(); ?>/update" method="post">
         <div class="material-input">
-            <input type='text' id="number" name='number' <?php if (isset($invoice)) {
-                echo "value=" . $invoice->getNumber() . "";
-            } ?> required/>
+            <input type='text' id="number" name='number' value="<?= $invoice->getNumber(); ?>" required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label for="number">Numer faktury</label>
         </div>
 
         <div class="material-input">
-            <input type='date' id="invoice_date" name='invoice_date' <?php if (isset($invoice)) {
-                echo "value=" . $invoice->getInvoiceDate() . "";
-            } ?> required/>
+            <input type='date' id="invoice_date" name='invoice_date'
+                   value="<?= $invoice->getInvoiceDate()->format(\util\DateUtils::$PATTERN_DASHED_DATE); ?>" required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label for="invoice_date">Data faktury</label>
         </div>
 
         <div class="material-input">
-            <input type='number' step="0.01" id="amount_net" name='amount_net' <?php if (isset($invoice)) {
-                echo "value=" . $invoice->getAmountNet() . "";
-            } ?> required/>
+            <input type='number' step="0.01" id="amount_net" name='amount_net' value="<?= $invoice->getAmountNet(); ?>"
+                   required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label for="amount_net">Kwota netto</label>
         </div>
 
         <div class="material-input">
-            <input type='number' step="0.01" id="amount_gross" name='amount_gross' <?php if (isset($invoice)) {
-                echo "value=" . $invoice->getAmountGross() . "";
-            } ?> required/>
+            <input type='number' step="0.01" id="amount_gross" name='amount_gross'
+                   value="<?= $invoice->getAmountGross(); ?>" required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label for="amount_gross">Kwota brutto</label>
         </div>
 
         <div class="material-input">
-            <input type='text' id="currency" name='currency' value="PLN" <?php if (isset($invoice)) {
-                echo "value=" . $invoice->getCurrency() . "";
-            } ?> required/>
+            <input type='text' id="currency" name='currency' value="<?= $invoice->getCurrency(); ?>"
+                   required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label for="currency">Waluta</label>
@@ -55,10 +52,15 @@
         <?php if (isset($contractors)) { ?>
             <label for="contractor_id">Kontrahent<br></label>
             <select id="contractor_id" name="contractor_id">
-                <?php /** @var \model\Contractor $value */
+                <?php
+                /** @var \model\Contractor $value */
                 foreach ($contractors as &$value) {
-                    echo "<option value=" . $value->getId() . ">" . $value->getName() . "</option>";
-                } ?>
+                    $selected = '';
+                    if ($invoice->getContractorId() === $value->getId()) {
+                        $selected = "selected";
+                    } ?>
+                    <option value="<?= $value->getId(); ?>" <?= $selected; ?>><?= $value->getName(); ?></option>
+                <?php } ?>
             </select>
             <br><br><br>
             <div class="material-input">

@@ -1,53 +1,39 @@
 <div id="page">
-    <h2>Szczegóły dokumentu o identyfikatorze: <?php
-        /** @var \model\DocumentView $document */
-        if (isset($document)) {
-            echo $document->getInternalId();
-        } ?>
-    </h2>
-    <br>
+    <?php
+    /** @var \model\DocumentView $document */
+    if (!isset($document)) {
+        throw new RuntimeException("Document is missing", 404);
+    }
+    ?>
 
-    <label for="date_created">Data dodania</label>
-    <div class="material-input">
-        <input id="date_created" type='date' disabled name='date_created' <?php if (isset($document)) {
-            echo "value=" . $document->getDateCreated() . "";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label title="creation_date">Ostatnio aktualizowany</label>
-    <div class="material-input">
-        <input title="last_update" type='date' disabled name='last_updated' <?php if (isset($document)) {
-            echo "value=" . $document->getLastUpdated() . "";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="description">Opis</label>
-    <div class="material-input">
-        <input id="description" type='text' disabled name='description' <?php if (isset($document)) {
-            echo "value='" . $document->getDescription() . "'";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="contractor">Kontrahent</label>
-    <div class="material-input">
-        <input id="contractor" type='text' disabled name='contractor' <?php
-        /** @var \model\Contractor $contractor */
-        if (isset($contractor)) {
-            echo "value='" . $contractor->getName() . "'";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
+    <table cellpadding="0" cellspacing="0" border="0" class="tbl-details">
+        <tbody>
+        <tr>
+            <td>Identyfikator:</td>
+            <td><?= $document->getInternalId(); ?></td>
+        </tr>
+        <tr>
+            <td>Data dodania dokumentu:</td>
+            <td><?= $document->getDateCreated(); ?></td>
+        </tr>
+        <tr>
+            <td>Data aktualizacji dokumentu:</td>
+            <td><?= $document->getLastUpdated(); ?></td>
+        </tr>
+        <tr>
+            <td>Kontrahent</td>
+            <td><?= $document->getContractor(); ?></td>
+        </tr>
+        <tr>
+            <td>Opis</td>
+            <td><?= $document->getDescription(); ?></td>
+        </tr>
+        </tbody>
+    </table>
 
     <div class="material-input">
-        <?php if (isset($document) && is_numeric($document->getFileId())) {
-            echo "<a href=\"/documents/" . $document->getFileId() . "/download\" class=\"material-btn\">Pobierz</a>";
-        } ?>
+        <?php if (is_numeric($document->getFileId())) { ?>
+            <a href="/documents/<?= $document->getFileId(); ?>/download" class="material-btn">Pobierz</a>
+        <?php } ?>
     </div>
 </div>

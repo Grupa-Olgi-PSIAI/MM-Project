@@ -1,7 +1,4 @@
 <div id="page">
-    <h2>Dodaj dokument</h2>
-    <br>
-
     <form action="/documents/create" method="post" enctype="multipart/form-data">
         <div class="material-input">
             <input type='text' id="id_internal" name='id_internal' required/>
@@ -28,9 +25,9 @@
             <label for="contractor_id">Kontrahent<br></label>
             <select id="contractor_id" name="contractor_id">
                 <?php /** @var \model\Contractor $value */
-                foreach ($contractors as &$value) {
-                    echo "<option value=" . $value->getId() . ">" . $value->getName() . "</option>";
-                } ?>
+                foreach ($contractors as &$value) { ?>
+                    <option value="<?= $value->getId(); ?>"><?= $value->getName(); ?></option>
+                <?php } ?>
             </select>
             <br><br><br>
             <div class="material-input">

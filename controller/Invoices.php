@@ -51,7 +51,11 @@ class Invoices extends Controller
         foreach ($invoices as $invoice) {
             $invoiceViews[] = $this->mapInvoiceToView($invoice);
         }
-        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews]);
+        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews,
+            "title" => "Lista faktur",
+            "filter" => "#filter_popup",
+            "add" => "/invoices/add",
+            "search" => "/invoices/search"]);
     }
 
     public function addAction()
@@ -59,7 +63,7 @@ class Invoices extends Controller
         $this->checkPermissions(self::RESOURCE_INVOICE, AuthFlags::OWN_CREATE);
 
         $contractors = $this->contractorRepository->findAll();
-        View::render('invoices/invoicesAdd.php', ["contractors" => $contractors]);
+        View::render('invoices/invoicesAdd.php', ["contractors" => $contractors, "title" => "Dodaj fakturę"]);
     }
 
     public function createAction()
@@ -126,7 +130,9 @@ class Invoices extends Controller
         $contractors = $this->contractorRepository->findAll();
         $id = $this->route_params['id'];
         $invoice = $this->invoiceRepository->findById($id);
-        View::render('invoices/invoicesEdit.php', ["invoice" => $invoice, "contractors" => $contractors]);
+        View::render('invoices/invoicesEdit.php', ["invoice" => $invoice,
+            "contractors" => $contractors,
+            "title" => "Edytuj fakturę nr " . $invoice->getNumber()]);
     }
 
     public function updateAction()
@@ -166,7 +172,8 @@ class Invoices extends Controller
         $id = $this->route_params['id'];
         $invoice = $this->invoiceRepository->findById($id);
         $invoiceView = $this->mapInvoiceToView($invoice);
-        View::render('invoices/invoicesDetails.php', ["invoice" => $invoiceView]);
+        View::render('invoices/invoicesDetails.php', ["invoice" => $invoiceView,
+            "title" => "Szczegóły faktury nr " . $invoiceView->getNumber()]);
     }
 
     public function searchAction()
@@ -188,7 +195,11 @@ class Invoices extends Controller
             $invoiceViews[] = $this->mapInvoiceToView($invoice);
         }
 
-        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews]);
+        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews,
+            "title" => "Lista faktur",
+            "filter" => "#filter_popup",
+            "add" => "/invoices/add",
+            "search" => "/invoices/search"]);
     }
 
     public function filterAction()
@@ -215,7 +226,11 @@ class Invoices extends Controller
             $invoiceViews[] = $this->mapInvoiceToView($invoice);
         }
 
-        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews]);
+        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews,
+            "title" => "Lista faktur",
+            "filter" => "#filter_popup",
+            "add" => "/invoices/add",
+            "search" => "/invoices/search"]);
     }
 
     public function downloadAction()

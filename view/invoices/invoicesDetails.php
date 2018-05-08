@@ -6,9 +6,6 @@
     }
     ?>
 
-    <h2>Szczegóły faktury nr <?= $invoice->getNumber(); ?></h2>
-    <br>
-
     <table cellpadding="0" cellspacing="0" border="0" class="tbl-details">
         <tbody>
         <tr>

@@ -1,7 +1,4 @@
 <div id="page">
-    <h2>Dodaj fakturę</h2>
-    <br>
-
     <form action="/invoices/create" method="post" enctype="multipart/form-data">
         <div class="material-input">
             <input type='text' id="number" name='number' required/>

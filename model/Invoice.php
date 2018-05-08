@@ -28,7 +28,7 @@ class Invoice extends Model
     private $last_updated;
 
     /**
-     * @var int
+     * @var string
      */
     private $number;
 
@@ -152,18 +152,18 @@ class Invoice extends Model
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getNumber(): int
+    public function getNumber(): string
     {
         return $this->number;
     }
 
     /**
-     * @param int $number
+     * @param string $number
      * @return Invoice
      */
-    public function setNumber(int $number): Invoice
+    public function setNumber(string $number): Invoice
     {
         $this->number = $number;
         return $this;

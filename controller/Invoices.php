@@ -165,7 +165,8 @@ class Invoices extends Controller
 
         $id = $this->route_params['id'];
         $invoice = $this->invoiceRepository->findById($id);
-        View::render('invoices/invoicesDetails.php', ["invoice" => $invoice]);
+        $invoiceView = $this->mapInvoiceToView($invoice);
+        View::render('invoices/invoicesDetails.php', ["invoice" => $invoiceView]);
     }
 
     public function searchAction()
@@ -182,7 +183,12 @@ class Invoices extends Controller
         //"%" . $criterium . "%",
 
         $invoices = $this->invoiceRepository->findOr($con, $val);
-        View::render('invoices/invoicesList.php', ["invoices" => $invoices]);
+        $invoiceViews = [];
+        foreach ($invoices as $invoice) {
+            $invoiceViews[] = $this->mapInvoiceToView($invoice);
+        }
+
+        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews]);
     }
 
     public function filterAction()
@@ -204,8 +210,12 @@ class Invoices extends Controller
         }
 
         $invoices = $this->invoiceRepository->find($con, $val);
+        $invoiceViews = [];
+        foreach ($invoices as $invoice) {
+            $invoiceViews[] = $this->mapInvoiceToView($invoice);
+        }
 
-        View::render('invoices/invoicesList.php', ["invoices" => $invoices]);
+        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews]);
     }
 
     public function downloadAction()
@@ -231,7 +241,8 @@ class Invoices extends Controller
             ->setCurrency($invoice->getCurrency())
             ->setDateCreated($invoice->getDateCreated()->format(DateUtils::$PATTERN_DASHED_DATE))
             ->setInvoiceDate($invoice->getInvoiceDate()->format(DateUtils::$PATTERN_DASHED_DATE))
-            ->setNumber($invoice->getNumber());
+            ->setNumber($invoice->getNumber())
+            ->setFileId($invoice->getFileId());
 
         return $invoiceView;
     }

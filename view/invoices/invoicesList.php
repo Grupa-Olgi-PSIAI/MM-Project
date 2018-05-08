@@ -1,9 +1,3 @@
-<?php
-
-use util\DateUtils;
-
-?>
-
 <div id="page">
 
     <ul id="content-nav">
@@ -58,18 +52,18 @@ use util\DateUtils;
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
             <?php
-            /** @var \model\Invoice $invoice */
+            /** @var \model\InvoiceView $invoice */
             if (isset($invoices)) {
                 foreach ($invoices as $invoice) { ?>
                     <tr>
                         <td><?= $invoice->getNumber(); ?></td>
-                        <td><?= $invoice->getInvoiceDate()->format(DateUtils::$PATTERN_PLAIN_DATE); ?></td>
+                        <td><?= $invoice->getInvoiceDate(); ?></td>
                         <td><?= $invoice->getAmountNet(); ?></td>
                         <td><?= $invoice->getAmountGross(); ?></td>
                         <td><?= $invoice->getAmountTax(); ?></td>
                         <td><?= $invoice->getCurrency(); ?></td>
                         <td><?= $invoice->getAmountNetCurrency(); ?></td>
-                        <td><?= $invoice->getContractorId(); ?></td>
+                        <td><?= $invoice->getContractor(); ?></td>
                         <td><a href="/invoices/<?= $invoice->getId(); ?>/details" class="material-btn">Szczegóły</a>
                         </td>
                         <td><a href="/invoices/<?= $invoice->getId(); ?>/edit" class="material-btn">Edytuj</a></td>

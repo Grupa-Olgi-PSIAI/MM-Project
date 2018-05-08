@@ -10,10 +10,13 @@ namespace controller;
 
 use core\Controller;
 use core\View;
+use model\Contractor;
 use model\Invoice;
+use model\InvoiceView;
 use repository\ContractorRepository;
 use repository\InvoicesRepository;
 use util\AuthFlags;
+use util\DateUtils;
 use util\FileStorage;
 use util\Redirect;
 
@@ -44,7 +47,11 @@ class Invoices extends Controller
         $this->checkPermissions(self::RESOURCE_INVOICE, AuthFlags::ALL_READ);
 
         $invoices = $this->invoiceRepository->findAll();
-        View::render('invoices/invoicesList.php', ["invoices" => $invoices]);
+        $invoiceViews = [];
+        foreach ($invoices as $invoice) {
+            $invoiceViews[] = $this->mapInvoiceToView($invoice);
+        }
+        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews]);
     }
 
     public function addAction()
@@ -208,5 +215,24 @@ class Invoices extends Controller
         $id = $this->route_params['id'];
         $fileStorage = FileStorage::getInstance();
         $fileStorage->download($id);
+    }
+
+    private function mapInvoiceToView(Invoice $invoice): InvoiceView
+    {
+        /** @var Contractor $contractor */
+        $contractor = $this->contractorRepository->findById($invoice->getContractorId());
+        $invoiceView = new InvoiceView();
+        $invoiceView->setId($invoice->getId())
+            ->setAmountGross($invoice->getAmountGross())
+            ->setAmountNet($invoice->getAmountNet())
+            ->setAmountNetCurrency($invoice->getAmountNetCurrency())
+            ->setAmountTax($invoice->getAmountTax())
+            ->setContractor($contractor->getName())
+            ->setCurrency($invoice->getCurrency())
+            ->setDateCreated($invoice->getDateCreated()->format(DateUtils::$PATTERN_DASHED_DATE))
+            ->setInvoiceDate($invoice->getInvoiceDate()->format(DateUtils::$PATTERN_DASHED_DATE))
+            ->setNumber($invoice->getNumber());
+
+        return $invoiceView;
     }
 }

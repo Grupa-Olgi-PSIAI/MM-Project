@@ -10,10 +10,13 @@ namespace controller;
 
 use core\Controller;
 use core\View;
+use model\Contractor;
 use model\Invoice;
+use model\InvoiceView;
 use repository\ContractorRepository;
 use repository\InvoicesRepository;
 use util\AuthFlags;
+use util\DateUtils;
 use util\FileStorage;
 use util\Redirect;
 
@@ -44,7 +47,15 @@ class Invoices extends Controller
         $this->checkPermissions(self::RESOURCE_INVOICE, AuthFlags::ALL_READ);
 
         $invoices = $this->invoiceRepository->findAll();
-        View::render('invoices/invoicesList.php', ["invoices" => $invoices]);
+        $invoiceViews = [];
+        foreach ($invoices as $invoice) {
+            $invoiceViews[] = $this->mapInvoiceToView($invoice);
+        }
+        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews,
+            "title" => "Lista faktur",
+            "filter" => "#filter_popup",
+            "add" => "/invoices/add",
+            "search" => "/invoices/search"]);
     }
 
     public function addAction()
@@ -52,7 +63,7 @@ class Invoices extends Controller
         $this->checkPermissions(self::RESOURCE_INVOICE, AuthFlags::OWN_CREATE);
 
         $contractors = $this->contractorRepository->findAll();
-        View::render('invoices/invoicesAdd.php', ["contractors" => $contractors]);
+        View::render('invoices/invoicesAdd.php', ["contractors" => $contractors, "title" => "Dodaj fakturę"]);
     }
 
     public function createAction()
@@ -119,7 +130,9 @@ class Invoices extends Controller
         $contractors = $this->contractorRepository->findAll();
         $id = $this->route_params['id'];
         $invoice = $this->invoiceRepository->findById($id);
-        View::render('invoices/invoicesEdit.php', ["invoice" => $invoice, "contractors" => $contractors]);
+        View::render('invoices/invoicesEdit.php', ["invoice" => $invoice,
+            "contractors" => $contractors,
+            "title" => "Edytuj fakturę nr " . $invoice->getNumber()]);
     }
 
     public function updateAction()
@@ -158,7 +171,9 @@ class Invoices extends Controller
 
         $id = $this->route_params['id'];
         $invoice = $this->invoiceRepository->findById($id);
-        View::render('invoices/invoicesDetails.php', ["invoice" => $invoice]);
+        $invoiceView = $this->mapInvoiceToView($invoice);
+        View::render('invoices/invoicesDetails.php', ["invoice" => $invoiceView,
+            "title" => "Szczegóły faktury nr " . $invoiceView->getNumber()]);
     }
 
     public function searchAction()
@@ -175,7 +190,16 @@ class Invoices extends Controller
         //"%" . $criterium . "%",
 
         $invoices = $this->invoiceRepository->findOr($con, $val);
-        View::render('invoices/invoicesList.php', ["invoices" => $invoices]);
+        $invoiceViews = [];
+        foreach ($invoices as $invoice) {
+            $invoiceViews[] = $this->mapInvoiceToView($invoice);
+        }
+
+        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews,
+            "title" => "Lista faktur",
+            "filter" => "#filter_popup",
+            "add" => "/invoices/add",
+            "search" => "/invoices/search"]);
     }
 
     public function filterAction()
@@ -197,8 +221,16 @@ class Invoices extends Controller
         }
 
         $invoices = $this->invoiceRepository->find($con, $val);
+        $invoiceViews = [];
+        foreach ($invoices as $invoice) {
+            $invoiceViews[] = $this->mapInvoiceToView($invoice);
+        }
 
-        View::render('invoices/invoicesList.php', ["invoices" => $invoices]);
+        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews,
+            "title" => "Lista faktur",
+            "filter" => "#filter_popup",
+            "add" => "/invoices/add",
+            "search" => "/invoices/search"]);
     }
 
     public function downloadAction()
@@ -208,5 +240,25 @@ class Invoices extends Controller
         $id = $this->route_params['id'];
         $fileStorage = FileStorage::getInstance();
         $fileStorage->download($id);
+    }
+
+    private function mapInvoiceToView(Invoice $invoice): InvoiceView
+    {
+        /** @var Contractor $contractor */
+        $contractor = $this->contractorRepository->findById($invoice->getContractorId());
+        $invoiceView = new InvoiceView();
+        $invoiceView->setId($invoice->getId())
+            ->setAmountGross($invoice->getAmountGross())
+            ->setAmountNet($invoice->getAmountNet())
+            ->setAmountNetCurrency($invoice->getAmountNetCurrency())
+            ->setAmountTax($invoice->getAmountTax())
+            ->setContractor($contractor->getName())
+            ->setCurrency($invoice->getCurrency())
+            ->setDateCreated($invoice->getDateCreated()->format(DateUtils::$PATTERN_DASHED_DATE))
+            ->setInvoiceDate($invoice->getInvoiceDate()->format(DateUtils::$PATTERN_DASHED_DATE))
+            ->setNumber($invoice->getNumber())
+            ->setFileId($invoice->getFileId());
+
+        return $invoiceView;
     }
 }

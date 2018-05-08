@@ -6,46 +6,42 @@
     }
     ?>
 
-    <h2>Szczegóły faktury nr <?= $invoice->getNumber(); ?></h2>
-    <br>
-
-    <label for="number">Numer faktury</label>
-    <div class="material-input">
-        <input type='text' disabled id="number" name='number' value="<?= $invoice->getNumber(); ?>" required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="invoice_date">Data faktury</label>
-    <div class="material-input">
-        <input type='date' disabled id="invoice_date" name='invoice_date'
-               value="<?= $invoice->getInvoiceDate()->format(\util\DateUtils::$PATTERN_DASHED_DATE); ?>" required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="amount_net">Kwota netto</label>
-    <div class="material-input">
-        <input type='number' disabled step="0.01" id="amount_net" name='amount_net'
-               value="<?= $invoice->getAmountNet(); ?>" required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="amount_gross">Kwota brutto</label>
-    <div class="material-input">
-        <input type='number' disabled step="0.01" id="amount_gross" name='amount_gross'
-               value="<?= $invoice->getAmountGross(); ?>" required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="currency">Waluta</label>
-    <div class="material-input">
-        <input type='text' disabled id="currency" name='currency' value="<?= $invoice->getCurrency(); ?>" required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
+    <table cellpadding="0" cellspacing="0" border="0" class="tbl-details">
+        <tbody>
+        <tr>
+            <td>Numer faktury:</td>
+            <td><?= $invoice->getNumber(); ?></td>
+        </tr>
+        <tr>
+            <td>Data wystawienia faktury:</td>
+            <td><?= $invoice->getInvoiceDate(); ?></td>
+        </tr>
+        <tr>
+            <td>Data dodania faktury:</td>
+            <td><?= $invoice->getDateCreated(); ?></td>
+        </tr>
+        <tr>
+            <td>Kwota netto:</td>
+            <td><?= $invoice->getAmountNet(); ?></td>
+        </tr>
+        <tr>
+            <td>Kwota brutto:</td>
+            <td><?= $invoice->getAmountGross(); ?></td>
+        </tr>
+        <tr>
+            <td>Podatek:</td>
+            <td><?= $invoice->getAmountTax(); ?></td>
+        </tr>
+        <tr>
+            <td>Waluta:</td>
+            <td><?= $invoice->getCurrency(); ?></td>
+        </tr>
+        <tr>
+            <td>Kwota netto w walucie:</td>
+            <td><?= $invoice->getAmountNetCurrency(); ?></td>
+        </tr>
+        </tbody>
+    </table>
 
     <div class="material-input">
         <?php if (isset($invoice) && is_numeric($invoice->getFileId())) { ?>

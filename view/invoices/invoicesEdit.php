@@ -6,9 +6,6 @@
     }
     ?>
 
-    <h2>Edytuj fakturę <?= $invoice->getNumber(); ?></h2>
-    <br>
-
     <form action="/invoices/<?= $invoice->getId(); ?>/update" method="post">
         <div class="material-input">
             <input type='text' id="number" name='number' value="<?= $invoice->getNumber(); ?>" required/>

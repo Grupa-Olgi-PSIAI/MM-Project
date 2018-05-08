@@ -266,10 +266,10 @@ a:link, a:visited {
     width: 100%;
     top: 0;
     z-index: 2;
+    padding-left: 132px;
 }
 
 #top-nav ul {
-    width: 100%;
     background: white;
     float: right;
     list-style: none;
@@ -278,6 +278,12 @@ a:link, a:visited {
 
 #top-nav li {
     float: right;
+}
+
+#top-nav h1 {
+    font-size: 26px;
+    float: left;
+    padding-left: 12px;
 }
 
 /* Icons in nav bar */
@@ -310,6 +316,7 @@ a:link, a:visited {
 /* Search bar*/
 .search-bar {
     text-align: left;
+    padding-left: 12px;
 }
 
 .search-bar input {
@@ -508,6 +515,11 @@ table {
     table-layout: fixed;
 }
 
+table.tbl-details {
+    width: auto;
+    table-layout: auto;
+}
+
 .tbl-header {
     background-color: rgba(255, 255, 255, 0.5);
 }
@@ -522,7 +534,7 @@ th {
     padding: 15px 10px;
     text-align: left;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 16px;
     color: #7A777D;
     text-transform: uppercase;
 }
@@ -532,7 +544,7 @@ td {
     text-align: left;
     vertical-align: middle;
     font-weight: 300;
-    font-size: 12px;
+    font-size: 14px;
     color: #7A777D;;
     border-bottom: solid 1px rgba(255, 255, 255, 0.1);
 }

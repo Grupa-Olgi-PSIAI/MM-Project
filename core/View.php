@@ -44,33 +44,12 @@ abstract class View
     {
         extract($args, EXTR_SKIP);
 
-        self::renderHeader();
+        require dirname(__DIR__) . "/view/header.html";
         if ($showMenu) {
-            self::renderMenu();
-            self::renderTopNav();
+            require dirname(__DIR__) . "/view/menu.html";
+            require dirname(__DIR__) . "/view/top.php";
         }
         require $file;
-        self::renderFooter();
-    }
-
-    private static function renderMenu()
-    {
-        require dirname(__DIR__) . "/view/menu.html";
-    }
-
-    private static function renderTopNav()
-    {
-        require dirname(__DIR__) . "/view/top.html";
-    }
-
-    private static function renderHeader()
-    {
-        require dirname(__DIR__) . "/view/header.html";
-    }
-
-    private static function renderFooter()
-    {
         require dirname(__DIR__) . "/view/footer.html";
     }
-
 }

@@ -3,6 +3,7 @@
 namespace model;
 
 use core\Model;
+use util\DateUtils;
 
 class Document extends Model
 {
@@ -88,11 +89,11 @@ class Document extends Model
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getDateCreated(): string
+    public function getDateCreated(): \DateTime
     {
-        return $this->date_created;
+        return new \DateTime($this->date_created);
     }
 
     /**
@@ -101,16 +102,17 @@ class Document extends Model
      */
     public function setDateCreated(string $date_created): Document
     {
-        $this->date_created = $date_created;
+        $dateTime = new \DateTime($date_created);
+        $this->date_created = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getLastUpdated(): string
+    public function getLastUpdated(): \DateTime
     {
-        return $this->last_updated;
+        return new \DateTime($this->last_updated);
     }
 
     /**
@@ -119,7 +121,8 @@ class Document extends Model
      */
     public function setLastUpdated(string $last_updated): Document
     {
-        $this->last_updated = $last_updated;
+        $dateTime = new \DateTime($last_updated);
+        $this->last_updated = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 

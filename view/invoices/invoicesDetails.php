@@ -1,6 +1,6 @@
 <div id="page">
     <?php
-    /** @var \model\Invoice $invoice */
+    /** @var \model\InvoiceView $invoice */
     if (!isset($invoice)) {
         throw new RuntimeException("Invoice is missing", 404);
     }
@@ -44,7 +44,7 @@
     </table>
 
     <div class="material-input">
-        <?php if (isset($invoice) && is_numeric($invoice->getFileId())) { ?>
+        <?php if (is_numeric($invoice->getFileId())) { ?>
             <a href="/invoices/<?= $invoice->getFileId(); ?>/download" class="material-btn">Pobierz</a>
         <?php } ?>
     </div>

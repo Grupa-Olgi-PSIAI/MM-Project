@@ -125,7 +125,7 @@ class Invoice extends Model
      * @param string $date_created
      * @return Invoice
      */
-    public function setDateCreated($date_created): string
+    public function setDateCreated(string $date_created): Invoice
     {
         $dateTime = new \DateTime($date_created);
         $this->date_created = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
@@ -144,7 +144,7 @@ class Invoice extends Model
      * @param string $last_updated
      * @return Invoice
      */
-    public function setLastUpdated($last_updated): Invoice
+    public function setLastUpdated(string $last_updated): Invoice
     {
         $dateTime = new \DateTime($last_updated);
         $this->last_updated = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);

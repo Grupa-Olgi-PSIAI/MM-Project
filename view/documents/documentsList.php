@@ -1,15 +1,5 @@
 <div id="page">
 
-    <ul id="content-nav">
-        <li><a href="/documents/add" class="material-btn">Nowy</a></li>
-        <li><a href="#filter_popup" class="material-btn">Filtruj</a></li>
-        <li>
-            <form class="search-bar" action="/documents/search" method="post">
-                <input type="search" placeholder="Szukaj dokumentu..." name="criterium">
-            </form>
-        </li>
-    </ul>
-
     <a id="filter_popup" href="#" class="popup"></a>
     <div class="popup">
         <form title="filter" action="/documents/filter" method="post">
@@ -26,16 +16,13 @@
         <a class="close x" href="#">x</a>
     </div>
 
-    <br>
-    <h2>Lista dokumentów</h2>
     <div class="tbl-header">
         <table cellpadding="0" cellspacing="0" border="0">
             <thead>
             <tr>
-                <th>ID</th>
+                <th>Identyfikator</th>
                 <th>Data utworzenia</th>
                 <th>Data modyfikacji</th>
-                <th>ID faktury</th>
                 <th>Opis</th>
                 <th>Kontrahent</th>
                 <th></th>
@@ -48,21 +35,20 @@
     <div class="tbl-content">
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
-            <?php use util\DateUtils;
-
+            <?php
             if (isset($documents)) {
-                /** @var \model\Document $document */
+                /** @var \model\DocumentView $document */
                 foreach ($documents as $key => $document) { ?>
                     <tr>
-                        <td><?php echo $document->getId() ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getDateCreated()) ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getLastUpdated()) ?></td>
-                        <td><?php echo $document->getIdInternal() ?></td>
-                        <td><?php echo $document->getDescription() ?></td>
-                        <td><?php echo $document->getContractorId() ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="material-btn">Szczegóły</a>'; ?></td>
-                        <td><?php echo '<a href="/documents/edit?id=' . $document->getId() . '" class="material-btn">Edytuj</a>'; ?></td>
-                        <td><?php echo '<a href="/documents/' . $document->getId() . '/delete" class="material-btn">Usuń</a>' ?></td>
+                        <td><?= $document->getInternalId(); ?></td>
+                        <td><?= $document->getDateCreated(); ?></td>
+                        <td><?= $document->getLastUpdated(); ?></td>
+                        <td><?= $document->getDescription(); ?></td>
+                        <td><?= $document->getContractor(); ?></td>
+                        <td><a href="/documents/<?= $document->getId(); ?>/details" class="material-btn">Szczegóły</a>
+                        </td>
+                        <td><a href="/documents/<?= $document->getId(); ?>/edit" class="material-btn">Edytuj</a></td>
+                        <td><a href="/documents/<?= $document->getId(); ?>/delete" class="material-btn">Usuń</a></td>
                     </tr>
                 <?php }
             } ?>

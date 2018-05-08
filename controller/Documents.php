@@ -6,10 +6,13 @@ namespace controller;
 
 use core\Controller;
 use core\View;
+use model\Contractor;
 use model\Document;
+use model\DocumentView;
 use repository\ContractorRepository;
 use repository\DocumentRepository;
 use util\AuthFlags;
+use util\DateUtils;
 use util\FileStorage;
 use util\Redirect;
 
@@ -21,28 +24,43 @@ class Documents extends Controller
     /**
      * @var DocumentRepository
      */
-    private $repository;
+    private $documentRepository;
+
+    /**
+     * @var ContractorRepository
+     */
+    private $contractorRepository;
 
     public function __construct(array $route_params)
     {
         parent::__construct($route_params);
-        $this->repository = new DocumentRepository();
+        $this->documentRepository = new DocumentRepository();
+        $this->contractorRepository = new ContractorRepository();
     }
 
     public function showAction()
     {
         $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::ALL_READ);
-        $documents = $this->repository->findAll();
-        View::render('documents/documentsList.php', ["documents" => $documents]);
+
+        $documents = $this->documentRepository->findAll();
+        $documentViews = [];
+        foreach ($documents as $document) {
+            $documentViews[] = $this->maptoView($document);
+        }
+
+        View::render('documents/documentsList.php', ["documents" => $documentViews,
+            "title" => "Lista dokumentów",
+            "filter" => "#filter_popup",
+            "add" => "/documents/add",
+            "search" => "/documents/search"]);
     }
 
     public function addAction()
     {
         $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::OWN_CREATE);
 
-        $contractorRepository = new ContractorRepository();
-        $contractors = $contractorRepository->findAll();
-        View::render('documents/documentsAdd.php', ["contractors" => $contractors]);
+        $contractors = $this->contractorRepository->findAll();
+        View::render('documents/documentsAdd.php', ["contractors" => $contractors, "title" => "Dodaj dokument"]);
     }
 
     public function createAction()
@@ -68,7 +86,7 @@ class Documents extends Controller
             $document->setFileId($fileId);
         }
 
-        $this->repository->add($document);
+        $this->documentRepository->add($document);
         Redirect::to("/documents/show");
     }
 
@@ -89,10 +107,17 @@ class Documents extends Controller
             $val = array($dateFrom, $dateTo);
         }
 
-        $repository = new DocumentRepository();
-        $documents = $repository->find($con, $val);
+        $documents = $this->documentRepository->find($con, $val);
+        $documentViews = [];
+        foreach ($documents as $document) {
+            $documentViews[] = $this->maptoView($document);
+        }
 
-        View::render('documents/documentsList.php', ["documents" => $documents]);
+        View::render('documents/documentsList.php', ["documents" => $documentViews,
+            "title" => "Lista dokumentów",
+            "filter" => "#filter_popup",
+            "add" => "/documents/add",
+            "search" => "/documents/search"]);
     }
 
     public function searchAction()
@@ -108,9 +133,17 @@ class Documents extends Controller
         $val = array($criterium, $criterium, $criterium, "%" . $criterium . "%", $criterium);
         //"%" . $criterium . "%",
 
-        $repository = new DocumentRepository();
-        $documents = $repository->findOr($con, $val);
-        View::render('documents/documentsList.php', ["documents" => $documents]);
+        $documents = $this->documentRepository->findOr($con, $val);
+        $documentViews = [];
+        foreach ($documents as $document) {
+            $documentViews[] = $this->maptoView($document);
+        }
+
+        View::render('documents/documentsList.php', ["documents" => $documentViews,
+            "title" => "Lista dokumentów",
+            "filter" => "#filter_popup",
+            "add" => "/documents/add",
+            "search" => "/documents/search"]);
     }
 
     public function detailsAction()
@@ -118,12 +151,11 @@ class Documents extends Controller
         $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::ALL_READ);
 
         $id = $this->route_params['id'];
-        /** @var Document $document */
-        $document = $this->repository->findById($id);
-        $contractorRepo = new ContractorRepository();
-        $contractor = $contractorRepo->findById($document->getContractorId());
+        $document = $this->documentRepository->findById($id);
+        $documentView = $this->maptoView($document);
 
-        View::render('documents/documentDetails.php', ['document' => $document, 'contractor' => $contractor]);
+        View::render('documents/documentDetails.php', ['document' => $documentView,
+            "title" => "Szczegóły dokumentu o identyfikatorze: " . $documentView->getInternalId()]);
     }
 
     public function deleteAction()
@@ -132,8 +164,8 @@ class Documents extends Controller
 
         $id = $this->route_params['id'];
         /** @var Document $document */
-        $document = $this->repository->findById($id);
-        $this->repository->delete($id);
+        $document = $this->documentRepository->findById($id);
+        $this->documentRepository->delete($id);
 
         $fileStorage = FileStorage::getInstance();
         $fileId = $document->getFileId();
@@ -149,14 +181,14 @@ class Documents extends Controller
     {
         $this->checkPermissions(self::RESOURCE_DOCUMENTS, AuthFlags::ALL_UPDATE);
 
-        $id = $_GET['id'];
-        $repository = new DocumentRepository();
+        $id = $this->route_params['id'];
+        /** @var Document $document */
+        $document = $this->documentRepository->findById($id);
+        $contractors = $this->contractorRepository->findAll();
 
-        $contractorRepository = new ContractorRepository();
-        $contractors = $contractorRepository->findAll();
-
-        $document = $repository->findById($id);
-        View::render('documents/documentsEdit.php', ["document" => $document, "contractors" => $contractors]);
+        View::render('documents/documentsEdit.php', ["document" => $document,
+            "contractors" => $contractors,
+            "title" => "Edytuj dokument " . $document->getIdInternal()]);
     }
 
     public function updateAction()
@@ -173,8 +205,8 @@ class Documents extends Controller
         $document->setDescription($description);
         $document->setContractorId($contractor_id);
 
-        $repository = new DocumentRepository();
-        $repository->update($_GET['id'], $document);
+        $id = $this->route_params['id'];
+        $this->documentRepository->update($id, $document);
 
         Redirect::to('/documents/show');
     }
@@ -186,5 +218,21 @@ class Documents extends Controller
         $id = $this->route_params['id'];
         $fileStorage = FileStorage::getInstance();
         $fileStorage->download($id);
+    }
+
+    private function maptoView(Document $document): DocumentView
+    {
+        /** @var Contractor $contractor */
+        $contractor = $this->contractorRepository->findById($document->getContractorId());
+        $documentView = new DocumentView();
+        $documentView->setId($document->getId())
+            ->setFileId($document->getFileId())
+            ->setDateCreated($document->getDateCreated()->format(DateUtils::$PATTERN_DASHED_DATE))
+            ->setLastUpdated($document->getLastUpdated()->format(DateUtils::$PATTERN_DASHED_DATE))
+            ->setContractor($contractor->getName())
+            ->setDescription($document->getDescription())
+            ->setInternalId($document->getIdInternal());
+
+        return $documentView;
     }
 }

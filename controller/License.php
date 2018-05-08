@@ -56,7 +56,7 @@ class License extends Controller
         $this->checkPermissions(self::RESOURCE_LICENSE, AuthFlags::OWN_CREATE);
 
         $user_id = $_POST['user_id'];
-        $inventary_number = $_POST['inventary_number'];
+        $inventory_number = $_POST['inventory_number'];
         $name = $_POST['name'];
         $serial_key = $_POST['serial_key'];
         $validation_date = $_POST['validation_date'];
@@ -68,12 +68,12 @@ class License extends Controller
         $license = new Licenses();
         $license->setVersion(1);
         $license->setUserId($user_id);
-        $license->setInventaryNumber($inventary_number);
+        $license->setInventoryNumber($inventory_number);
         $license->setName($name);
         $license->setSerialKey($serial_key);
-        $license->setValidationDate(date_create($validation_date)->format('Y-m-d h:m:s'));
-        $license->setTechSupportEndDate(date_create($tech_support_end_date)->format('Y-m-d h:m:s'));
-        $license->setPurchaseDate(date_create($purchase_date)->format('Y-m-d h:m:s'));
+        $license->setValidationDate($validation_date);
+        $license->setTechSupportEndDate($tech_support_end_date);
+        $license->setPurchaseDate($purchase_date);
         $license->setPriceNet($price_net);
         $license->setNotes($notes);
 
@@ -96,7 +96,7 @@ class License extends Controller
         $this->checkPermissions(self::RESOURCE_LICENSE, AuthFlags::ALL_UPDATE);
 
         $user_id = $_POST['user_id'];
-        $inventary_number = $_POST['inventary_number'];
+        $inventory_number = $_POST['inventory_number'];
         $name = $_POST['name'];
         $serial_key = $_POST['serial_key'];
         $validation_date = $_POST['validation_date'];
@@ -108,12 +108,12 @@ class License extends Controller
         $license = new Licenses();
         $license->setVersion(1);
         $license->setUserId($user_id);
-        $license->setInventaryNumber($inventary_number);
+        $license->setInventoryNumber($inventory_number);
         $license->setName($name);
         $license->setSerialKey($serial_key);
-        $license->setValidationDate(date_create($validation_date)->format('Y-m-d h:m:s'));
-        $license->setTechSupportEndDate(date_create($tech_support_end_date)->format('Y-m-d h:m:s'));
-        $license->setPurchaseDate(date_create($purchase_date)->format('Y-m-d h:m:s'));
+        $license->setValidationDate($validation_date);
+        $license->setTechSupportEndDate($tech_support_end_date);
+        $license->setPurchaseDate($purchase_date);
         $license->setPriceNet($price_net);
         $license->setNotes($notes);
 
@@ -140,7 +140,7 @@ class License extends Controller
 
         $criterium = $_POST['criterium'];
 
-        $con = array('id LIKE ?', 'version LIKE ?', 'user_id LIKE ?', 'inventary_number LIKE ?',
+        $con = array('id LIKE ?', 'version LIKE ?', 'user_id LIKE ?', 'inventory_number LIKE ?',
             'name LIKE ?', 'serial_key LIKE ?', 'notes LIKE ?', 'price_net LIKE ?', 'user_id IN (SELECT id FROM users WHERE last_name = ?)');
 
         $val = array($criterium, $criterium, $criterium, $criterium, "%" . $criterium . "%", $criterium, "%" . $criterium . "%", $criterium, $criterium);

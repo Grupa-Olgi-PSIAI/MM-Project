@@ -2,7 +2,7 @@
     <h2>Szczegóły licencji o numerze inwentarza: <?php
         /** @var \model\Licenses $license */
         if (isset($license)) {
-            echo $license->getInventaryNumber();
+            echo $license->getInventoryNumber();
         } ?>
     </h2>
     <br>

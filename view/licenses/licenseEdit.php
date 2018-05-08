@@ -14,12 +14,12 @@
             <label for="user_id">ID użytkownika</label>
         </div>
         <div class="material-input">
-            <input type='text' id="inventary_number" name='inventary_number' <?php if (isset($license)) {
-                echo "value=" . $license->getInventaryNumber() . "";
+            <input type='text' id="inventory_number" name='inventory_number' <?php if (isset($license)) {
+                echo "value=" . $license->getInventoryNumber() . "";
             } ?> required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label for="inventary_number">Numer inwentaryzacyjny</label>
+            <label for="inventory_number">Numer inwentaryzacyjny</label>
         </div>
         <div class="material-input">
             <input type='text' id="name" name='name' <?php if (isset($license)) {

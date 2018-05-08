@@ -76,7 +76,7 @@ use util\DateUtils;
                         <td><?php DateUtils::getPlainDate($license->getDateCreated()) ?></td>
                         <td><?php DateUtils::getPlainDate($license->getLastUpdated()) ?></td>
                         <td><?php echo $license->getUserId() ?></td>
-                        <td><?php echo $license->getInventaryNumber() ?></td>
+                        <td><?php echo $license->getInventoryNumber() ?></td>
                         <td><?php echo $license->getName() ?></td>
                         <td><?php echo $license->getSerialKey() ?></td>
                         <td><?php echo $license->getValidationDate() ?></td>

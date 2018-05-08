@@ -1,8 +1,8 @@
 <div id="page">
     <h2>Szczegóły dokumentu o identyfikatorze: <?php
-        /** @var \model\Document $document */
+        /** @var \model\DocumentView $document */
         if (isset($document)) {
-            echo $document->getIdInternal();
+            echo $document->getInternalId();
         } ?>
     </h2>
     <br>

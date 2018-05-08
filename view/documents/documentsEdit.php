@@ -4,9 +4,9 @@
         } ?></h2>
     <br>
 
-    <form action="/documents/update?id=<?php if (isset($document)) {
+    <form action="/documents/<?php if (isset($document)) {
         echo $document->getId();
-    } ?>" method="post">
+    } ?>/update" method="post">
         <div class="material-input">
             <input type='text' id="id_internal" name='id_internal' <?php if (isset($document)) {
                 echo "value=" . $document->getIdInternal() . "";

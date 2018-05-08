@@ -48,20 +48,19 @@
     <div class="tbl-content">
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
-            <?php use util\DateUtils;
-
+            <?php
             if (isset($documents)) {
-                /** @var \model\Document $document */
+                /** @var \model\DocumentView $document */
                 foreach ($documents as $key => $document) { ?>
                     <tr>
                         <td><?php echo $document->getId() ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getDateCreated()) ?></td>
-                        <td><?php DateUtils::getPlainDate($document->getLastUpdated()) ?></td>
-                        <td><?php echo $document->getIdInternal() ?></td>
+                        <td><?php echo $document->getDateCreated() ?></td>
+                        <td><?php echo $document->getLastUpdated() ?></td>
+                        <td><?php echo $document->getInternalId() ?></td>
                         <td><?php echo $document->getDescription() ?></td>
-                        <td><?php echo $document->getContractorId() ?></td>
+                        <td><?php echo $document->getContractor() ?></td>
                         <td><?php echo '<a href="/documents/' . $document->getId() . '/details" class="material-btn">Szczegóły</a>'; ?></td>
-                        <td><?php echo '<a href="/documents/edit?id=' . $document->getId() . '" class="material-btn">Edytuj</a>'; ?></td>
+                        <td><?php echo '<a href="/documents/' . $document->getId() . '/edit" class="material-btn">Edytuj</a>'; ?></td>
                         <td><?php echo '<a href="/documents/' . $document->getId() . '/delete" class="material-btn">Usuń</a>' ?></td>
                     </tr>
                 <?php }

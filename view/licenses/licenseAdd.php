@@ -1,19 +1,10 @@
 <div id="page">
-    <h2>Dodaj dokument</h2>
-    <br>
-
     <form action="/license/create" method="post" enctype="multipart/form-data">
         <div class="material-input">
-            <input type='text' id="user_id" name='user_id' required/>
+            <input type='text' id="inventory_number" name='inventory_number' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label for="user_id">ID użytkownika</label>
-        </div>
-        <div class="material-input">
-            <input type='text' id="inventary_number" name='inventary_number' required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label for="inventary_number">Numer inwentaryzacyjny</label>
+            <label for="inventory_number">Numer inwentaryzacyjny</label>
         </div>
         <div class="material-input">
             <input type='text' id="name" name='name' required/>
@@ -49,12 +40,6 @@
             <label for="purchase_date">Data zakupu</label>
         </div>
         <div class="material-input">
-            <input type='text' id="price_net" name='price_net' required/>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label for="price_net">Cena netto</label>
-        </div>
-        <div class="material-input">
             <input type='text' id="notes" name='notes' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
@@ -66,6 +51,41 @@
             <span class="material-input-bar"></span>
             <label for="file">Plik</label>
         </div>
+
+        <table class="tbl-details">
+            <?php if (isset($users)) { ?>
+                <tr>
+                    <td><label for="user_id">Użytkownik</label></td>
+                    <td>
+                        <select id="user_id" name="user_id">
+                            <?php
+                            /** @var \model\User $user */
+                            foreach ($users as $user) { ?>
+                                <option value="<?= $user->getId(); ?>"><?= $user->getFirstName() . ' ' . $user->getLastName(); ?></option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                </tr>
+            <?php }
+            if (isset($invoices)) { ?>
+                <tr>
+                    <td><label for="invoice_id">Faktura</label></td>
+                    <td>
+                        <select id="invoice_id" name="invoice_id">
+                            <?php
+                            /** @var \model\Invoice $invoice */
+                            foreach ($invoices as $invoice) { ?>
+                                <option value="<?= $invoice->getId(); ?>"><?= $invoice->getNumber(); ?></option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                </tr>
+            <?php } else { ?>
+                <a href="/invoices/add" class="material-btn">Dodaj nową fakturę</a>
+            <?php } ?>
+        </table>
+
+        <br><br>
         <div class="material-input">
             <input type="submit" name="add" value="Wyślij">
         </div>

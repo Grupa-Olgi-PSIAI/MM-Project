@@ -9,6 +9,7 @@
 namespace model;
 
 use core\Model;
+use util\DateUtils;
 
 class Licenses extends Model
 {
@@ -40,7 +41,7 @@ class Licenses extends Model
     /**
      * @var string
      */
-    private $inventary_number;
+    private $inventory_number;
 
     /**
      * @var string
@@ -68,11 +69,6 @@ class Licenses extends Model
     private $purchase_date;
 
     /**
-     * @var float
-     */
-    private $price_net;
-
-    /**
      * @var string
      */
     private $notes;
@@ -81,6 +77,11 @@ class Licenses extends Model
      * @var null|int
      */
     private $file_id;
+
+    /**
+     * @var int
+     */
+    private $invoice_id;
 
     public function getFields(): array
     {
@@ -124,11 +125,11 @@ class Licenses extends Model
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getDateCreated(): string
+    public function getDateCreated(): \DateTime
     {
-        return $this->date_created;
+        return new \DateTime($this->date_created);
     }
 
     /**
@@ -137,16 +138,17 @@ class Licenses extends Model
      */
     public function setDateCreated(string $date_created): Licenses
     {
-        $this->date_created = $date_created;
+        $dateTime = new \DateTime($date_created);
+        $this->date_created = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getLastUpdated(): string
+    public function getLastUpdated(): \DateTime
     {
-        return $this->last_updated;
+        return new \DateTime($this->last_updated);
     }
 
     /**
@@ -155,7 +157,8 @@ class Licenses extends Model
      */
     public function setLastUpdated(string $last_updated): Licenses
     {
-        $this->last_updated = $last_updated;
+        $dateTime = new \DateTime($last_updated);
+        $this->last_updated = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 
@@ -180,18 +183,18 @@ class Licenses extends Model
     /**
      * @return string
      */
-    public function getInventaryNumber(): string
+    public function getInventoryNumber(): string
     {
-        return $this->inventary_number;
+        return $this->inventory_number;
     }
 
     /**
-     * @param string $inventary_number
+     * @param string $inventory_number
      * @return Licenses
      */
-    public function setInventaryNumber(string $inventary_number): Licenses
+    public function setInventoryNumber(string $inventory_number): Licenses
     {
-        $this->inventary_number = $inventary_number;
+        $this->inventory_number = $inventory_number;
         return $this;
     }
 
@@ -232,11 +235,11 @@ class Licenses extends Model
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getValidationDate(): string
+    public function getValidationDate(): \DateTime
     {
-        return $this->validation_date;
+        return new \DateTime($this->validation_date);
     }
 
     /**
@@ -245,16 +248,17 @@ class Licenses extends Model
      */
     public function setValidationDate(string $validation_date): Licenses
     {
-        $this->validation_date = $validation_date;
+        $dateTime = new \DateTime($validation_date);
+        $this->validation_date = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getTechSupportEndDate(): string
+    public function getTechSupportEndDate(): \DateTime
     {
-        return $this->tech_support_end_date;
+        return new \DateTime($this->tech_support_end_date);
     }
 
     /**
@@ -263,16 +267,17 @@ class Licenses extends Model
      */
     public function setTechSupportEndDate(string $tech_support_end_date): Licenses
     {
-        $this->tech_support_end_date = $tech_support_end_date;
+        $dateTime = new \DateTime($tech_support_end_date);
+        $this->tech_support_end_date = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getPurchaseDate(): string
+    public function getPurchaseDate(): \DateTime
     {
-        return $this->purchase_date;
+        return new \DateTime($this->purchase_date);
     }
 
     /**
@@ -281,25 +286,8 @@ class Licenses extends Model
      */
     public function setPurchaseDate(string $purchase_date): Licenses
     {
-        $this->purchase_date = $purchase_date;
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPriceNet(): float
-    {
-        return $this->price_net;
-    }
-
-    /**
-     * @param float $price_net
-     * @return Licenses
-     */
-    public function setPriceNet(float $price_net): Licenses
-    {
-        $this->price_net = $price_net;
+        $dateTime = new \DateTime($purchase_date);
+        $this->purchase_date = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 
@@ -336,6 +324,24 @@ class Licenses extends Model
     public function setFileId(?int $file_id): Licenses
     {
         $this->file_id = $file_id;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInvoiceId(): int
+    {
+        return $this->invoice_id;
+    }
+
+    /**
+     * @param int $invoice_id
+     * @return Licenses
+     */
+    public function setInvoiceId(int $invoice_id): Licenses
+    {
+        $this->invoice_id = $invoice_id;
         return $this;
     }
 }

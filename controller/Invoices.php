@@ -253,6 +253,7 @@ class Invoices extends Controller
             ->setAmountNetCurrency($invoice->getAmountNetCurrency())
             ->setAmountTax($invoice->getAmountTax())
             ->setContractor($contractor->getName())
+            ->setContractorId($invoice->getContractorId())
             ->setCurrency($invoice->getCurrency())
             ->setDateCreated($invoice->getDateCreated()->format(DateUtils::$PATTERN_DASHED_DATE))
             ->setInvoiceDate($invoice->getInvoiceDate()->format(DateUtils::$PATTERN_DASHED_DATE))

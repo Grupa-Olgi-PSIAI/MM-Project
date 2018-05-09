@@ -40,6 +40,12 @@
             <td>Kwota netto w walucie:</td>
             <td><?= $invoice->getAmountNetCurrency(); ?></td>
         </tr>
+        <tr>
+            <td>Kontrahent:</td>
+            <td><?= $invoice->getContractor(); ?></td>
+            <td><a href="/contractors/<?= $invoice->getContractorId() ?>/details" class="material-btn">Szczegóły</a>
+            </td>
+        </tr>
         </tbody>
     </table>
 

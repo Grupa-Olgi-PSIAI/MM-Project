@@ -59,6 +59,11 @@ class InvoiceView
     /**
      * @var null|int
      */
+    private $contractorId;
+
+    /**
+     * @var null|int
+     */
     private $fileId;
 
     /**
@@ -256,6 +261,24 @@ class InvoiceView
     public function setFileId(?int $fileId): InvoiceView
     {
         $this->fileId = $fileId;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getContractorId(): ?int
+    {
+        return $this->contractorId;
+    }
+
+    /**
+     * @param int|null $contractorId
+     * @return InvoiceView
+     */
+    public function setContractorId(?int $contractorId): InvoiceView
+    {
+        $this->contractorId = $contractorId;
         return $this;
     }
 }

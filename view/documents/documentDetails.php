@@ -21,12 +21,14 @@
             <td><?= $document->getLastUpdated(); ?></td>
         </tr>
         <tr>
-            <td>Kontrahent</td>
-            <td><?= $document->getContractor(); ?></td>
-        </tr>
-        <tr>
             <td>Opis</td>
             <td><?= $document->getDescription(); ?></td>
+        </tr>
+        <tr>
+            <td>Kontrahent</td>
+            <td><?= $document->getContractor(); ?></td>
+            <td><a href="/contractors/<?= $document->getContractorId() ?>/details" class="material-btn">Szczegóły</a>
+            </td>
         </tr>
         </tbody>
     </table>

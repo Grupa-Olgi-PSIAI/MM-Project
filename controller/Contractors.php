@@ -61,4 +61,17 @@ class Contractors extends Controller
         ]);
     }
 
+    public function detailsAction()
+    {
+        $this->checkPermissions(self::RESOURCE_CONTRACTOR, AuthFlags::ALL_READ);
+
+        $id = $this->route_params['id'];
+        $repository = new ContractorRepository();
+        $contractor = $repository->findById($id);
+        View::render('contractors/contractorDetails.php', [
+            "contractor" => $contractor,
+            "title" => "Szczegóły kontrahenta"
+        ]);
+    }
+
 }

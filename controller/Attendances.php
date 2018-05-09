@@ -101,4 +101,18 @@ class Attendances extends Controller
             "notes" => $notes
         ]);
     }
+
+    public function deleteAction()
+    {
+        $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_DELETE);
+        $id = $this->route_params['id'];
+        $this->attendanceRepository->delete($id);
+        $this->showAction();
+    }
+
+    public function editAction()
+    {
+        $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE);
+        View::render('attendances/attendanceEdit.php', ["title" => "Edytuj godziny pracy"]);
+    }
 }

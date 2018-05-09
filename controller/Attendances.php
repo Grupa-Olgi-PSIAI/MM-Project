@@ -13,10 +13,28 @@ class Attendances extends Controller
 {
     private const RESOURCE_ATTENDANCE = "attendance";
 
+    private $attendanceRepository;
+    private $userId;
+
+    public function __construct(array $route_params)
+    {
+        parent::__construct($route_params);
+        $this->attendanceRepository = new AttendanceRepository();
+        $this->userId = Session::getInstance()->get(Session::USER_SESSION);
+    }
+
     public function showAction()
     {
         $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE);
-        View::render('attendances/attendanceAdd.php');
+        $attendances = $this->attendanceRepository->findByUserId($this->userId);
+        View::render('attendances/attendanceList.php', ["attendances" => $attendances, "title" => "Godziny pracy"]);
+    }
+
+    public function addAction()
+    {
+        $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE);
+
+        View::render('attendances/attendanceAdd.php', ["title" => "Zaloguj godziny pracy"]);
     }
 
     public function createAction()
@@ -43,7 +61,7 @@ class Attendances extends Controller
         $error_attendance_dates = ( ($hour_in > $hour_out) || (($hour_in == $hour_out) && ($minute_in >= $minute_out)) );
 
         $repository = new AttendanceRepository();
-        $userId = Session::getInstance()->get(Session::USER_SESSION);
+
 
         //TODO: check for $error_attendance_duplicate
         $time_in = $year . "-" . $month . "-" . $day . " " . $hour_in . ":" . $minute_in . ":00";
@@ -57,7 +75,7 @@ class Attendances extends Controller
 
             $attendance = new Attendance();
             $attendance->setVersion(1);
-            $attendance->setUserId($userId);
+            $attendance->setUserId($this->userId);
             $attendance->setTimeIn($time_in);
             $attendance->setTimeOut($time_out);
             $attendance->setNotes($notes);
@@ -69,6 +87,7 @@ class Attendances extends Controller
         }
 
         View::render('attendances/attendanceAdd.php', [
+            "title" => "Zaloguj godziny pracy",
             "error_attendance_invalid_month_day" => $error_attendance_invalid_month_day,
             "error_attendance_duplicate" => $error_attendance_duplicate,
             "error_attendance_dates" => $error_attendance_dates,

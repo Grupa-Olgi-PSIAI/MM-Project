@@ -2,11 +2,12 @@
 
 namespace controller;
 
-
 use core\Controller;
 use core\View;
 use model\Attendance;
+use repository\AttendanceRepository;
 use util\AuthFlags;
+use util\Session;
 
 class Attendances extends Controller
 {
@@ -22,6 +23,7 @@ class Attendances extends Controller
     {
         $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE);
 
+        unset($error_attendance_invalid_month_day);
         unset($error_attendance_duplicate);
         unset($error_attendance_dates);
 
@@ -37,20 +39,25 @@ class Attendances extends Controller
 
         $notes = $_POST['attendance_notes'];
 
+        $error_attendance_invalid_month_day = !checkdate($month, $day, $year);
         $error_attendance_dates = ( ($hour_in > $hour_out) || (($hour_in == $hour_out) && ($minute_in >= $minute_out)) );
-        $error_attendance_duplicate = false;
 
         $repository = new AttendanceRepository();
+        $userId = Session::getInstance()->get(Session::USER_SESSION);
 
         //TODO: check for $error_attendance_duplicate
-        $time_in = 0;
-        $time_out = 0;
+        $time_in = $year . "-" . $month . "-" . $day . " " . $hour_in . ":" . $minute_in . ":00";
+        $time_out = $year . "-" . $month . "-" . $day . " " . $hour_out . ":" . $minute_out . ":00";
 
-        if (!$error_attendance_dates &&
+        $error_attendance_duplicate = false;
+
+        if (!$error_attendance_invalid_month_day &&
+            !$error_attendance_dates &&
             !$error_attendance_duplicate) {
 
             $attendance = new Attendance();
             $attendance->setVersion(1);
+            $attendance->setUserId($userId);
             $attendance->setTimeIn($time_in);
             $attendance->setTimeOut($time_out);
             $attendance->setNotes($notes);
@@ -61,7 +68,8 @@ class Attendances extends Controller
             return;
         }
 
-        View::render('contractors/contractorsAdd.php', [
+        View::render('attendances/attendanceAdd.php', [
+            "error_attendance_invalid_month_day" => $error_attendance_invalid_month_day,
             "error_attendance_duplicate" => $error_attendance_duplicate,
             "error_attendance_dates" => $error_attendance_dates,
             "year" => $year,
@@ -74,5 +82,4 @@ class Attendances extends Controller
             "notes" => $notes
         ]);
     }
-
 }

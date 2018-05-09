@@ -62,11 +62,6 @@ class LicenseView
     private $purchaseDate;
 
     /**
-     * @var float
-     */
-    private $priceNet;
-
-    /**
      * @var string
      */
     private $notes;
@@ -281,24 +276,6 @@ class LicenseView
     public function setPurchaseDate(string $purchaseDate): LicenseView
     {
         $this->purchaseDate = $purchaseDate;
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPriceNet(): float
-    {
-        return $this->priceNet;
-    }
-
-    /**
-     * @param float $priceNet
-     * @return LicenseView
-     */
-    public function setPriceNet(float $priceNet): LicenseView
-    {
-        $this->priceNet = $priceNet;
         return $this;
     }
 

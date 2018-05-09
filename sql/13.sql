@@ -9,6 +9,8 @@ ALTER TABLE `licences`
   ALTER COLUMN `validation_date` DROP DEFAULT;
 ALTER TABLE `licences`
   MODIFY `notes` VARCHAR(255);
+ALTER TABLE `licences`
+  DROP `price_net`;
 
 DELETE FROM `versions`
 WHERE `id` = 13;

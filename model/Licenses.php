@@ -69,11 +69,6 @@ class Licenses extends Model
     private $purchase_date;
 
     /**
-     * @var float
-     */
-    private $price_net;
-
-    /**
      * @var string
      */
     private $notes;
@@ -293,24 +288,6 @@ class Licenses extends Model
     {
         $dateTime = new \DateTime($purchase_date);
         $this->purchase_date = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPriceNet(): float
-    {
-        return $this->price_net;
-    }
-
-    /**
-     * @param float $price_net
-     * @return Licenses
-     */
-    public function setPriceNet(float $price_net): Licenses
-    {
-        $this->price_net = $price_net;
         return $this;
     }
 

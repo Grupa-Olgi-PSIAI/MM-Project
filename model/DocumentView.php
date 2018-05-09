@@ -39,6 +39,11 @@ class DocumentView
     /**
      * @var null|int
      */
+    private $contractorId;
+
+    /**
+     * @var null|int
+     */
     private $fileId;
 
     /**
@@ -164,6 +169,24 @@ class DocumentView
     public function setFileId(?int $fileId): DocumentView
     {
         $this->fileId = $fileId;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getContractorId(): ?int
+    {
+        return $this->contractorId;
+    }
+
+    /**
+     * @param int|null $contractorId
+     * @return DocumentView
+     */
+    public function setContractorId(?int $contractorId): DocumentView
+    {
+        $this->contractorId = $contractorId;
         return $this;
     }
 }

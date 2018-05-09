@@ -45,7 +45,7 @@ class Documents extends Controller
         $documents = $this->documentRepository->findAll();
         $documentViews = [];
         foreach ($documents as $document) {
-            $documentViews[] = $this->maptoView($document);
+            $documentViews[] = $this->mapToView($document);
         }
 
         View::render('documents/documentsList.php', ["documents" => $documentViews,
@@ -110,7 +110,7 @@ class Documents extends Controller
         $documents = $this->documentRepository->find($con, $val);
         $documentViews = [];
         foreach ($documents as $document) {
-            $documentViews[] = $this->maptoView($document);
+            $documentViews[] = $this->mapToView($document);
         }
 
         View::render('documents/documentsList.php', ["documents" => $documentViews,
@@ -136,7 +136,7 @@ class Documents extends Controller
         $documents = $this->documentRepository->findOr($con, $val);
         $documentViews = [];
         foreach ($documents as $document) {
-            $documentViews[] = $this->maptoView($document);
+            $documentViews[] = $this->mapToView($document);
         }
 
         View::render('documents/documentsList.php', ["documents" => $documentViews,
@@ -152,7 +152,7 @@ class Documents extends Controller
 
         $id = $this->route_params['id'];
         $document = $this->documentRepository->findById($id);
-        $documentView = $this->maptoView($document);
+        $documentView = $this->mapToView($document);
 
         View::render('documents/documentDetails.php', ['document' => $documentView,
             "title" => "Szczegóły dokumentu o identyfikatorze: " . $documentView->getInternalId()]);
@@ -220,7 +220,7 @@ class Documents extends Controller
         $fileStorage->download($id);
     }
 
-    private function maptoView(Document $document): DocumentView
+    private function mapToView(Document $document): DocumentView
     {
         /** @var Contractor $contractor */
         $contractor = $this->contractorRepository->findById($document->getContractorId());
@@ -230,6 +230,7 @@ class Documents extends Controller
             ->setDateCreated($document->getDateCreated()->format(DateUtils::$PATTERN_DASHED_DATE))
             ->setLastUpdated($document->getLastUpdated()->format(DateUtils::$PATTERN_DASHED_DATE))
             ->setContractor($contractor->getName())
+            ->setContractorId($document->getContractorId())
             ->setDescription($document->getDescription())
             ->setInternalId($document->getIdInternal());
 

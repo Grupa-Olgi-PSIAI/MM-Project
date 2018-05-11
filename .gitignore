@@ -3,6 +3,7 @@ out/
 build/
 /config.ini
 storage/
+node_modules/
 
 # OSX Files
 .DS_Store

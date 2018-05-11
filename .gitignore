@@ -4,6 +4,9 @@ build/
 /config.ini
 storage/
 node_modules/
+public/dist/
 
 # OSX Files
 .DS_Store
+dist/
+logs/

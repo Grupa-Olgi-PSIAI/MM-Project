@@ -7,6 +7,7 @@ use core\View;
 use model\Attendance;
 use repository\AttendanceRepository;
 use util\AuthFlags;
+use util\Authorization;
 use util\Session;
 
 class Attendances extends Controller
@@ -14,20 +15,39 @@ class Attendances extends Controller
     private const RESOURCE_ATTENDANCE = "attendance";
 
     private $attendanceRepository;
+    private $auth;
     private $userId;
 
     public function __construct(array $route_params)
     {
         parent::__construct($route_params);
         $this->attendanceRepository = new AttendanceRepository();
+        $this->auth = Authorization::getInstance();
         $this->userId = Session::getInstance()->get(Session::USER_SESSION);
     }
 
     public function showAction()
     {
-        $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE);
-        $attendances = $this->attendanceRepository->findByUserId($this->userId);
-        View::render('attendances/attendanceList.php', ["attendances" => $attendances, "title" => "Godziny pracy"]);
+
+        if($this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_READ)) {
+            $attendances = $this->attendanceRepository->findAll();
+            $users = true;
+        } else if ($this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_READ)) {
+            $attendances = $this->attendanceRepository->findByUserId($this->userId);
+            $users = false;
+        };
+
+        $can_add = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_CREATE);
+        $can_update = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_UPDATE);
+        $can_delete = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_DELETE);
+
+        View::render('attendances/attendanceList.php',
+            ["title" => "Godziny pracy",
+                "attendances" => $attendances,
+                "can_add" => $can_add,
+                "can_update" => $can_update,
+                "can_delete" => $can_delete,
+                "users" =>  $users]);
     }
 
     public function addAction()

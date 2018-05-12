@@ -62,6 +62,18 @@ $router->add(ROUTE_LICENSE . '/{id:\d+}/' . ACTION_DETAILS, ['controller' => 'Li
 $router->add(ROUTE_LICENSE . '/{id:\d+}/' . ACTION_UPDATE, ['controller' => 'License', 'action' => 'update']);
 $router->add(ROUTE_LICENSE . '/{id:\d+}/' . ACTION_DOWNLOAD, ['controller' => 'License', 'action' => 'download']);
 
+// Equipment
+$router->add(ROUTE_EQUIPMENT . '/' . ACTION_SHOW, ['controller' => 'Equipment', 'action' => 'show']);
+$router->add(ROUTE_EQUIPMENT . '/' . ACTION_ADD, ['controller' => 'Equipment', 'action' => 'add']);
+$router->add(ROUTE_EQUIPMENT . '/' . ACTION_CREATE, ['controller' => 'Equipment', 'action' => 'create']);
+$router->add(ROUTE_EQUIPMENT . '/' . ACTION_FILTER, ['controller' => 'Equipment', 'action' => 'filter']);
+$router->add(ROUTE_EQUIPMENT . '/' . ACTION_SEARCH, ['controller' => 'Equipment', 'action' => 'search']);
+$router->add(ROUTE_EQUIPMENT . '/{id:\d+}/' . ACTION_DELETE, ['controller' => 'Equipment', 'action' => 'delete']);
+$router->add(ROUTE_EQUIPMENT . '/{id:\d+}/' . ACTION_EDIT, ['controller' => 'Equipment', 'action' => 'edit']);
+$router->add(ROUTE_EQUIPMENT . '/{id:\d+}/' . ACTION_DETAILS, ['controller' => 'Equipment', 'action' => 'details']);
+$router->add(ROUTE_EQUIPMENT . '/{id:\d+}/' . ACTION_UPDATE, ['controller' => 'Equipment', 'action' => 'update']);
+$router->add(ROUTE_EQUIPMENT . '/{id:\d+}/' . ACTION_DOWNLOAD, ['controller' => 'Equipment', 'action' => 'download']);
+
 $router->add('{controller}/{action}');
 $router->add('{controller}/{id:\d+}/{action}');
 

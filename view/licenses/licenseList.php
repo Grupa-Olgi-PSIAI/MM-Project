@@ -1,7 +1,7 @@
 <div id="page">
     <a id="filter_popup" href="#" class="popup"></a>
     <div class="popup">
-        <form title="filter" action="/license/filter" method="post">
+        <form title="filter" action="<?= '/' . ROUTE_LICENSE . '/' . ACTION_FILTER ?>" method="post">
             <div class="row">
                 <div class="material-input">
                     <input type="date" name='dateFrom' title="filter"/>
@@ -57,9 +57,12 @@
                         <td><?= $license->getPurchaseDate(); ?></td>
                         <td><?= $license->getInvoiceNumber(); ?></td>
                         <td><?= $license->getNotes(); ?></td>
-                        <td><a href="/license/<?= $license->getId(); ?>/details" class="material-btn">Szczegóły</a></td>
-                        <td><a href="/license/<?= $license->getId(); ?>/edit" class="material-btn">Edytuj</a></td>
-                        <td><a href="/license/<?= $license->getId(); ?>/delete" class="material-btn">Usuń</a></td>
+                        <td><a href="<?= '/' . ROUTE_LICENSE . '/' . $license->getId() . '/' . ACTION_DETAILS ?>"
+                               class="material-btn">Szczegóły</a></td>
+                        <td><a href="<?= '/' . ROUTE_LICENSE . '/' . $license->getId() . '/' . ACTION_EDIT ?>"
+                               class="material-btn">Edytuj</a></td>
+                        <td><a href="<?= '/' . ROUTE_LICENSE . '/' . $license->getId() . '/' . ACTION_DELETE ?>"
+                               class="material-btn">Usuń</a></td>
                     </tr>
                 <?php }
             } ?>

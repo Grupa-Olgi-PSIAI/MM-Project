@@ -6,7 +6,7 @@
     }
     ?>
 
-    <form action="/documents/<?= $document->getId(); ?>/update" method="post">
+    <form action="<?= '/' . ROUTE_DOCUMENTS . '/' . $document->getId() . '/' . ACTION_UPDATE ?>" method="post">
         <div class="material-input">
             <input type='text' id="id_internal" name='id_internal' value="<?= $document->getIdInternal(); ?>" required/>
             <span class="material-input-highlight"></span>
@@ -40,7 +40,8 @@
                 <input type="submit" name="document_edit" value="Wyślij">
             </div>
         <?php } else { ?>
-            <a href="/addContractor/show" class="material-btn"> Dodaj nowego kontrahenta </a>
+            <a href="<?= '/' . ROUTE_CONTRACTORS . '/' . ACTION_SHOW ?>" class="material-btn"> Dodaj nowego
+                kontrahenta </a>
         <?php } ?>
     </form>
 

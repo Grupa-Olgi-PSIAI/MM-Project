@@ -46,7 +46,7 @@ abstract class View
 
         require dirname(__DIR__) . "/view/header.html";
         if ($showMenu) {
-            require dirname(__DIR__) . "/view/menu.html";
+            require dirname(__DIR__) . "/view/menu.php";
             require dirname(__DIR__) . "/view/top.php";
         }
         require $file;

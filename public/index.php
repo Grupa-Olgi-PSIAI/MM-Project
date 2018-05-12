@@ -50,6 +50,18 @@ $router->add(ROUTE_DOCUMENTS . '/{id:\d+}/' . ACTION_DETAILS, ['controller' => '
 $router->add(ROUTE_DOCUMENTS . '/{id:\d+}/' . ACTION_UPDATE, ['controller' => 'Documents', 'action' => 'update']);
 $router->add(ROUTE_DOCUMENTS . '/{id:\d+}/' . ACTION_DOWNLOAD, ['controller' => 'Documents', 'action' => 'download']);
 
+// License
+$router->add(ROUTE_LICENSE . '/' . ACTION_SHOW, ['controller' => 'License', 'action' => 'show']);
+$router->add(ROUTE_LICENSE . '/' . ACTION_ADD, ['controller' => 'License', 'action' => 'add']);
+$router->add(ROUTE_LICENSE . '/' . ACTION_CREATE, ['controller' => 'License', 'action' => 'create']);
+$router->add(ROUTE_LICENSE . '/' . ACTION_FILTER, ['controller' => 'License', 'action' => 'filter']);
+$router->add(ROUTE_LICENSE . '/' . ACTION_SEARCH, ['controller' => 'License', 'action' => 'search']);
+$router->add(ROUTE_LICENSE . '/{id:\d+}/' . ACTION_DELETE, ['controller' => 'License', 'action' => 'delete']);
+$router->add(ROUTE_LICENSE . '/{id:\d+}/' . ACTION_EDIT, ['controller' => 'License', 'action' => 'edit']);
+$router->add(ROUTE_LICENSE . '/{id:\d+}/' . ACTION_DETAILS, ['controller' => 'License', 'action' => 'details']);
+$router->add(ROUTE_LICENSE . '/{id:\d+}/' . ACTION_UPDATE, ['controller' => 'License', 'action' => 'update']);
+$router->add(ROUTE_LICENSE . '/{id:\d+}/' . ACTION_DOWNLOAD, ['controller' => 'License', 'action' => 'download']);
+
 $router->add('{controller}/{action}');
 $router->add('{controller}/{id:\d+}/{action}');
 

@@ -1,5 +1,5 @@
 <div id="page">
-    <form action="/license/create" method="post" enctype="multipart/form-data">
+    <form action="<?= '/' . ROUTE_LICENSE . '/' . ACTION_CREATE ?>" method="post" enctype="multipart/form-data">
         <div class="material-input">
             <input type='text' id="inventory_number" name='inventory_number' required/>
             <span class="material-input-highlight"></span>

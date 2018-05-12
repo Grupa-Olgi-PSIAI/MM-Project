@@ -59,7 +59,8 @@
 
     <div class="material-input">
         <?php if (is_numeric($license->getFileId())) { ?>
-            <a href="/license/<?= $license->getFileId(); ?>/download" class="material-btn">Pobierz</a>
+            <a href="<?= '/' . ROUTE_LICENSE . '/' . $license->getFileId() . '/' . ACTION_DOWNLOAD ?>"
+               class="material-btn">Pobierz</a>
         <?php } ?>
     </div>
 

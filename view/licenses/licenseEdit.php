@@ -6,7 +6,7 @@
     }
     ?>
 
-    <form action="/license/<?= $license->getId(); ?>/update" method="post">
+    <form action="<?= '/' . ROUTE_LICENSE . '/' . $license->getId() . '/' . ACTION_UPDATE ?>" method="post">
         <div class="material-input">
             <input type='text' id="inventory_number" name='inventory_number'
                    value="<?= $license->getInventoryNumber(); ?>" required/>

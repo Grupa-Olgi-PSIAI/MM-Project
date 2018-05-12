@@ -27,7 +27,8 @@
         <tr>
             <td>Kontrahent</td>
             <td><?= $document->getContractor(); ?></td>
-            <td><a href="/contractors/<?= $document->getContractorId() ?>/details" class="material-btn">Szczegóły</a>
+            <td><a href="<?= '/' . ROUTE_CONTRACTORS . '/' . $document->getContractorId() . '/' . ACTION_DETAILS ?>"
+                   class="material-btn">Szczegóły</a>
             </td>
         </tr>
         </tbody>
@@ -35,7 +36,8 @@
 
     <div class="material-input">
         <?php if (is_numeric($document->getFileId())) { ?>
-            <a href="/documents/<?= $document->getFileId(); ?>/download" class="material-btn">Pobierz</a>
+            <a href="<?= '/' . ROUTE_DOCUMENTS . '/' . $document->getFileId() . '/' . ACTION_DOWNLOAD ?>"
+               class="material-btn">Pobierz</a>
         <?php } ?>
     </div>
 </div>

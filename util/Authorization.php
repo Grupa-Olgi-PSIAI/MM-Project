@@ -80,7 +80,7 @@ class Authorization
     public function hasPermission(string $resource, int $mask): bool
     {
         $permissions = $this->session->get(Session::PERMISSIONS);
-        return $permissions[$resource] & $mask;
+        return ($permissions[$resource] & $mask) === $mask;
     }
 
     /**

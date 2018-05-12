@@ -64,8 +64,8 @@ class License extends Controller
             "licenses" => $licenseViews,
             "title" => "Lista licencji",
             "filter" => "#filter_popup",
-            "add" => "/license/add",
-            "search" => "/license/search"
+            "add" => '/' . ROUTE_LICENSE . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_LICENSE . '/' . ACTION_SEARCH
         ]);
     }
 
@@ -118,7 +118,7 @@ class License extends Controller
 
         $this->licenseRepository->add($license);
 
-        Redirect::to("/license/show");
+        Redirect::to('/' . ROUTE_LICENSE . '/' . ACTION_SHOW);
     }
 
     public function updateAction()
@@ -150,7 +150,7 @@ class License extends Controller
         $id = $this->route_params['id'];
         $this->licenseRepository->update($id, $license);
 
-        Redirect::to("/license/show");
+        Redirect::to('/' . ROUTE_LICENSE . '/' . ACTION_SHOW);
     }
 
     public function editAction()
@@ -192,8 +192,8 @@ class License extends Controller
             "licenses" => $licenseViews,
             "title" => "Lista licencji",
             "filter" => "#filter_popup",
-            "add" => "/license/add",
-            "search" => "/license/search"
+            "add" => '/' . ROUTE_LICENSE . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_LICENSE . '/' . ACTION_SEARCH
         ]);
     }
 
@@ -250,8 +250,8 @@ class License extends Controller
             "licenses" => $licenseViews,
             "title" => "Lista licencji",
             "filter" => "#filter_popup",
-            "add" => "/license/add",
-            "search" => "/license/search"
+            "add" => '/' . ROUTE_LICENSE . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_LICENSE . '/' . ACTION_SEARCH
         ]);
     }
 
@@ -286,7 +286,7 @@ class License extends Controller
             $fileStorage->delete($fileId);
         }
 
-        Redirect::to("/license/show");
+        Redirect::to('/' . ROUTE_LICENSE . '/' . ACTION_SHOW);
     }
 
     public function downloadAction()

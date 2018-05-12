@@ -8,6 +8,7 @@ use core\View;
 use model\Contractor;
 use repository\ContractorRepository;
 use util\AuthFlags;
+use util\Redirect;
 
 class Contractors extends Controller
 {
@@ -48,8 +49,7 @@ class Contractors extends Controller
 
             $repository->add($contractor);
 
-            $this->showAction();
-            return;
+            Redirect::to('/' . ROUTE_CONTRACTORS . '/' . ACTION_SHOW);
         }
 
         View::render('contractors/contractorsAdd.php', [

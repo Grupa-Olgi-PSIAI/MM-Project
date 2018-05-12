@@ -48,11 +48,13 @@ class Documents extends Controller
             $documentViews[] = $this->mapToView($document);
         }
 
-        View::render('documents/documentsList.php', ["documents" => $documentViews,
+        View::render('documents/documentsList.php', [
+            "documents" => $documentViews,
             "title" => "Lista dokumentów",
             "filter" => "#filter_popup",
-            "add" => "/documents/add",
-            "search" => "/documents/search"]);
+            "add" => '/' . ROUTE_DOCUMENTS . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_DOCUMENTS . '/' . ACTION_SEARCH
+        ]);
     }
 
     public function addAction()
@@ -87,7 +89,7 @@ class Documents extends Controller
         }
 
         $this->documentRepository->add($document);
-        Redirect::to("/documents/show");
+        Redirect::to('/' . ROUTE_DOCUMENTS . '/' . ACTION_SHOW);
     }
 
     public function filterAction()
@@ -113,11 +115,13 @@ class Documents extends Controller
             $documentViews[] = $this->mapToView($document);
         }
 
-        View::render('documents/documentsList.php', ["documents" => $documentViews,
+        View::render('documents/documentsList.php', [
+            "documents" => $documentViews,
             "title" => "Lista dokumentów",
             "filter" => "#filter_popup",
-            "add" => "/documents/add",
-            "search" => "/documents/search"]);
+            "add" => '/' . ROUTE_DOCUMENTS . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_DOCUMENTS . '/' . ACTION_SEARCH
+        ]);
     }
 
     public function searchAction()
@@ -139,11 +143,13 @@ class Documents extends Controller
             $documentViews[] = $this->mapToView($document);
         }
 
-        View::render('documents/documentsList.php', ["documents" => $documentViews,
+        View::render('documents/documentsList.php', [
+            "documents" => $documentViews,
             "title" => "Lista dokumentów",
             "filter" => "#filter_popup",
-            "add" => "/documents/add",
-            "search" => "/documents/search"]);
+            "add" => '/' . ROUTE_DOCUMENTS . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_DOCUMENTS . '/' . ACTION_SEARCH
+        ]);
     }
 
     public function detailsAction()
@@ -174,7 +180,7 @@ class Documents extends Controller
             $fileStorage->delete($fileId);
         }
 
-        Redirect::to('/documents/show');
+        Redirect::to('/' . ROUTE_DOCUMENTS . '/' . ACTION_SHOW);
     }
 
     public function editAction()
@@ -208,7 +214,7 @@ class Documents extends Controller
         $id = $this->route_params['id'];
         $this->documentRepository->update($id, $document);
 
-        Redirect::to('/documents/show');
+        Redirect::to('/' . ROUTE_DOCUMENTS . '/' . ACTION_SHOW);
     }
 
     public function downloadAction()

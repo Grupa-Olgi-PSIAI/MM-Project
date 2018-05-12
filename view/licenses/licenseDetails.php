@@ -51,14 +51,16 @@
         <tr>
             <td>Numer faktury:</td>
             <td><?= $license->getInvoiceNumber(); ?></td>
-            <td><a href="/invoices/<?= $license->getInvoiceId() ?>/details" class="material-btn">Szczegóły</a></td>
+            <td><a href="<?= '/' . ROUTE_INVOICES . '/' . $license->getInvoiceId() . '/' . ACTION_DETAILS ?>"
+                   class="material-btn">Szczegóły</a></td>
         </tr>
         </tbody>
     </table>
 
     <div class="material-input">
         <?php if (is_numeric($license->getFileId())) { ?>
-            <a href="/license/<?= $license->getFileId(); ?>/download" class="material-btn">Pobierz</a>
+            <a href="<?= '/' . ROUTE_LICENSE . '/' . $license->getFileId() . '/' . ACTION_DOWNLOAD ?>"
+               class="material-btn">Pobierz</a>
         <?php } ?>
     </div>
 

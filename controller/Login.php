@@ -40,7 +40,7 @@ class Login extends Controller
 
         if ($this->authenticator->login($email, $password)) {
             Authorization::getInstance()->loadPermissions();
-            Redirect::to("/home");
+            Redirect::to("/" . ROUTE_HOME);
         } else {
             View::renderWithoutMenu("login.php", ["error" => true]);
         }
@@ -49,13 +49,13 @@ class Login extends Controller
     public function logout()
     {
         $this->authenticator->logout();
-        Redirect::to("/home");
+        Redirect::to("/" . ROUTE_HOME);
     }
 
     protected function before()
     {
         if ($this->authenticator->isAuthenticated()) {
-            Redirect::to("/home");
+            Redirect::to("/" . ROUTE_HOME);
             return false;
         }
 

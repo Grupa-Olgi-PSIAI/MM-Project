@@ -27,7 +27,8 @@
         <tr>
             <td>Kontrahent</td>
             <td><?= $document->getContractor(); ?></td>
-            <td><a href="/contractors/<?= $document->getContractorId() ?>/details" class="material-btn">Szczegóły</a>
+            <td><a href="<?= '/' . ROUTE_CONTRACTORS . '/' . $document->getContractorId() . '/' . ACTION_DETAILS ?>"
+                   class="material-btn">Szczegóły</a>
             </td>
         </tr>
         </tbody>

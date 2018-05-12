@@ -81,7 +81,7 @@
                     </td>
                 </tr>
             <?php } else { ?>
-                <a href="/invoices/add" class="material-btn">Dodaj nową fakturę</a>
+                <a href="<?= '/' . ROUTE_INVOICES . '/' . ACTION_ADD ?>" class="material-btn">Dodaj nową fakturę</a>
             <?php } ?>
         </table>
 

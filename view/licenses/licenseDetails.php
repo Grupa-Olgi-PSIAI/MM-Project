@@ -51,7 +51,8 @@
         <tr>
             <td>Numer faktury:</td>
             <td><?= $license->getInvoiceNumber(); ?></td>
-            <td><a href="/invoices/<?= $license->getInvoiceId() ?>/details" class="material-btn">Szczegóły</a></td>
+            <td><a href="<?= '/' . ROUTE_INVOICES . '/' . $license->getInvoiceId() . '/' . ACTION_DETAILS ?>"
+                   class="material-btn">Szczegóły</a></td>
         </tr>
         </tbody>
     </table>

@@ -9,6 +9,8 @@ define("ACTION_EDIT", "bearbeiten");
 define("ACTION_DETAILS", "einzelheiten");
 define("ACTION_SEARCH", "suche");
 define("ACTION_FILTER", "filter");
+define("ACTION_UPDATE", "aktualisieren");
+define("ACTION_DOWNLOAD", "herunterladen");
 
 // routes
 define("ROUTE_HOME", "zuhause");

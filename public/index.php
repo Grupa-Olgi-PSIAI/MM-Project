@@ -30,9 +30,13 @@ $router->add(ROUTE_CONTRACTORS . '/{id:\d+}/' . ACTION_DETAILS, ['controller' =>
 $router->add(ROUTE_INVOICES . '/' . ACTION_SHOW, ['controller' => 'Invoices', 'action' => 'show']);
 $router->add(ROUTE_INVOICES . '/' . ACTION_ADD, ['controller' => 'Invoices', 'action' => 'add']);
 $router->add(ROUTE_INVOICES . '/' . ACTION_CREATE, ['controller' => 'Invoices', 'action' => 'create']);
+$router->add(ROUTE_INVOICES . '/' . ACTION_FILTER, ['controller' => 'Invoices', 'action' => 'filter']);
+$router->add(ROUTE_INVOICES . '/' . ACTION_SEARCH, ['controller' => 'Invoices', 'action' => 'search']);
 $router->add(ROUTE_INVOICES . '/{id:\d+}/' . ACTION_DELETE, ['controller' => 'Invoices', 'action' => 'delete']);
 $router->add(ROUTE_INVOICES . '/{id:\d+}/' . ACTION_EDIT, ['controller' => 'Invoices', 'action' => 'edit']);
 $router->add(ROUTE_INVOICES . '/{id:\d+}/' . ACTION_DETAILS, ['controller' => 'Invoices', 'action' => 'details']);
+$router->add(ROUTE_INVOICES . '/{id:\d+}/' . ACTION_UPDATE, ['controller' => 'Invoices', 'action' => 'update']);
+$router->add(ROUTE_INVOICES . '/{id:\d+}/' . ACTION_DOWNLOAD, ['controller' => 'Invoices', 'action' => 'download']);
 
 $router->add('{controller}/{action}');
 $router->add('{controller}/{id:\d+}/{action}');

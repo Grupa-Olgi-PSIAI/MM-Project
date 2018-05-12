@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <link href="/css/login_styles.css" rel="stylesheet" type="text/css">
+    <link href="../public/dist/css/login_styles.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 

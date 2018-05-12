@@ -1,10 +1,11 @@
-var gulp = require('gulp');
-var minify = require('gulp-minify');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-
-var less = require('gulp-less');
-var path = require('path');
+const gulp = require('gulp');
+const minify = require('gulp-minify');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const less = require('gulp-less');
+const path = require('path');
+const cssmin = require('gulp-cssmin');
+const rename = require('gulp-rename');
 
 gulp.task('less', function () {
     return gulp.src('./less/**/*.less')
@@ -15,7 +16,7 @@ gulp.task('less', function () {
 });
 
 gulp.task('compress', function () {
-    gulp.src('lib/*.js')
+    return gulp.src('lib/*.js')
         .pipe(minify({
             ext: {
                 src: '-debug.js',
@@ -28,20 +29,17 @@ gulp.task('compress', function () {
 });
 
 gulp.task('minjs', function () {
-    gulp.src('./public/js/*.js')
+    return gulp.src('./public/js/*.js')
         .pipe(concat('min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./public/dist/'))
 });
 
-var cssmin = require('gulp-cssmin');
-var rename = require('gulp-rename');
-
 gulp.task('mincss', function () {
-    gulp.src('./public/css/*.css')
+    return gulp.src('./public/css/*.css')
         .pipe(cssmin())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('./public/dist/'));
 });
 
-gulp.task('default', ['less', 'minjs', 'compress', 'mincss' ]);
+gulp.task('default', gulp.series('less', 'compress', 'minjs', 'mincss'));

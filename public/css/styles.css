@@ -1,6 +1,18 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-@import url('https://fonts.googleapis.com/css?family=Pacifico');
-1html,
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFVZ0e.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Pacifico Regular'), local('Pacifico-Regular'), url(https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6Mw.ttf) format('truetype');
+}
+
+html,
 body {
   margin: 0;
   font-family: 'Open Sans';
@@ -11,7 +23,7 @@ body {
 /* Side menu by Simone Bernabè https://codepen.io/simoberny */
 #cont:target > menu-fixed {
   width: 120px;
-  background: tomato;
+  background: #FFC400;
   transition: all 0.3s;
 }
 #cont:target > menu-fixed > a .material-icons.back {
@@ -28,7 +40,7 @@ body {
   width: 120px;
   z-index: 3;
   height: 100%;
-  background: tomato;
+  background: #FFC400;
   position: fixed;
   transition: all 0.3s;
   text-align: center;
@@ -50,7 +62,7 @@ body {
 }
 #menu-fixed:target {
   width: 280px;
-  background: tomato;
+  background: #FFC400;
   transition: all 0.3s ease-out;
 }
 #menu-fixed:target > a .material-icons.back {
@@ -106,7 +118,7 @@ body {
 #menu-fixed .logo span {
   width: 10px;
   height: 10px;
-  background: tomato;
+  background: #FFC400;
   position: absolute;
   margin: auto;
   left: 0;
@@ -136,7 +148,7 @@ body {
   width: 0;
   height: 0;
   border: 8px solid rgba(0, 0, 0, 0);
-  border-left-color: tomato;
+  border-left-color: #FFC400;
   left: -15px;
   position: absolute;
   top: -8px;
@@ -243,7 +255,7 @@ a:visited {
 /* Icons in nav bar */
 .material-icons.navbar {
   color: white;
-  background-color: tomato;
+  background-color: #FFC400;
   display: inline-block;
   padding: 8px 8px;
   margin-left: 12px;
@@ -252,7 +264,7 @@ a:visited {
   border-radius: 10em;
 }
 .material-icons.navbar:hover {
-  color: tomato;
+  color: #FFC400;
   background-color: white;
   transition: all .5s;
 }
@@ -261,7 +273,7 @@ a:visited {
   background-color: white;
 }
 .material-icons.navbar.logout:hover {
-  color: tomato;
+  color: #FFC400;
 }
 /* Search bar*/
 .search-bar {
@@ -296,10 +308,10 @@ input::-webkit-search-cancel-button {
 }
 .search-bar input[type=search]:focus {
   background-color: #fff;
-  border-color: tomato;
-  -webkit-box-shadow: 0 0 5px tomato;
-  -moz-box-shadow: 0 0 5px tomato;
-  box-shadow: 0 0 5px tomato;
+  border-color: #FFC400;
+  -webkit-box-shadow: 0 0 5px #FFC400;
+  -moz-box-shadow: 0 0 5px #FFC400;
+  box-shadow: 0 0 5px #FFC400;
 }
 .search-bar input:-moz-placeholder {
   color: #7A777D;
@@ -344,7 +356,7 @@ input::-webkit-search-cancel-button {
 input:valid ~ label {
   top: -20px;
   font-size: 14px;
-  color: tomato;
+  color: #FFC400;
 }
 .material-input input:valid ~ label {
   color: #7A777D;
@@ -352,8 +364,8 @@ input:valid ~ label {
 .material-input input[type=submit] {
   text-align: center;
   color: white;
-  border: solid 1px tomato;
-  background-color: tomato;
+  border: solid 1px #FFC400;
+  background-color: #FFC400;
 }
 .material-input .error {
   color: red;
@@ -372,7 +384,7 @@ input:valid ~ label {
   width: 0;
   bottom: 1px;
   position: absolute;
-  background: tomato;
+  background: #FFC400;
   transition: 0.2s ease all;
   -moz-transition: 0.2s ease all;
   -webkit-transition: 0.2s ease all;
@@ -407,7 +419,7 @@ input:focus ~ .material-input-highlight {
 /* ANIMATIONS ================ */
 @-webkit-keyframes inputHighlighter {
   from {
-    background: tomato;
+    background: #FFC400;
   }
   to {
     width: 0;
@@ -416,7 +428,7 @@ input:focus ~ .material-input-highlight {
 }
 @-moz-keyframes inputHighlighter {
   from {
-    background: tomato;
+    background: #FFC400;
   }
   to {
     width: 0;
@@ -425,7 +437,7 @@ input:focus ~ .material-input-highlight {
 }
 @keyframes inputHighlighter {
   from {
-    background: tomato;
+    background: #FFC400;
   }
   to {
     width: 0;
@@ -526,7 +538,7 @@ div.popup > a.close.x {
   outline: none;
   border-radius: 2px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-  background-color: tomato;
+  background-color: #FFC400;
   color: white;
   transition: background-color 0.3s;
 }

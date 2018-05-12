@@ -20,6 +20,7 @@ $router->add('', ['controller' => 'Home', 'action' => 'index']);
 $router->add(ROUTE_HOME, ['controller' => 'Home', 'action' => 'index']);
 $router->add(ROUTE_LOGIN, ['controller' => 'Login', 'action' => 'show']);
 $router->add(ROUTE_LOGOUT, ['controller' => 'Login', 'action' => 'logout']);
+$router->add(ROUTE_LOGIN . '/' . ACTION_LOGIN, ['controller' => 'Login', 'action' => 'login']);
 
 // Contractors
 $router->add(ROUTE_CONTRACTORS . '/' . ACTION_SHOW, ['controller' => 'Contractors', 'action' => 'show']);

@@ -36,7 +36,8 @@
 
     <div class="material-input">
         <?php if (is_numeric($document->getFileId())) { ?>
-            <a href="/documents/<?= $document->getFileId(); ?>/download" class="material-btn">Pobierz</a>
+            <a href="<?= '/' . ROUTE_DOCUMENTS . '/' . $document->getFileId() . '/' . ACTION_DOWNLOAD ?>"
+               class="material-btn">Pobierz</a>
         <?php } ?>
     </div>
 </div>

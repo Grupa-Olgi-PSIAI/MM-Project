@@ -38,6 +38,18 @@ $router->add(ROUTE_INVOICES . '/{id:\d+}/' . ACTION_DETAILS, ['controller' => 'I
 $router->add(ROUTE_INVOICES . '/{id:\d+}/' . ACTION_UPDATE, ['controller' => 'Invoices', 'action' => 'update']);
 $router->add(ROUTE_INVOICES . '/{id:\d+}/' . ACTION_DOWNLOAD, ['controller' => 'Invoices', 'action' => 'download']);
 
+// Documents
+$router->add(ROUTE_DOCUMENTS . '/' . ACTION_SHOW, ['controller' => 'Documents', 'action' => 'show']);
+$router->add(ROUTE_DOCUMENTS . '/' . ACTION_ADD, ['controller' => 'Documents', 'action' => 'add']);
+$router->add(ROUTE_DOCUMENTS . '/' . ACTION_CREATE, ['controller' => 'Documents', 'action' => 'create']);
+$router->add(ROUTE_DOCUMENTS . '/' . ACTION_FILTER, ['controller' => 'Documents', 'action' => 'filter']);
+$router->add(ROUTE_DOCUMENTS . '/' . ACTION_SEARCH, ['controller' => 'Documents', 'action' => 'search']);
+$router->add(ROUTE_DOCUMENTS . '/{id:\d+}/' . ACTION_DELETE, ['controller' => 'Documents', 'action' => 'delete']);
+$router->add(ROUTE_DOCUMENTS . '/{id:\d+}/' . ACTION_EDIT, ['controller' => 'Documents', 'action' => 'edit']);
+$router->add(ROUTE_DOCUMENTS . '/{id:\d+}/' . ACTION_DETAILS, ['controller' => 'Documents', 'action' => 'details']);
+$router->add(ROUTE_DOCUMENTS . '/{id:\d+}/' . ACTION_UPDATE, ['controller' => 'Documents', 'action' => 'update']);
+$router->add(ROUTE_DOCUMENTS . '/{id:\d+}/' . ACTION_DOWNLOAD, ['controller' => 'Documents', 'action' => 'download']);
+
 $router->add('{controller}/{action}');
 $router->add('{controller}/{id:\d+}/{action}');
 

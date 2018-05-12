@@ -1,5 +1,5 @@
 <div id="page">
-    <form action="/documents/create" method="post" enctype="multipart/form-data">
+    <form action="<?= '/' . ROUTE_DOCUMENTS . '/' . ACTION_CREATE ?>" method="post" enctype="multipart/form-data">
         <div class="material-input">
             <input type='text' id="id_internal" name='id_internal' required/>
             <span class="material-input-highlight"></span>
@@ -34,7 +34,8 @@
                 <input type="submit" name="add" value="Wyślij">
             </div>
         <?php } else { ?>
-            <a href="/addContractor/show" class="material-btn"> Dodaj nowego kontrahenta </a>
+            <a href="<?= '/' . ROUTE_CONTRACTORS . '/' . ACTION_SHOW ?>" class="material-btn"> Dodaj nowego
+                kontrahenta </a>
         <?php } ?>
     </form>
 

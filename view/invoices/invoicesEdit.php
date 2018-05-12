@@ -64,7 +64,8 @@
                 <input type="submit" name="invoice_edit" value="Wyślij">
             </div>
         <?php } else { ?>
-            <a href="/addContractor/show" class="material-btn"> Dodaj nowego kontrahenta </a>
+            <a href="<?= '/' . ROUTE_CONTRACTORS . '/' . ACTION_SHOW ?>" class="material-btn"> Dodaj nowego
+                kontrahenta </a>
         <?php } ?>
     </form>
 </div>

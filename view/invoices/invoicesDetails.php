@@ -43,7 +43,8 @@
         <tr>
             <td>Kontrahent:</td>
             <td><?= $invoice->getContractor(); ?></td>
-            <td><a href="/contractors/<?= $invoice->getContractorId() ?>/details" class="material-btn">Szczegóły</a>
+            <td><a href="<?= '/' . ROUTE_CONTRACTORS . '/' . $invoice->getContractorId() . '/' . ACTION_DETAILS ?>"
+                   class="material-btn">Szczegóły</a>
             </td>
         </tr>
         </tbody>
@@ -51,7 +52,8 @@
 
     <div class="material-input">
         <?php if (is_numeric($invoice->getFileId())) { ?>
-            <a href="/invoices/<?= $invoice->getFileId(); ?>/download" class="material-btn">Pobierz</a>
+            <a href="<?= '/' . ROUTE_INVOICES . '/' . $invoice->getFileId() . '/' . ACTION_DOWNLOAD ?>"
+               class="material-btn">Pobierz</a>
         <?php } ?>
     </div>
 </div>

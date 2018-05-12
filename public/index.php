@@ -74,6 +74,18 @@ $router->add(ROUTE_EQUIPMENT . '/{id:\d+}/' . ACTION_DETAILS, ['controller' => '
 $router->add(ROUTE_EQUIPMENT . '/{id:\d+}/' . ACTION_UPDATE, ['controller' => 'Equipment', 'action' => 'update']);
 $router->add(ROUTE_EQUIPMENT . '/{id:\d+}/' . ACTION_DOWNLOAD, ['controller' => 'Equipment', 'action' => 'download']);
 
+// Attendances
+$router->add(ROUTE_ATTENDANCES . '/' . ACTION_SHOW, ['controller' => 'Attendances', 'action' => 'show']);
+$router->add(ROUTE_ATTENDANCES . '/' . ACTION_ADD, ['controller' => 'Attendances', 'action' => 'add']);
+$router->add(ROUTE_ATTENDANCES . '/' . ACTION_CREATE, ['controller' => 'Attendances', 'action' => 'create']);
+$router->add(ROUTE_ATTENDANCES . '/' . ACTION_FILTER, ['controller' => 'Attendances', 'action' => 'filter']);
+$router->add(ROUTE_ATTENDANCES . '/' . ACTION_SEARCH, ['controller' => 'Attendances', 'action' => 'search']);
+$router->add(ROUTE_ATTENDANCES . '/{id:\d+}/' . ACTION_DELETE, ['controller' => 'Attendances', 'action' => 'delete']);
+$router->add(ROUTE_ATTENDANCES . '/{id:\d+}/' . ACTION_EDIT, ['controller' => 'Attendances', 'action' => 'edit']);
+$router->add(ROUTE_ATTENDANCES . '/{id:\d+}/' . ACTION_DETAILS, ['controller' => 'Attendances', 'action' => 'details']);
+$router->add(ROUTE_ATTENDANCES . '/{id:\d+}/' . ACTION_UPDATE, ['controller' => 'Attendances', 'action' => 'update']);
+$router->add(ROUTE_ATTENDANCES . '/{id:\d+}/' . ACTION_DOWNLOAD, ['controller' => 'Attendances', 'action' => 'download']);
+
 $router->add('{controller}/{action}');
 $router->add('{controller}/{id:\d+}/{action}');
 

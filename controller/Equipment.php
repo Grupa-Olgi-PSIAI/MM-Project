@@ -72,4 +72,22 @@ class Equipment extends Controller
 
         return $equipmentView;
     }
+
+    public function showAction()
+    {
+        $this->checkPermissions(self::RESOURCE_EQUIPMENT, AuthFlags::ALL_READ);
+
+        $equipments = $this->equipmentRepository->findAll();
+        $equipmentViews = [];
+        foreach ($equipments as $equipment) {
+            $equipmentViews[] = $this->mapToView($equipment);
+        }
+        View::render('equipment/equipmentList.php', [
+            "equipment" => $equipmentViews,
+            "title" => "Sprzęt",
+            "filter" => "#filter_popup",
+            "add" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_SEARCH
+        ]);
+    }
 }

@@ -16,6 +16,7 @@ use repository\EquipmentRepository;
 use repository\InvoicesRepository;
 use repository\UserRepository;
 use util\DateUtils;
+use util\Redirect;
 
 class Equipment extends Controller
 {
@@ -155,7 +156,6 @@ class Equipment extends Controller
         }
 
         $this->equipmentRepository->add($equipment);
-        echo "<script>console.log( 'Debug Objects:' );</script>";
         Redirect::to('/' . ROUTE_EQUIPMENT . '/' . ACTION_SHOW);
     }
 }

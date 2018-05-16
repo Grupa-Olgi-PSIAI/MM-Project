@@ -56,5 +56,5 @@
             </tbody>
         </table>
     </div>
-
+    <a class="material-btn" href="<?= '/' . ROUTE_EQUIPMENT . '/' . ACTION_ADD ?>">Dodaj sprzęt</a>
 </div>

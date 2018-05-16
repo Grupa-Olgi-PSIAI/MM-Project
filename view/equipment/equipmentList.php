@@ -2,7 +2,7 @@
 
     <a id="filter_popup" href="#" class="popup"></a>
     <div class="popup">
-        <form title="filter" action="<?= '/' . ROUTE_DOCUMENTS . '/' . ACTION_FILTER ?>" method="post">
+        <form title="filter" action="<?= '/' . ROUTE_EQUIPMENT . '/' . ACTION_FILTER ?>" method="post">
             <div class="row">
                 <div class="material-input">
                     <input title="filter" type="date" name='dateFrom'/>
@@ -20,11 +20,11 @@
         <table cellpadding="0" cellspacing="0" border="0">
             <thead>
             <tr>
-                <th>Identyfikator</th>
-                <th>Data utworzenia</th>
-                <th>Data modyfikacji</th>
-                <th>Opis</th>
-                <th>Kontrahent</th>
+                <th>Name</th>
+                <th>Numer seryjny</th>
+                <th>Data zakupu</th>
+                <th>Cena netto</th>
+                <th>Notatki</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -36,20 +36,19 @@
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
             <?php
-            if (isset($documents)) {
+            if (isset($equipments)) {
                 /** @var \model\DocumentView $document */
-                foreach ($documents as $key => $document) { ?>
+                foreach ($equipments as $key => $equipment) { ?>
                     <tr>
-                        <td><?= $document->getInternalId(); ?></td>
-                        <td><?= $document->getDateCreated(); ?></td>
-                        <td><?= $document->getLastUpdated(); ?></td>
-                        <td><?= $document->getDescription(); ?></td>
-                        <td><?= $document->getContractor(); ?></td>
-                        <td><a href="<?= '/' . ROUTE_DOCUMENTS . '/' . $document->getId() . '/' . ACTION_DETAILS ?>"
+                        <td><?= $equipment->getName(); ?></td>
+                        <td><?= $equipment->getSerialNumber(); ?></td>
+                        <td><?= $equipment->getPriceNet(); ?></td>
+                        <td><?= $equipment->getNotes(); ?></td>
+                        <td><a href="<?= '/' . ROUTE_EQUIPMENT . '/' . $equipment->getId() . '/' . ACTION_DETAILS ?>"
                                class="material-btn">Szczegóły</a></td>
-                        <td><a href="<?= '/' . ROUTE_DOCUMENTS . '/' . $document->getId() . '/' . ACTION_EDIT ?>"
+                        <td><a href="<?= '/' . ROUTE_EQUIPMENT . '/' . $equipment->getId() . '/' . ACTION_EDIT ?>"
                                class="material-btn">Edytuj</a></td>
-                        <td><a href="<?= '/' . ROUTE_DOCUMENTS . '/' . $document->getId() . '/' . ACTION_DELETE ?>"
+                        <td><a href="<?= '/' . ROUTE_EQUIPMENT . '/' . $equipment->getId() . '/' . ACTION_DELETE ?>"
                                class="material-btn">Usuń</a></td>
                     </tr>
                 <?php }
@@ -57,5 +56,5 @@
             </tbody>
         </table>
     </div>
-    <a class="material-btn" href="<?= '/' . ROUTE_DOCUMENTS . '/' . ACTION_ADD ?>">Dodaj dokument</a>
+    <a class="material-btn" href="<?= '/' . ROUTE_EQUIPMENT . '/' . ACTION_ADD ?>">Dodaj sprzęt</a>
 </div>

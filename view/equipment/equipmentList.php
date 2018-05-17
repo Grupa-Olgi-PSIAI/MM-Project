@@ -29,7 +29,11 @@
             <tr>
                 <th>Name</th>
                 <th>Numer seryjny</th>
+                <th>Użytkownik</th>
+                <th>Numer inwentarza</th>
                 <th>Data zakupu</th>
+                <th>Numer faktury</th>
+                <th>Data walidacji</th>
                 <th>Cena netto</th>
                 <th>Notatki</th>
                 <th></th>
@@ -49,6 +53,11 @@
                     <tr>
                         <td><?= $equipment->getName(); ?></td>
                         <td><?= $equipment->getSerialNumber(); ?></td>
+                        <td><?= $equipment->getUserName(); ?></td>
+                        <td><?= $equipment->getInventoryNumber(); ?></td>
+                        <td><?= $equipment->getPurchaseDate(); ?></td>
+                        <td><?= $equipment->getInvoiceId(); ?></td>
+                        <td><?= $equipment->getValidationDate(); ?></td>
                         <td><?= $equipment->getPriceNet(); ?></td>
                         <td><?= $equipment->getNotes(); ?></td>
                         <td><a href="<?= '/' . ROUTE_EQUIPMENT . '/' . $equipment->getId() . '/' . ACTION_DETAILS ?>"

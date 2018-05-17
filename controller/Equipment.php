@@ -99,7 +99,7 @@ class Equipment extends Controller
         }
         View::render('equipment/equipmentList.php', [
             "equipments" => $equipmentViews,
-            "title" => "Sprzęt",
+            "title" => "Lista sprzętu",
             "filter" => "#filter_popup",
             "add" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_ADD,
             "search" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_SEARCH
@@ -114,15 +114,13 @@ class Equipment extends Controller
         $invoices = $this->invoiceRepository->findAll();
         $users = $this->userRepository->findAll();
 
-        View::render('equipment/equipmentAdd.php', ["contractors" => $contractors, "invoices" => $invoices, "users" => $users,  "title" => "Dodaj fakturę"]);
+        View::render('equipment/equipmentAdd.php', ["contractors" => $contractors, "invoices" => $invoices, "users" => $users,  "title" => "Dodaj sprzęt"]);
     }
 
     public function createAction()
     {
         $this->checkPermissions(self::RESOURCE_EQUIPMENT, AuthFlags::OWN_CREATE);
 
-        $date_created = $_POST['date_created'];
-        $last_updated = $_POST['last_updated'];
         $user_id = $_POST['user_id'];
         $invoice_id = $_POST['invoice_id'];
         $inventory_number = $_POST['inventory_number'];
@@ -139,10 +137,8 @@ class Equipment extends Controller
         $equipment->setInventoryNumber($inventory_number);
         $equipment->setName($name);
         $equipment->setValidationDate($validation_date);
-        $equipment->setDateCreated($date_created);
         $equipment->setPurchaseDate($purchase_date);
         $equipment->setNotes($notes);
-        $equipment->setLastUpdated($last_updated);
         $equipment->setInvoiceId($invoice_id);
         $equipment->setSerialNumber($serial_number);
         $equipment->setPriceNet($price_net);

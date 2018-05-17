@@ -42,12 +42,17 @@ class Attendances extends Controller
         $can_update = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_UPDATE) || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_UPDATE);
         $can_delete = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_DELETE) || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_DELETE);
 
+        if ($can_add) {
+            $addPath = '/' . ROUTE_ATTENDANCES . '/' . ACTION_ADD;
+        }
+
         View::render('attendances/attendanceList.php',
             ["title" => "Godziny pracy",
                 "attendances" => $attendances,
                 "can_add" => $can_add,
                 "can_update" => $can_update,
                 "can_delete" => $can_delete,
+                "add" => $addPath,
                 "users" => $users]);
     }
 
@@ -141,7 +146,8 @@ class Attendances extends Controller
             "attendance" => $attendance]);
     }
 
-    public function updateAction() {
+    public function updateAction()
+    {
         $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_UPDATE);
         $id = $this->route_params['id'];
         $attendance = $this->attendanceRepository->findById($id);

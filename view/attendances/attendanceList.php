@@ -1,7 +1,5 @@
 <div id="page">
 
-    <?php if (isset($can_add) && $can_add == true) echo '<a href="/attendances/add" class="material-btn">Dodaj</a><br><br>' ?>
-
     <div class="tbl-header">
         <table cellpadding="0" cellspacing="0" border="0">
             <thead>
@@ -39,8 +37,8 @@
                             echo $time . "h";
                             ?> </td>
                         <td><?= $attendance->getNotes(); ?></td>
-                        <?php if (isset($can_update) && $can_update == true) echo '<td><a href="/attendances/' . $attendance->getId() . '/edit" class="material-btn">Edytuj</a></td>' ?>
-                        <?php if (isset($can_delete) && $can_delete == true) echo '<td><a href="/attendances/' . $attendance->getId() . '/delete" class="material-btn">Usuń</a></td>' ?>
+                        <?php if (isset($can_update) && $can_update == true) echo '<td><a href="/' . ROUTE_ATTENDANCES . '/' . $attendance->getId() . '/' . ACTION_EDIT . '" class="material-btn">Edytuj</a></td>' ?>
+                        <?php if (isset($can_delete) && $can_delete == true) echo '<td><a href="/' . ROUTE_ATTENDANCES . '/' . $attendance->getId() . '/' . ACTION_DELETE . '" class="material-btn">Usuń</a></td>' ?>
                     </tr>
                 <?php }
             } ?>
@@ -49,5 +47,7 @@
     </div>
     <br>
 
-    <?php echo "Łączny czas pracy : " . $total_time . "h"; ?>
+    <div class="tbl-summary">
+        <p>Łączny czas pracy : <?= $total_time ?> h</p>
+    </div>
 </div>

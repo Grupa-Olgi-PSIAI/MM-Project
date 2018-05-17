@@ -1,7 +1,4 @@
 <div id="page">
-    <h2>Dodaj obecność</h2>
-    <br>
-
     <form action=" <?= '/' . ROUTE_ATTENDANCES . '/' . ACTION_CREATE ?>" method="post">
         <div class="material-input">
             <?php echo "<input type='number' name='attendance_year' min='1990' max='" . date('Y') . "'value= '" . (isset($year) ? $year : date('Y')) . "'/>"; ?>

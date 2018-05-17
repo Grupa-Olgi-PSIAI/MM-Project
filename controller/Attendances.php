@@ -51,9 +51,12 @@ class Attendances extends Controller
             $users = false;
         };
 
-        $can_add = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE) || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_CREATE);
-        $can_update = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_UPDATE) || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_UPDATE);
-        $can_delete = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_DELETE) || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_DELETE);
+        $can_add = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE)
+            || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_CREATE);
+        $can_update = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_UPDATE)
+            || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_UPDATE);
+        $can_delete = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_DELETE)
+            || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_DELETE);
 
         if ($can_add) {
             $addPath = '/' . ROUTE_ATTENDANCES . '/' . ACTION_ADD;
@@ -87,14 +90,13 @@ class Attendances extends Controller
     {
         $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE);
 
-        unset($error_attendance_invalid_month_day);
+        unset($error_attendance_invalid_date);
         unset($error_attendance_duplicate);
-        unset($error_attendance_dates);
+        unset($error_attendance_time);
 
         $date = $_POST['attendance_date'];
         $time_in = $_POST['attendance_time_in'];
         $time_out = $_POST['attendance_time_out'];
-
         $notes = $_POST['attendance_notes'];
 
         $dateIn = \DateTime::createFromFormat('Y-m-d H:i', $date . ' ' . $time_in);
@@ -146,62 +148,60 @@ class Attendances extends Controller
         $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_UPDATE);
         $id = $this->route_params['id'];
         $attendance = $this->attendanceRepository->findById($id);
+        $attendanceView = $this->mapToView($attendance);
 
         View::render('attendances/attendanceEdit.php', ["title" => "Edytuj godziny pracy",
-            "attendance" => $attendance]);
+            "attendance" => $attendanceView]);
     }
 
     public function updateAction()
     {
         $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_UPDATE);
         $id = $this->route_params['id'];
+
+        /** @var Attendance $attendance */
         $attendance = $this->attendanceRepository->findById($id);
 
-        unset($error_attendance_invalid_month_day);
+        unset($error_attendance_invalid_date);
         unset($error_attendance_duplicate);
-        unset($error_attendance_dates);
+        unset($error_attendance_time);
 
-        $year = $_POST['attendance_year'];
-        $month = $_POST['attendance_month'];
-        $day = $_POST['attendance_day'];
-
-        $hour_in = $_POST['attendance_hour_in'];
-        $minute_in = $_POST['attendance_minute_in'];
-
-        $hour_out = $_POST['attendance_hour_out'];
-        $minute_out = $_POST['attendance_minute_out'];
-
+        $date = $_POST['attendance_date'];
+        $time_in = $_POST['attendance_time_in'];
+        $time_out = $_POST['attendance_time_out'];
         $notes = $_POST['attendance_notes'];
 
-        $error_attendance_invalid_month_day = !checkdate($month, $day, $year);
-        $error_attendance_dates = (($hour_in > $hour_out) || (($hour_in == $hour_out) && ($minute_in >= $minute_out)));
+        $dateIn = \DateTime::createFromFormat('Y-m-d H:i', $date . ' ' . $time_in);
+        $dateOut = \DateTime::createFromFormat('Y-m-d H:i', $date . ' ' . $time_out);
 
-        $repository = new AttendanceRepository();
+        $error_attendance_invalid_date = !($dateIn && $dateOut);
+        $error_attendance_time = ($dateIn > $dateOut);
+        $error_attendance_duplicate = $dateIn == $dateOut;
 
-        //TODO: check for $error_attendance_duplicate
-        $time_in = $year . "-" . $month . "-" . $day . " " . $hour_in . ":" . $minute_in . ":00";
-        $time_out = $year . "-" . $month . "-" . $day . " " . $hour_out . ":" . $minute_out . ":00";
-
-        $error_attendance_duplicate = false;
-
-        $updated = $attendance;
-        $updated->setTimeIn($time_in);
-        $updated->setTimeOut($time_out);
+        $updated = new Attendance();
+        $updated->setVersion(1);
+        $updated->setUserId($attendance->getUserId());
+        $updated->setTimeIn($dateIn->format(DateUtils::$PATTERN_MYSQL_DATE_TIME));
+        $updated->setTimeOut($dateOut->format(DateUtils::$PATTERN_MYSQL_DATE_TIME));
         $updated->setNotes($notes);
 
-        if (!$error_attendance_invalid_month_day &&
-            !$error_attendance_dates &&
+        if (!$error_attendance_invalid_date &&
+            !$error_attendance_time &&
             !$error_attendance_duplicate) {
 
-            $repository->update($attendance->getId(), $attendance);
+            $this->attendanceRepository->update($id, $updated);
             Redirect::to('/' . ROUTE_ATTENDANCES . '/' . ACTION_SHOW);
         }
 
-        View::render('attendances/attendanceEdit.php', ["title" => "Edytuj godziny pracy",
-            "error_attendance_invalid_month_day" => $error_attendance_invalid_month_day,
+        $updatedView = $this->mapToView($updated);
+
+        View::render('attendances/attendanceEdit.php', [
+            "title" => "Edytuj godziny pracy",
+            "error_attendance_invalid_date" => $error_attendance_invalid_date,
             "error_attendance_duplicate" => $error_attendance_duplicate,
-            "error_attendance_dates" => $error_attendance_dates,
-            "attendance" => $updated]);
+            "error_attendance_time" => $error_attendance_time,
+            "attendance" => $updatedView
+        ]);
     }
 
     private function mapToView(Attendance $attendance): AttendanceView

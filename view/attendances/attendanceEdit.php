@@ -1,59 +1,40 @@
 <div id="page">
-    <?php if (!isset($attendance)) {
+    <?php /** @var \model\AttendanceView $attendance */
+    if (!isset($attendance)) {
         throw new RuntimeException("Not found", 404);
     } ?>
 
     <form action=" <?= '/' . ROUTE_ATTENDANCES . '/' . $attendance->getId() . '/' . ACTION_UPDATE ?>" method="post">
+
         <div class="material-input">
-            <?php echo "<input type='number' name='attendance_year' min='1990' max='" . date('Y') . "'value= '" . \util\DateUtils::getYear($attendance->getTimeIn()) . "'/>"; ?>
+            <input id="attendanceDate" type="date" name="attendance_date"
+                   value="<?= $attendance->getDateIn(); ?>" required>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Rok</label>
+            <label for="attendanceDate">Data</label>
+            <?php if (isset($error_attendance_invalid_date) && $error_attendance_invalid_date == true) { ?>
+                <p class="error"> Podana data jest niewłaściwa! </p>
+            <?php } ?>
         </div>
 
         <div class="material-input">
-            <?php echo "<input type='number' name='attendance_month' min='1' max='12' value= '" . \util\DateUtils::getMonth($attendance->getTimeIn()) . "'/>"; ?>
+            <input id="timeIn" type="time" name="attendance_time_in"
+                   value="<?= $attendance->getTimeIn(); ?>">
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Miesiąc</label>
+            <label for="timeIn">Czas wejścia</label>
         </div>
 
         <div class="material-input">
-            <?php echo "<input type='number' name='attendance_day' min='1' max='31' value= '" . \util\DateUtils::getDay($attendance->getTimeIn()) . "'/>"; ?>
+            <input id="timeOut" type="time" name="attendance_time_out"
+                   value="<?= $attendance->getTimeOut() ?>">
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
-            <label>Dzień</label>
-            <?php if (isset($error_attendance_invalid_month_day) && $error_attendance_invalid_month_day == true) echo '<p class="error"> Podana data jest niewłaściwa! </p>' ?>
-        </div>
-
-
-        <div class="material-input">
-            <?php echo "<input type='number' name='attendance_hour_in'  min='0' max='23' value= '" . \util\DateUtils::getHour($attendance->getTimeIn()) . "'/>"; ?>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>Godzina wejścia</label>
-        </div>
-
-        <div class="material-input">
-            <?php echo "<input type='number' name='attendance_minute_in'  min='0' max='59' value= '" . \util\DateUtils::getMinute($attendance->getTimeIn()) . "'/>"; ?>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>Minuta wejścia</label>
-        </div>
-
-        <div class="material-input">
-            <?php echo "<input type='number' name='attendance_hour_out'  min='0' max='23' value= '" . \util\DateUtils::getHour($attendance->getTimeOut()) . "'/>"; ?>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>Godzina wyjścia</label>
-        </div>
-
-        <div class="material-input">
-            <?php echo "<input type='number' name='attendance_minute_out' min='0' max='59' value= '" . \util\DateUtils::getMinute($attendance->getTimeOut()) . "'/>"; ?>
-            <span class="material-input-highlight"></span>
-            <span class="material-input-bar"></span>
-            <label>Minuta wyjścia</label>
-            <?php if (isset($error_attendance_dates) && $error_attendance_dates == true) echo '<p class="error"> Podane godziny są niewłaściwe! </p>' ?>
+            <label for="timeOut">Czas wyjścia</label>
+            <?php if (isset($error_attendance_time) && $error_attendance_time == true
+                || isset($error_attendance_duplicate) && $error_attendance_duplicate == true) { ?>
+                <p class="error"> Podane godziny są niewłaściwe! </p>
+            <?php } ?>
         </div>
 
         <div class="material-input">

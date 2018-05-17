@@ -91,58 +91,43 @@ class Attendances extends Controller
         unset($error_attendance_duplicate);
         unset($error_attendance_dates);
 
-        $year = $_POST['attendance_year'];
-        $month = $_POST['attendance_month'];
-        $day = $_POST['attendance_day'];
-
-        $hour_in = $_POST['attendance_hour_in'];
-        $minute_in = $_POST['attendance_minute_in'];
-
-        $hour_out = $_POST['attendance_hour_out'];
-        $minute_out = $_POST['attendance_minute_out'];
+        $date = $_POST['attendance_date'];
+        $time_in = $_POST['attendance_time_in'];
+        $time_out = $_POST['attendance_time_out'];
 
         $notes = $_POST['attendance_notes'];
 
-        $error_attendance_invalid_month_day = !checkdate($month, $day, $year);
-        $error_attendance_dates = (($hour_in > $hour_out) || (($hour_in == $hour_out) && ($minute_in >= $minute_out)));
+        $dateIn = \DateTime::createFromFormat('Y-m-d H:i', $date . ' ' . $time_in);
+        $dateOut = \DateTime::createFromFormat('Y-m-d H:i', $date . ' ' . $time_out);
 
-        $repository = new AttendanceRepository();
+        $error_attendance_invalid_date = !($dateIn && $dateOut);
+        $error_attendance_time = ($dateIn > $dateOut);
+        $error_attendance_duplicate = $dateIn == $dateOut;
 
-
-        //TODO: check for $error_attendance_duplicate
-        $time_in = $year . "-" . $month . "-" . $day . " " . $hour_in . ":" . $minute_in . ":00";
-        $time_out = $year . "-" . $month . "-" . $day . " " . $hour_out . ":" . $minute_out . ":00";
-
-        $error_attendance_duplicate = false;
-
-        if (!$error_attendance_invalid_month_day &&
-            !$error_attendance_dates &&
+        if (!$error_attendance_invalid_date &&
+            !$error_attendance_time &&
             !$error_attendance_duplicate) {
 
             $attendance = new Attendance();
             $attendance->setVersion(1);
             $attendance->setUserId($this->userId);
-            $attendance->setTimeIn($time_in);
-            $attendance->setTimeOut($time_out);
+            $attendance->setTimeIn($dateIn->format(DateUtils::$PATTERN_MYSQL_DATE_TIME));
+            $attendance->setTimeOut($dateOut->format(DateUtils::$PATTERN_MYSQL_DATE_TIME));
             $attendance->setNotes($notes);
 
-            $repository->add($attendance);
+            $this->attendanceRepository->add($attendance);
 
             Redirect::to('/' . ROUTE_ATTENDANCES . '/' . ACTION_SHOW);
         }
 
         View::render('attendances/attendanceAdd.php', [
             "title" => "Zaloguj godziny pracy",
-            "error_attendance_invalid_month_day" => $error_attendance_invalid_month_day,
+            "error_attendance_invalid_date" => $error_attendance_invalid_date,
             "error_attendance_duplicate" => $error_attendance_duplicate,
-            "error_attendance_dates" => $error_attendance_dates,
-            "year" => $year,
-            "month" => $month,
-            "day" => $day,
-            "hour_in" => $hour_in,
-            "minute_in" => $minute_in,
-            "hour_out" => $hour_out,
-            "minute_out" => $minute_out,
+            "error_attendance_time" => $error_attendance_time,
+            "date" => $date,
+            "time_in" => $time_in,
+            "time_out" => $time_out,
             "notes" => $notes
         ]);
     }

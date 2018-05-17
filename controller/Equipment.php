@@ -299,6 +299,15 @@ class Equipment extends Controller
             "title" => "Szczegóły sprzętu " . $equipmentView->getName()]);
     }
 
+    public function deleteAction()
+    {
+        $this->checkPermissions(self::RESOURCE_EQUIPMENT, AuthFlags::ALL_DELETE);
+
+        $id = $this->route_params['id'];
+        $this->equipmentRepository->delete($id);
+
+        Redirect::to('/' . ROUTE_EQUIPMENT . '/' . ACTION_SHOW);
+    }
 }
 
 

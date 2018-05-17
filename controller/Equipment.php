@@ -186,6 +186,63 @@ class Equipment extends Controller
             "search" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_SEARCH
         ]);
     }
+    public function filterAction()
+    {
+        $this->checkPermissions(self::RESOURCE_EQUIPMENT, AuthFlags::ALL_READ);
+
+        $dateFrom = $_POST['dateFrom'];
+        $dateTo = $_POST['dateTo'];
+        $whichDate = $_POST['whichDate'];
+
+        if ($whichDate == 'purchaseDate') {
+            if ($dateTo == NULL) {
+                $con = array('purchase_date >= ?');
+                $val = array($dateFrom);
+            } else if ($dateFrom == NULL) {
+                $con = array('purchase_date <= ?');
+                $val = array($dateTo);
+            } else {
+                $con = array('purchase_date >= ?', 'purchase_date <= ?');
+                $val = array($dateFrom, $dateTo);
+            }
+        } else if ($whichDate == 'validationDate') {
+            if ($dateTo == NULL) {
+                $con = array('validation_date >= ?');
+                $val = array($dateFrom);
+            } else if ($dateFrom == NULL) {
+                $con = array('validation_date <= ?');
+                $val = array($dateTo);
+            } else {
+                $con = array('validation_date >= ?', 'validation_date <= ?');
+                $val = array($dateFrom, $dateTo);
+            }
+        } else {
+            if ($dateTo == NULL) {
+                $con = array('date_created >= ?');
+                $val = array($dateFrom);
+            } else if ($dateFrom == NULL) {
+                $con = array('date_created <= ?');
+                $val = array($dateTo);
+            } else {
+                $con = array('date_created >= ?', 'date_created <= ?');
+                $val = array($dateFrom, $dateTo);
+            }
+        }
+
+        $licenses = $this->equipmentRepository->find($con, $val);
+        $equipmentViews = [];
+        foreach ($licenses as $equipment) {
+            $equipmentViews[] = $this->mapToView($equipment);
+        }
+
+        View::render('equipment/equipmentList.php', [
+            "equipments" => $equipmentViews,
+            "title" => "Lista sprzętu",
+            "filter" => "#filter_popup",
+            "add" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_SEARCH
+        ]);
+    }
 }
 
 

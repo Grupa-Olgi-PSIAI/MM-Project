@@ -5,8 +5,15 @@
         <form title="filter" action="<?= '/' . ROUTE_EQUIPMENT . '/' . ACTION_FILTER ?>" method="post">
             <div class="row">
                 <div class="material-input">
-                    <input title="filter" type="date" name='dateFrom'/>
-                    <input title="filter" type="date" name='dateTo'/>
+                    <input type="date" name='dateFrom' title="filter"/>
+                    <input type="date" name='dateTo' title="filter"/>
+                    <br>
+                    <input type="radio" name="whichDate" checked="checked"
+                           value="createDate">po dacie utworzenia
+                    <input type="radio" name="whichDate"
+                           value="validationDate">po dacie walidacji
+                    <input type="radio" name="whichDate"
+                           value="purchaseDate">po dacie zakupu
                 </div>
                 <div class="material-input">
                     <input type="submit"/>

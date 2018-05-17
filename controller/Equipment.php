@@ -99,7 +99,7 @@ class Equipment extends Controller
         }
         View::render('equipment/equipmentList.php', [
             "equipments" => $equipmentViews,
-            "title" => "Sprzęt",
+            "title" => "Lista sprzętu",
             "filter" => "#filter_popup",
             "add" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_ADD,
             "search" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_SEARCH
@@ -114,15 +114,13 @@ class Equipment extends Controller
         $invoices = $this->invoiceRepository->findAll();
         $users = $this->userRepository->findAll();
 
-        View::render('equipment/equipmentAdd.php', ["contractors" => $contractors, "invoices" => $invoices, "users" => $users,  "title" => "Dodaj fakturę"]);
+        View::render('equipment/equipmentAdd.php', ["contractors" => $contractors, "invoices" => $invoices, "users" => $users,  "title" => "Dodaj sprzęt"]);
     }
 
     public function createAction()
     {
         $this->checkPermissions(self::RESOURCE_EQUIPMENT, AuthFlags::OWN_CREATE);
 
-        $date_created = $_POST['date_created'];
-        $last_updated = $_POST['last_updated'];
         $user_id = $_POST['user_id'];
         $invoice_id = $_POST['invoice_id'];
         $inventory_number = $_POST['inventory_number'];
@@ -139,10 +137,8 @@ class Equipment extends Controller
         $equipment->setInventoryNumber($inventory_number);
         $equipment->setName($name);
         $equipment->setValidationDate($validation_date);
-        $equipment->setDateCreated($date_created);
         $equipment->setPurchaseDate($purchase_date);
         $equipment->setNotes($notes);
-        $equipment->setLastUpdated($last_updated);
         $equipment->setInvoiceId($invoice_id);
         $equipment->setSerialNumber($serial_number);
         $equipment->setPriceNet($price_net);
@@ -150,4 +146,91 @@ class Equipment extends Controller
         $this->equipmentRepository->add($equipment);
         Redirect::to('/' . ROUTE_EQUIPMENT . '/' . ACTION_SHOW);
     }
+
+    public function searchAction()
+    {
+        $this->checkPermissions(self::RESOURCE_EQUIPMENT, AuthFlags::ALL_READ);
+
+        $criterium = $_POST['criterium'];
+
+        $con = array('id LIKE ?', 'version LIKE ?', 'user_id LIKE ?', 'invoice_id LIKE ?',
+            'inventory_number LIKE ?', 'name LIKE ?', 'notes LIKE ?', 'user_id IN (SELECT id FROM users WHERE last_name = ?)'
+            ,'price_net LIKE ?');
+
+        $val = array($criterium, $criterium, $criterium, $criterium, $criterium ,"%" . $criterium . "%",
+             "%" . $criterium . "%", $criterium, $criterium);
+
+        $equipments = $this->equipmentRepository->findOr($con, $val);
+        $equipmentViews = [];
+        foreach ($equipments as $equipment) {
+            $equipmentViews[] = $this->mapToView($equipment);
+        }
+
+        View::render('equipment/equipmentList.php', [
+            "equipments" => $equipmentViews,
+            "title" => "Lista sprzętu",
+            "filter" => "#filter_popup",
+            "add" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_SEARCH
+        ]);
+    }
+    public function filterAction()
+    {
+        $this->checkPermissions(self::RESOURCE_EQUIPMENT, AuthFlags::ALL_READ);
+
+        $dateFrom = $_POST['dateFrom'];
+        $dateTo = $_POST['dateTo'];
+        $whichDate = $_POST['whichDate'];
+
+        if ($whichDate == 'purchaseDate') {
+            if ($dateTo == NULL) {
+                $con = array('purchase_date >= ?');
+                $val = array($dateFrom);
+            } else if ($dateFrom == NULL) {
+                $con = array('purchase_date <= ?');
+                $val = array($dateTo);
+            } else {
+                $con = array('purchase_date >= ?', 'purchase_date <= ?');
+                $val = array($dateFrom, $dateTo);
+            }
+        } else if ($whichDate == 'validationDate') {
+            if ($dateTo == NULL) {
+                $con = array('validation_date >= ?');
+                $val = array($dateFrom);
+            } else if ($dateFrom == NULL) {
+                $con = array('validation_date <= ?');
+                $val = array($dateTo);
+            } else {
+                $con = array('validation_date >= ?', 'validation_date <= ?');
+                $val = array($dateFrom, $dateTo);
+            }
+        } else {
+            if ($dateTo == NULL) {
+                $con = array('date_created >= ?');
+                $val = array($dateFrom);
+            } else if ($dateFrom == NULL) {
+                $con = array('date_created <= ?');
+                $val = array($dateTo);
+            } else {
+                $con = array('date_created >= ?', 'date_created <= ?');
+                $val = array($dateFrom, $dateTo);
+            }
+        }
+
+        $licenses = $this->equipmentRepository->find($con, $val);
+        $equipmentViews = [];
+        foreach ($licenses as $equipment) {
+            $equipmentViews[] = $this->mapToView($equipment);
+        }
+
+        View::render('equipment/equipmentList.php', [
+            "equipments" => $equipmentViews,
+            "title" => "Lista sprzętu",
+            "filter" => "#filter_popup",
+            "add" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_SEARCH
+        ]);
+    }
 }
+
+

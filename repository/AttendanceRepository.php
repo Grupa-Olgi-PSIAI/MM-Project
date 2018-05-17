@@ -16,6 +16,6 @@ class AttendanceRepository extends Repository
 
     public function findByUserId($user_id)
     {
-        return parent::find(["user_id"], [$user_id]);
+        return parent::find(["user_id = ?"], [$user_id]);
     }
 }

@@ -42,7 +42,7 @@ class Attendance extends Model
     private $time_out;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $notes;
 

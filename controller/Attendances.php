@@ -2,26 +2,66 @@
 
 namespace controller;
 
-
 use core\Controller;
 use core\View;
 use model\Attendance;
+use repository\AttendanceRepository;
 use util\AuthFlags;
+use util\Authorization;
+use util\Session;
 
 class Attendances extends Controller
 {
     private const RESOURCE_ATTENDANCE = "attendance";
 
+    private $attendanceRepository;
+    private $auth;
+    private $userId;
+
+    public function __construct(array $route_params)
+    {
+        parent::__construct($route_params);
+        $this->attendanceRepository = new AttendanceRepository();
+        $this->auth = Authorization::getInstance();
+        $this->userId = Session::getInstance()->get(Session::USER_SESSION);
+    }
+
     public function showAction()
     {
+
+        if($this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_READ)) {
+            $attendances = $this->attendanceRepository->findAll();
+            $users = true;
+        } else if ($this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_READ)) {
+            $attendances = $this->attendanceRepository->findByUserId($this->userId);
+            $users = false;
+        };
+
+        $can_add = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE) || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_CREATE);
+        $can_update = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_UPDATE) || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_UPDATE);
+        $can_delete = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_DELETE) || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_DELETE);
+
+        View::render('attendances/attendanceList.php',
+            ["title" => "Godziny pracy",
+                "attendances" => $attendances,
+                "can_add" => $can_add,
+                "can_update" => $can_update,
+                "can_delete" => $can_delete,
+                "users" =>  $users]);
+    }
+
+    public function addAction()
+    {
         $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE);
-        View::render('attendances/attendanceAdd.php');
+
+        View::render('attendances/attendanceAdd.php', ["title" => "Zaloguj godziny pracy"]);
     }
 
     public function createAction()
     {
         $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE);
 
+        unset($error_attendance_invalid_month_day);
         unset($error_attendance_duplicate);
         unset($error_attendance_dates);
 
@@ -37,20 +77,25 @@ class Attendances extends Controller
 
         $notes = $_POST['attendance_notes'];
 
+        $error_attendance_invalid_month_day = !checkdate($month, $day, $year);
         $error_attendance_dates = ( ($hour_in > $hour_out) || (($hour_in == $hour_out) && ($minute_in >= $minute_out)) );
-        $error_attendance_duplicate = false;
 
         $repository = new AttendanceRepository();
 
-        //TODO: check for $error_attendance_duplicate
-        $time_in = 0;
-        $time_out = 0;
 
-        if (!$error_attendance_dates &&
+        //TODO: check for $error_attendance_duplicate
+        $time_in = $year . "-" . $month . "-" . $day . " " . $hour_in . ":" . $minute_in . ":00";
+        $time_out = $year . "-" . $month . "-" . $day . " " . $hour_out . ":" . $minute_out . ":00";
+
+        $error_attendance_duplicate = false;
+
+        if (!$error_attendance_invalid_month_day &&
+            !$error_attendance_dates &&
             !$error_attendance_duplicate) {
 
             $attendance = new Attendance();
             $attendance->setVersion(1);
+            $attendance->setUserId($this->userId);
             $attendance->setTimeIn($time_in);
             $attendance->setTimeOut($time_out);
             $attendance->setNotes($notes);
@@ -61,7 +106,9 @@ class Attendances extends Controller
             return;
         }
 
-        View::render('contractors/contractorsAdd.php', [
+        View::render('attendances/attendanceAdd.php', [
+            "title" => "Zaloguj godziny pracy",
+            "error_attendance_invalid_month_day" => $error_attendance_invalid_month_day,
             "error_attendance_duplicate" => $error_attendance_duplicate,
             "error_attendance_dates" => $error_attendance_dates,
             "year" => $year,
@@ -75,4 +122,17 @@ class Attendances extends Controller
         ]);
     }
 
+    public function deleteAction()
+    {
+        $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_DELETE);
+        $id = $this->route_params['id'];
+        $this->attendanceRepository->delete($id);
+        $this->showAction();
+    }
+
+    public function editAction()
+    {
+        $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE);
+        View::render('attendances/attendanceEdit.php', ["title" => "Edytuj godziny pracy"]);
+    }
 }

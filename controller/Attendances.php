@@ -8,6 +8,7 @@ use model\Attendance;
 use repository\AttendanceRepository;
 use util\AuthFlags;
 use util\Authorization;
+use util\Redirect;
 use util\Session;
 
 class Attendances extends Controller
@@ -102,8 +103,7 @@ class Attendances extends Controller
 
             $repository->add($attendance);
 
-            $this->showAction();
-            return;
+            Redirect::to('/' . ROUTE_ATTENDANCES . '/' . ACTION_SHOW);
         }
 
         View::render('attendances/attendanceAdd.php', [
@@ -127,7 +127,8 @@ class Attendances extends Controller
         $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_DELETE);
         $id = $this->route_params['id'];
         $this->attendanceRepository->delete($id);
-        $this->showAction();
+
+        Redirect::to('/' . ROUTE_ATTENDANCES . '/' . ACTION_SHOW);
     }
 
     public function editAction()
@@ -182,8 +183,7 @@ class Attendances extends Controller
             !$error_attendance_duplicate) {
 
             $repository->update($attendance->getId(), $attendance);
-            $this->showAction();
-            return;
+            Redirect::to('/' . ROUTE_ATTENDANCES . '/' . ACTION_SHOW);
         }
 
         View::render('attendances/attendanceEdit.php', ["title" => "Edytuj godziny pracy",

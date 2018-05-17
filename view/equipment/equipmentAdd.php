@@ -28,7 +28,7 @@
         </div>
 
         <div class="material-input">
-            <input type='text' id="price_net" name='price_net' required/>
+            <input type='number' step="0.01" name='price_net' required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label for="price_net">Kwota netto</label>
@@ -48,7 +48,7 @@
         <br>
 
         <div class="material-input">
-            <input type='text' id="serial_number" name='serial_number' required/>
+            <input type='text' id="serial_number" name='serial_number' pattern="^([0-9]*)$" title="dowolna liczba całkowita" required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label for="serial_number">Numer seryjny</label>
@@ -62,7 +62,7 @@
         </div>
 
         <div class="material-input">
-            <input type='text' id="inventory_number" name='inventory_number' required/>
+            <input type='text' id="inventory_number" name='inventory_number' pattern="^([0-9]*)$" title="dowolna liczba całkowita" required/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label for="inventory_number">Numer inwentarza</label>
@@ -76,28 +76,14 @@
         </div>
 
         <div class="material-input">
-            <input type='text' id="notes" name='notes' required/>
+            <input type='text' id="notes" name='notes'/>
             <span class="material-input-highlight"></span>
             <span class="material-input-bar"></span>
             <label for="notes">Notatki</label>
         </div>
-
-        <?php if (isset($contractors)) { ?>
-            <label for="contractor_id">Kontrahent<br></label>
-            <select id="contractor_id" name="contractor_id">
-                <?php /** @var \model\Contractor $value */
-                foreach ($contractors as &$value) { ?>
-                    <option value="<?= $value->getId(); ?>"><?= $value->getName(); ?></option>
-                <?php } ?>
-            </select>
-            <br><br><br>
             <div class="material-input">
                 <input type="submit" name="add" value="Wyślij">
             </div>
-        <?php } else { ?>
-            <a href="<?= '/' . ROUTE_CONTRACTORS . '/' . ACTION_SHOW ?>" class="material-btn"> Dodaj nowego
-                kontrahenta </a>
-        <?php } ?>
     </form>
 
 </div>

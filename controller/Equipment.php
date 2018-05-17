@@ -239,6 +239,55 @@ class Equipment extends Controller
             "search" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_SEARCH
         ]);
     }
+
+    public function editAction()
+    {
+        $this->checkPermissions(self::RESOURCE_EQUIPMENT, AuthFlags::ALL_UPDATE);
+
+        $id = $this->route_params['id'];
+        /** @var EquipmentDB $equipment */
+        $equipment = $this->equipmentRepository->findById($id);
+        $invoices = $this->invoiceRepository->findAll();
+        $users = $this->userRepository->findAll();
+        View::render('equipment/equipmentEdit.php', [
+            "equipment" => $equipment,
+            "invoices" => $invoices,
+            "users" => $users,
+            "title" => "Edytuj sprzęt " . $equipment->getInventoryNumber()
+        ]);
+    }
+    public function updateAction()
+    {
+        $this->checkPermissions(self::RESOURCE_EQUIPMENT, AuthFlags::ALL_UPDATE);
+
+        $name = $_POST['name'];
+        $purchase_date = $_POST['purchase_date'];
+        $priceNet = $_POST['price_net'];
+        $inventory_number = $_POST['inventory_number'];
+        $serial_number = $_POST['serial_number'];
+        $validation_date = $_POST['validation_date'];
+        $notes = $_POST['notes'];
+        $user_id = $_POST['user_id'];
+        $invoiceId = $_POST['invoice_id'];
+
+
+        $equipment = new EquipmentDB();
+        $equipment->setName($name);
+        $equipment->setPurchaseDate($purchase_date);
+        $equipment->setVersion(1);
+        $equipment->setPriceNet($priceNet);
+        $equipment->setInventoryNumber($inventory_number);
+        $equipment->setSerialNumber($serial_number);
+        $equipment->setValidationDate($validation_date);
+        $equipment->setNotes($notes);
+        $equipment->setUserId($user_id);
+        $equipment->setInvoiceId($invoiceId);
+
+        $id = $this->route_params['id'];
+        $this->equipmentRepository->update($id, $equipment);
+
+        Redirect::to('/' . ROUTE_EQUIPMENT . '/' . ACTION_SHOW);
+    }
 }
 
 

@@ -158,4 +158,34 @@ class Equipment extends Controller
         $this->equipmentRepository->add($equipment);
         Redirect::to('/' . ROUTE_EQUIPMENT . '/' . ACTION_SHOW);
     }
+
+    public function searchAction()
+    {
+        $this->checkPermissions(self::RESOURCE_EQUIPMENT, AuthFlags::ALL_READ);
+
+        $criterium = $_POST['criterium'];
+
+        $con = array('id LIKE ?', 'version LIKE ?', 'user_id LIKE ?', 'invoice_id LIKE ?',
+            'inventory_number LIKE ?', 'name LIKE ?', 'notes LIKE ?', 'user_id IN (SELECT id FROM users WHERE last_name = ?)'
+            ,'price_net LIKE ?');
+
+        $val = array($criterium, $criterium, $criterium, $criterium, $criterium ,"%" . $criterium . "%",
+             "%" . $criterium . "%", $criterium, $criterium);
+
+        $equipments = $this->equipmentRepository->findOr($con, $val);
+        $equipmentViews = [];
+        foreach ($equipments as $equipment) {
+            $equipmentViews[] = $this->mapToView($equipment);
+        }
+
+        View::render('equipment/equipmentList.php', [
+            "equipments" => $equipmentViews,
+            "title" => "Lista sprzętu",
+            "filter" => "#filter_popup",
+            "add" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_EQUIPMENT . '/' . ACTION_SEARCH
+        ]);
+    }
 }
+
+

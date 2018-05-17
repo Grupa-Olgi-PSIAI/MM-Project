@@ -68,5 +68,4 @@
             <p>Suma brutto: <?= $summary; ?></p>
         <?php } ?>
     </div>
-    <a class="material-btn" href="<?= '/' . ROUTE_INVOICES . '/' . ACTION_ADD ?>">Dodaj fakture</a>
 </div>

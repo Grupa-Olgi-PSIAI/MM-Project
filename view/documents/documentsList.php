@@ -57,5 +57,4 @@
             </tbody>
         </table>
     </div>
-    <a class="material-btn" href="<?= '/' . ROUTE_DOCUMENTS . '/' . ACTION_ADD ?>">Dodaj dokument</a>
 </div>

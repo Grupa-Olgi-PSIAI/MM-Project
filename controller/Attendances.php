@@ -29,7 +29,7 @@ class Attendances extends Controller
     public function showAction()
     {
 
-        if($this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_READ)) {
+        if ($this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_READ)) {
             $attendances = $this->attendanceRepository->findAll();
             $users = true;
         } else if ($this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_READ)) {
@@ -47,7 +47,7 @@ class Attendances extends Controller
                 "can_add" => $can_add,
                 "can_update" => $can_update,
                 "can_delete" => $can_delete,
-                "users" =>  $users]);
+                "users" => $users]);
     }
 
     public function addAction()
@@ -78,7 +78,7 @@ class Attendances extends Controller
         $notes = $_POST['attendance_notes'];
 
         $error_attendance_invalid_month_day = !checkdate($month, $day, $year);
-        $error_attendance_dates = ( ($hour_in > $hour_out) || (($hour_in == $hour_out) && ($minute_in >= $minute_out)) );
+        $error_attendance_dates = (($hour_in > $hour_out) || (($hour_in == $hour_out) && ($minute_in >= $minute_out)));
 
         $repository = new AttendanceRepository();
 
@@ -132,7 +132,64 @@ class Attendances extends Controller
 
     public function editAction()
     {
-        $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE);
-        View::render('attendances/attendanceEdit.php', ["title" => "Edytuj godziny pracy"]);
+        $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_UPDATE);
+        $id = $this->route_params['id'];
+        $attendance = $this->attendanceRepository->findById($id);
+
+        View::render('attendances/attendanceEdit.php', ["title" => "Edytuj godziny pracy",
+            "attendance" => $attendance]);
+    }
+
+    public function updateAction() {
+        $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_UPDATE);
+        $id = $this->route_params['id'];
+        $attendance = $this->attendanceRepository->findById($id);
+
+        unset($error_attendance_invalid_month_day);
+        unset($error_attendance_duplicate);
+        unset($error_attendance_dates);
+
+        $year = $_POST['attendance_year'];
+        $month = $_POST['attendance_month'];
+        $day = $_POST['attendance_day'];
+
+        $hour_in = $_POST['attendance_hour_in'];
+        $minute_in = $_POST['attendance_minute_in'];
+
+        $hour_out = $_POST['attendance_hour_out'];
+        $minute_out = $_POST['attendance_minute_out'];
+
+        $notes = $_POST['attendance_notes'];
+
+        $error_attendance_invalid_month_day = !checkdate($month, $day, $year);
+        $error_attendance_dates = (($hour_in > $hour_out) || (($hour_in == $hour_out) && ($minute_in >= $minute_out)));
+
+        $repository = new AttendanceRepository();
+
+        //TODO: check for $error_attendance_duplicate
+        $time_in = $year . "-" . $month . "-" . $day . " " . $hour_in . ":" . $minute_in . ":00";
+        $time_out = $year . "-" . $month . "-" . $day . " " . $hour_out . ":" . $minute_out . ":00";
+
+        $error_attendance_duplicate = false;
+
+        $updated = $attendance;
+        $updated->setTimeIn($time_in);
+        $updated->setTimeOut($time_out);
+        $updated->setNotes($notes);
+
+        if (!$error_attendance_invalid_month_day &&
+            !$error_attendance_dates &&
+            !$error_attendance_duplicate) {
+
+            $repository->update($attendance->getId(), $attendance);
+            $this->showAction();
+            return;
+        }
+
+        View::render('attendances/attendanceEdit.php', ["title" => "Edytuj godziny pracy",
+            "error_attendance_invalid_month_day" => $error_attendance_invalid_month_day,
+            "error_attendance_duplicate" => $error_attendance_duplicate,
+            "error_attendance_dates" => $error_attendance_dates,
+            "attendance" => $updated]);
     }
 }

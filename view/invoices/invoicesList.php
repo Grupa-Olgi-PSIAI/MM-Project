@@ -1,7 +1,7 @@
 <div id="page">
     <a id="filter_popup" href="#" class="popup"></a>
     <div class="popup">
-        <form title="filter" action="/invoices/filter" method="post">
+        <form title="filter" action="<?= '/' . ROUTE_INVOICES . '/' . ACTION_FILTER ?>" method="post">
             <div class="row">
                 <div class="material-input">
                     <input type="date" name='dateFrom' title="filter"/>
@@ -47,10 +47,12 @@
                         <td><?= $invoice->getAmountGross(); ?></td>
                         <td><?= $invoice->getCurrency(); ?></td>
                         <td><?= $invoice->getContractor(); ?></td>
-                        <td><a href="/invoices/<?= $invoice->getId(); ?>/details" class="material-btn">Szczegóły</a>
-                        </td>
-                        <td><a href="/invoices/<?= $invoice->getId(); ?>/edit" class="material-btn">Edytuj</a></td>
-                        <td><a href="/invoices/<?= $invoice->getId(); ?>/delete" class="material-btn">Usuń</a></td>
+                        <td><a href="<?= '/' . ROUTE_INVOICES . '/' . $invoice->getId() . '/' . ACTION_DETAILS ?>"
+                               class="material-btn">Szczegóły</a></td>
+                        <td><a href="<?= '/' . ROUTE_INVOICES . '/' . $invoice->getId() . '/' . ACTION_EDIT ?>"
+                               class="material-btn">Edytuj</a></td>
+                        <td><a href="<?= '/' . ROUTE_INVOICES . '/' . $invoice->getId() . '/' . ACTION_DELETE ?>"
+                               class="material-btn">Usuń</a></td>
                     </tr>
                 <?php }
             } ?>
@@ -66,5 +68,4 @@
             <p>Suma brutto: <?= $summary; ?></p>
         <?php } ?>
     </div>
-
 </div>

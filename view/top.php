@@ -3,7 +3,7 @@
         <h1><?= $title; ?></h1>
     <?php } ?>
     <ul id="nav">
-        <li><a href="/logout"><i class="material-icons navbar logout">&#xE5DD;</i></a></li>
+        <li><a href="/<?= ROUTE_LOGOUT ?>"><i class="material-icons navbar logout">&#xE5DD;</i></a></li>
         <li><a href="/attendances/show"><i class="material-icons navbar">&#xE8B5;</i></a></li>
         <?php if (isset($filter)) { ?>
             <li><a href="<?= $filter; ?>"><i class="material-icons navbar">&#xE152;</i></a></li>

@@ -60,7 +60,7 @@ abstract class Controller
     protected function before()
     {
         if (!Authenticator::getInstance()->isAuthenticated()) {
-            Redirect::to("/login");
+            Redirect::to('/' . ROUTE_LOGIN);
             return false;
         }
 

@@ -1,17 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: apple
- * Date: 25.04.2018
- * Time: 21:35
- */
+
 
 namespace model;
+
 
 use core\Model;
 use util\DateUtils;
 
-class Licenses extends Model
+class EquipmentDB extends Model
 {
     /**
      * @var int
@@ -39,6 +35,11 @@ class Licenses extends Model
     private $user_id;
 
     /**
+     * @var null|int
+     */
+    private $invoice_id;
+
+    /**
      * @var string
      */
     private $inventory_number;
@@ -51,7 +52,7 @@ class Licenses extends Model
     /**
      * @var string
      */
-    private $serial_key;
+    private $serial_number;
 
     /**
      * @var string
@@ -59,30 +60,25 @@ class Licenses extends Model
     private $validation_date;
 
     /**
-     * @var string
-     */
-    private $tech_support_end_date;
-
-    /**
-     * @var string
+     * @var null|string
      */
     private $purchase_date;
+
+    /**
+     * @var float
+     */
+    private $price_net;
 
     /**
      * @var string
      */
     private $notes;
 
-    /**
-     * @var null|int
-     */
-    private $file_id;
 
     /**
-     * @var int
+     * Get fields for database
+     * @return array with all class fields and their values
      */
-    private $invoice_id;
-
     public function getFields(): array
     {
         return get_object_vars($this);
@@ -98,9 +94,9 @@ class Licenses extends Model
 
     /**
      * @param int $id
-     * @return Licenses
+     * @return EquipmentDB
      */
-    public function setId(int $id): Licenses
+    public function setId(int $id): EquipmentDB
     {
         $this->id = $id;
         return $this;
@@ -116,9 +112,9 @@ class Licenses extends Model
 
     /**
      * @param int $version
-     * @return Licenses
+     * @return EquipmentDB
      */
-    public function setVersion(int $version): Licenses
+    public function setVersion(int $version): EquipmentDB
     {
         $this->version = $version;
         return $this;
@@ -134,9 +130,9 @@ class Licenses extends Model
 
     /**
      * @param string $date_created
-     * @return Licenses
+     * @return EquipmentDB
      */
-    public function setDateCreated(string $date_created): Licenses
+    public function setDateCreated(string $date_created): EquipmentDB
     {
         $dateTime = new \DateTime($date_created);
         $this->date_created = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
@@ -153,9 +149,9 @@ class Licenses extends Model
 
     /**
      * @param string $last_updated
-     * @return Licenses
+     * @return EquipmentDB
      */
-    public function setLastUpdated(string $last_updated): Licenses
+    public function setLastUpdated(string $last_updated): EquipmentDB
     {
         $dateTime = new \DateTime($last_updated);
         $this->last_updated = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
@@ -172,11 +168,29 @@ class Licenses extends Model
 
     /**
      * @param int $user_id
-     * @return Licenses
+     * @return EquipmentDB
      */
-    public function setUserId(int $user_id): Licenses
+    public function setUserId(int $user_id): EquipmentDB
     {
         $this->user_id = $user_id;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getInvoiceId(): ?int
+    {
+        return $this->invoice_id;
+    }
+
+    /**
+     * @param int|null $invoice_id
+     * @return EquipmentDB
+     */
+    public function setInvoiceId(?int $invoice_id): EquipmentDB
+    {
+        $this->invoice_id = $invoice_id;
         return $this;
     }
 
@@ -190,9 +204,9 @@ class Licenses extends Model
 
     /**
      * @param string $inventory_number
-     * @return Licenses
+     * @return EquipmentDB
      */
-    public function setInventoryNumber(string $inventory_number): Licenses
+    public function setInventoryNumber(string $inventory_number): EquipmentDB
     {
         $this->inventory_number = $inventory_number;
         return $this;
@@ -208,9 +222,9 @@ class Licenses extends Model
 
     /**
      * @param string $name
-     * @return Licenses
+     * @return EquipmentDB
      */
-    public function setName(string $name): Licenses
+    public function setName(string $name): EquipmentDB
     {
         $this->name = $name;
         return $this;
@@ -219,18 +233,18 @@ class Licenses extends Model
     /**
      * @return string
      */
-    public function getSerialKey(): string
+    public function getSerialNumber(): string
     {
-        return $this->serial_key;
+        return $this->serial_number;
     }
 
     /**
-     * @param string $serial_key
-     * @return Licenses
+     * @param string $serial_number
+     * @return EquipmentDB
      */
-    public function setSerialKey(string $serial_key): Licenses
+    public function setSerialNumber(string $serial_number): EquipmentDB
     {
-        $this->serial_key = $serial_key;
+        $this->serial_number = $serial_number;
         return $this;
     }
 
@@ -244,9 +258,9 @@ class Licenses extends Model
 
     /**
      * @param string $validation_date
-     * @return Licenses
+     * @return EquipmentDB
      */
-    public function setValidationDate(string $validation_date): Licenses
+    public function setValidationDate(string $validation_date): EquipmentDB
     {
         $dateTime = new \DateTime($validation_date);
         $this->validation_date = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
@@ -254,40 +268,47 @@ class Licenses extends Model
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getTechSupportEndDate(): \DateTime
+    public function getPurchaseDate(): ?\DateTime
     {
-        return new \DateTime($this->tech_support_end_date);
+        if ($this->purchase_date === null) {
+            return null;
+        } else {
+            return new \DateTime($this->purchase_date);
+        }
     }
 
     /**
-     * @param string $tech_support_end_date
-     * @return Licenses
+     * @param null|string $purchase_date
+     * @return EquipmentDB
      */
-    public function setTechSupportEndDate(string $tech_support_end_date): Licenses
+    public function setPurchaseDate(?string $purchase_date): EquipmentDB
     {
-        $dateTime = new \DateTime($tech_support_end_date);
-        $this->tech_support_end_date = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
+        if ($purchase_date === null) {
+            $this->purchase_date = null;
+        } else {
+            $dateTime = new \DateTime($purchase_date);
+            $this->purchase_date = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
+        }
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return float
      */
-    public function getPurchaseDate(): \DateTime
+    public function getPriceNet(): float
     {
-        return new \DateTime($this->purchase_date);
+        return $this->price_net;
     }
 
     /**
-     * @param string $purchase_date
-     * @return Licenses
+     * @param float $price_net
+     * @return EquipmentDB
      */
-    public function setPurchaseDate(string $purchase_date): Licenses
+    public function setPriceNet(float $price_net): EquipmentDB
     {
-        $dateTime = new \DateTime($purchase_date);
-        $this->purchase_date = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
+        $this->price_net = $price_net;
         return $this;
     }
 
@@ -301,47 +322,11 @@ class Licenses extends Model
 
     /**
      * @param string $notes
-     * @return Licenses
+     * @return EquipmentDB
      */
-    public function setNotes(string $notes): Licenses
+    public function setNotes(string $notes): EquipmentDB
     {
         $this->notes = $notes;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getFileId(): ?int
-    {
-        return $this->file_id;
-    }
-
-    /**
-     * @param int|null $file_id
-     * @return Licenses
-     */
-    public function setFileId(?int $file_id): Licenses
-    {
-        $this->file_id = $file_id;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getInvoiceId(): int
-    {
-        return $this->invoice_id;
-    }
-
-    /**
-     * @param int $invoice_id
-     * @return Licenses
-     */
-    public function setInvoiceId(int $invoice_id): Licenses
-    {
-        $this->invoice_id = $invoice_id;
         return $this;
     }
 }

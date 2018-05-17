@@ -1,107 +1,67 @@
 <div id="page">
-    <h2>Szczegóły licencji o numerze inwentarza: <?php
-        /** @var \model\Licenses $license */
-        if (isset($license)) {
-            echo $license->getInventaryNumber();
-        } ?>
-    </h2>
-    <br>
+    <?php
+    /** @var \model\LicenseView $license */
+    if (!isset($license)) {
+        throw new RuntimeException("License is missing", 404);
+    }
+    ?>
 
-    <label for="date_created">Data dodania</label>
-    <div class="material-input">
-        <input id="date_created" type='date' disabled name='date_created' <?php if (isset($license)) {
-            echo "value=" . $license->getDateCreated() . "";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label title="creation_date">Ostatnio aktualizowana</label>
-    <div class="material-input">
-        <input title="last_update" type='date' disabled name='last_updated' <?php if (isset($license)) {
-            echo "value=" . $license->getLastUpdated() . "";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="user">Użytkownik</label>
-    <div class="material-input">
-        <input id="user" type='text' disabled name='user' <?php
-        /** @var \model\User $user */
-        if (isset($license)) {
-            echo "value='". $user->getFirstName(). " " . $user->getLastName() . "'";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="name">Nazwa</label>
-    <div class="material-input">
-        <input id="name" type='text' disabled name='name' <?php if (isset($license)) {
-            echo "value=" . $license->getName() . "";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="key">Klucz seryjny</label>
-    <div class="material-input">
-        <input id="key" type='text' disabled name='key' <?php if (isset($license)) {
-            echo "value=" . $license->getSerialKey() . "";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="validationDate">Data walidacji</label>
-    <div class="material-input">
-        <input id="validationDate" type='date' disabled name='validationDate' <?php if (isset($license)) {
-            echo "value=" . $license->getValidationDate() . "";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="reviewDate">Data przeglądu</label>
-    <div class="material-input">
-        <input id="reviewDate" type='date' disabled name='reviewDate' <?php if (isset($license)) {
-            echo "value=" . $license->getTechSupportEndDate() . "";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="purchaseDate">Data zakupu</label>
-    <div class="material-input">
-        <input id="purchaseDate" type='date' disabled name='purchaseDate' <?php if (isset($license)) {
-            echo "value=" . $license->getPurchaseDate() . "";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="priceNet">Cena netto</label>
-    <div class="material-input">
-        <input id="priceNet" type='text' disabled name='priceNet' <?php if (isset($license)) {
-            echo "value=" . $license->getPriceNet() . "";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
-
-    <label for="note">Notatka</label>
-    <div class="material-input">
-        <input id="note" type='text' disabled name='note' <?php if (isset($license)) {
-            echo "value=" . $license->getNotes() . "";
-        } ?> required/>
-        <span class="material-input-highlight"></span>
-        <span class="material-input-bar"></span>
-    </div>
+    <table cellpadding="0" cellspacing="0" border="0" class="tbl-details">
+        <tbody>
+        <tr>
+            <td>Numer:</td>
+            <td><?= $license->getInventoryNumber() ?></td>
+        </tr>
+        <tr>
+            <td>Nazwa:</td>
+            <td><?= $license->getName(); ?></td>
+        </tr>
+        <tr>
+            <td>Klucz:</td>
+            <td><?= $license->getSerialKey(); ?></td>
+        </tr>
+        <tr>
+            <td>Data zakupu:</td>
+            <td><?= $license->getPurchaseDate(); ?></td>
+        </tr>
+        <tr>
+            <td>Data ważności:</td>
+            <td><?= $license->getValidationDate(); ?></td>
+        </tr>
+        <tr>
+            <td>Data wsparcia technicznego:</td>
+            <td><?= $license->getTechSupportEndDate(); ?></td>
+        </tr>
+        <tr>
+            <td>Notatki:</td>
+            <td><?= $license->getNotes(); ?></td>
+        </tr>
+        <tr>
+            <td>Data utworzenia:</td>
+            <td><?= $license->getDateCreated(); ?></td>
+        </tr>
+        <tr>
+            <td>Data aktualizacji:</td>
+            <td><?= $license->getLastUpdated(); ?></td>
+        </tr>
+        <tr>
+            <td>Użytkownik:</td>
+            <td><?= $license->getUserName(); ?></td>
+        </tr>
+        <tr>
+            <td>Numer faktury:</td>
+            <td><?= $license->getInvoiceNumber(); ?></td>
+            <td><a href="<?= '/' . ROUTE_INVOICES . '/' . $license->getInvoiceId() . '/' . ACTION_DETAILS ?>"
+                   class="material-btn">Szczegóły</a></td>
+        </tr>
+        </tbody>
+    </table>
 
     <div class="material-input">
-        <?php if (isset($license) && is_numeric($license->getFileId())) {
-            echo "<a href=\"/license/" . $license->getFileId() . "/download\" class=\"material-btn\">Pobierz</a>";
-        } ?>
+        <?php if (is_numeric($license->getFileId())) { ?>
+            <a href="<?= '/' . ROUTE_LICENSE . '/' . $license->getFileId() . '/' . ACTION_DOWNLOAD ?>"
+               class="material-btn">Pobierz</a>
+        <?php } ?>
     </div>
+
 </div>

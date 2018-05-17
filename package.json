@@ -1,0 +1,32 @@
+{
+  "name": "mm-project",
+  "version": "1.0.0",
+  "description": "MM-Project for PSIAI",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-less": "^4.0.0",
+    "gulp-minify": "^2.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.0"
+  },
+  "scripts": {
+    "test": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Grupa-Olgi-PSIAI/MM-Project.git"
+  },
+  "author": "Grupa Olgi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Grupa-Olgi-PSIAI/MM-Project/issues"
+  },
+  "homepage": "https://github.com/Grupa-Olgi-PSIAI/MM-Project#readme"
+}

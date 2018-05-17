@@ -2,7 +2,7 @@
 
     <a id="filter_popup" href="#" class="popup"></a>
     <div class="popup">
-        <form title="filter" action="/documents/filter" method="post">
+        <form title="filter" action="<?= '/' . ROUTE_DOCUMENTS . '/' . ACTION_FILTER ?>" method="post">
             <div class="row">
                 <div class="material-input">
                     <input title="filter" type="date" name='dateFrom'/>
@@ -45,15 +45,16 @@
                         <td><?= $document->getLastUpdated(); ?></td>
                         <td><?= $document->getDescription(); ?></td>
                         <td><?= $document->getContractor(); ?></td>
-                        <td><a href="/documents/<?= $document->getId(); ?>/details" class="material-btn">Szczegóły</a>
-                        </td>
-                        <td><a href="/documents/<?= $document->getId(); ?>/edit" class="material-btn">Edytuj</a></td>
-                        <td><a href="/documents/<?= $document->getId(); ?>/delete" class="material-btn">Usuń</a></td>
+                        <td><a href="<?= '/' . ROUTE_DOCUMENTS . '/' . $document->getId() . '/' . ACTION_DETAILS ?>"
+                               class="material-btn">Szczegóły</a></td>
+                        <td><a href="<?= '/' . ROUTE_DOCUMENTS . '/' . $document->getId() . '/' . ACTION_EDIT ?>"
+                               class="material-btn">Edytuj</a></td>
+                        <td><a href="<?= '/' . ROUTE_DOCUMENTS . '/' . $document->getId() . '/' . ACTION_DELETE ?>"
+                               class="material-btn">Usuń</a></td>
                     </tr>
                 <?php }
             } ?>
             </tbody>
         </table>
     </div>
-
 </div>

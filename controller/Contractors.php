@@ -8,6 +8,7 @@ use core\View;
 use model\Contractor;
 use repository\ContractorRepository;
 use util\AuthFlags;
+use util\Redirect;
 
 class Contractors extends Controller
 {
@@ -48,8 +49,7 @@ class Contractors extends Controller
 
             $repository->add($contractor);
 
-            $this->showAction();
-            return;
+            Redirect::to('/' . ROUTE_CONTRACTORS . '/' . ACTION_SHOW);
         }
 
         View::render('contractors/contractorsAdd.php', [
@@ -58,6 +58,19 @@ class Contractors extends Controller
             "error_contractor_vat_id_exists" => $error_contractor_vat_id_exists,
             "name" => $name,
             "vat_id" => $vat_id
+        ]);
+    }
+
+    public function detailsAction()
+    {
+        $this->checkPermissions(self::RESOURCE_CONTRACTOR, AuthFlags::ALL_READ);
+
+        $id = $this->route_params['id'];
+        $repository = new ContractorRepository();
+        $contractor = $repository->findById($id);
+        View::render('contractors/contractorDetails.php', [
+            "contractor" => $contractor,
+            "title" => "Szczegóły kontrahenta"
         ]);
     }
 

@@ -1,37 +1,16 @@
-DELETE FROM `resources`
-WHERE `name` = 'attendance';
-INSERT INTO `resources` (`name`) VALUES ('attendance');
-SET @`resource_id` = LAST_INSERT_ID();
-
-SELECT `id`
-FROM `roles`
-WHERE `authority` = 'PRACOWNIK'
-INTO @`role_id`;
-
-DELETE FROM `permissions`
-WHERE `resource_id` = @`resource_id` AND `role_id` = @`role_id`;
-INSERT INTO `permissions` (`resource_id`, `role_id`, `own_perms`, `group_perms`, `other_perms`) VALUES
-  (@`resource_id`, @`role_id`, 'create,read,update,delete', NULL, NULL);
-
-SELECT `id`
-FROM `roles`
-WHERE `authority` = 'WŁAŚCICIEL'
-INTO @`role_id`;
-
-DELETE FROM `permissions`
-WHERE `resource_id` = @`resource_id` AND `role_id` = @`role_id`;
-INSERT INTO `permissions` (`resource_id`, `role_id`, `own_perms`, `group_perms`, `other_perms`) VALUES
-  (@`resource_id`, @`role_id`, 'create,read,update,delete', 'create,read,update,delete', 'create,read,update,delete');
-
-SELECT `id`
-FROM `roles`
-WHERE `authority` = 'AUDYTOR'
-INTO @`role_id`;
-
-DELETE FROM `permissions`
-WHERE `resource_id` = @`resource_id` AND `role_id` = @`role_id`;
-INSERT INTO `permissions` (`resource_id`, `role_id`, `own_perms`, `group_perms`, `other_perms`) VALUES
-  (@`resource_id`, @`role_id`, 'read', 'read', 'read');
+ALTER TABLE `licences`
+  ADD `invoice_id` BIGINT NOT NULL;
+ALTER TABLE `licences`
+  ADD CONSTRAINT `licences_invoices_id_fk`
+FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`);
+ALTER TABLE `licences`
+  CHANGE `inventary_number` `inventory_number` VARCHAR(50) NOT NULL;
+ALTER TABLE `licences`
+  ALTER COLUMN `validation_date` DROP DEFAULT;
+ALTER TABLE `licences`
+  MODIFY `notes` VARCHAR(255);
+ALTER TABLE `licences`
+  DROP `price_net`;
 
 DELETE FROM `versions`
 WHERE `id` = 13;

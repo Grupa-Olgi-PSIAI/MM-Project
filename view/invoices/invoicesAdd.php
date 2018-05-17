@@ -1,5 +1,5 @@
 <div id="page">
-    <form action="/invoices/create" method="post" enctype="multipart/form-data">
+    <form action="<?= '/' . ROUTE_INVOICES . '/' . ACTION_CREATE ?>" method="post" enctype="multipart/form-data">
         <div class="material-input">
             <input type='text' id="number" name='number' required/>
             <span class="material-input-highlight"></span>
@@ -56,7 +56,8 @@
                 <input type="submit" name="invoice_add" value="Wyślij">
             </div>
         <?php } else { ?>
-            <a href="/addContractor/show" class="material-btn"> Dodaj nowego kontrahenta </a>
+            <a href="<?= '/' . ROUTE_CONTRACTORS . '/' . ACTION_SHOW ?>" class="material-btn">Dodaj nowego
+                kontrahenta</a>
         <?php } ?>
     </form>
 </div>

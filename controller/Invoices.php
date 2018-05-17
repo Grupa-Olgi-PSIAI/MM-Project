@@ -51,11 +51,13 @@ class Invoices extends Controller
         foreach ($invoices as $invoice) {
             $invoiceViews[] = $this->mapInvoiceToView($invoice);
         }
-        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews,
+        View::render('invoices/invoicesList.php', [
+            "invoices" => $invoiceViews,
             "title" => "Lista faktur",
             "filter" => "#filter_popup",
-            "add" => "/invoices/add",
-            "search" => "/invoices/search"]);
+            "add" => '/' . ROUTE_INVOICES . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_INVOICES . '/' . ACTION_SEARCH
+        ]);
     }
 
     public function addAction()
@@ -101,7 +103,7 @@ class Invoices extends Controller
 
         $this->invoiceRepository->add($invoice);
 
-        Redirect::to("/invoices/show");
+        Redirect::to('/' . ROUTE_INVOICES . '/' . ACTION_SHOW);
     }
 
     public function deleteAction()
@@ -120,7 +122,7 @@ class Invoices extends Controller
             $fileStorage->delete($fileId);
         }
 
-        Redirect::to("/invoices/show");
+        Redirect::to('/' . ROUTE_INVOICES . '/' . ACTION_SHOW);
     }
 
     public function editAction()
@@ -162,7 +164,7 @@ class Invoices extends Controller
         $id = $this->route_params['id'];
         $this->invoiceRepository->update($id, $invoice);
 
-        Redirect::to("/invoices/show");
+        Redirect::to('/' . ROUTE_INVOICES . '/' . ACTION_SHOW);
     }
 
     public function detailsAction()
@@ -195,11 +197,13 @@ class Invoices extends Controller
             $invoiceViews[] = $this->mapInvoiceToView($invoice);
         }
 
-        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews,
+        View::render('invoices/invoicesList.php', [
+            "invoices" => $invoiceViews,
             "title" => "Lista faktur",
             "filter" => "#filter_popup",
-            "add" => "/invoices/add",
-            "search" => "/invoices/search"]);
+            "add" => '/' . ROUTE_INVOICES . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_INVOICES . '/' . ACTION_SEARCH
+        ]);
     }
 
     public function filterAction()
@@ -226,11 +230,13 @@ class Invoices extends Controller
             $invoiceViews[] = $this->mapInvoiceToView($invoice);
         }
 
-        View::render('invoices/invoicesList.php', ["invoices" => $invoiceViews,
+        View::render('invoices/invoicesList.php', [
+            "invoices" => $invoiceViews,
             "title" => "Lista faktur",
             "filter" => "#filter_popup",
-            "add" => "/invoices/add",
-            "search" => "/invoices/search"]);
+            "add" => '/' . ROUTE_INVOICES . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_INVOICES . '/' . ACTION_SEARCH
+        ]);
     }
 
     public function downloadAction()
@@ -253,6 +259,7 @@ class Invoices extends Controller
             ->setAmountNetCurrency($invoice->getAmountNetCurrency())
             ->setAmountTax($invoice->getAmountTax())
             ->setContractor($contractor->getName())
+            ->setContractorId($invoice->getContractorId())
             ->setCurrency($invoice->getCurrency())
             ->setDateCreated($invoice->getDateCreated()->format(DateUtils::$PATTERN_DASHED_DATE))
             ->setInvoiceDate($invoice->getInvoiceDate()->format(DateUtils::$PATTERN_DASHED_DATE))

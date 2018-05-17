@@ -45,14 +45,16 @@ class Documents extends Controller
         $documents = $this->documentRepository->findAll();
         $documentViews = [];
         foreach ($documents as $document) {
-            $documentViews[] = $this->maptoView($document);
+            $documentViews[] = $this->mapToView($document);
         }
 
-        View::render('documents/documentsList.php', ["documents" => $documentViews,
+        View::render('documents/documentsList.php', [
+            "documents" => $documentViews,
             "title" => "Lista dokumentów",
             "filter" => "#filter_popup",
-            "add" => "/documents/add",
-            "search" => "/documents/search"]);
+            "add" => '/' . ROUTE_DOCUMENTS . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_DOCUMENTS . '/' . ACTION_SEARCH
+        ]);
     }
 
     public function addAction()
@@ -87,7 +89,7 @@ class Documents extends Controller
         }
 
         $this->documentRepository->add($document);
-        Redirect::to("/documents/show");
+        Redirect::to('/' . ROUTE_DOCUMENTS . '/' . ACTION_SHOW);
     }
 
     public function filterAction()
@@ -110,14 +112,16 @@ class Documents extends Controller
         $documents = $this->documentRepository->find($con, $val);
         $documentViews = [];
         foreach ($documents as $document) {
-            $documentViews[] = $this->maptoView($document);
+            $documentViews[] = $this->mapToView($document);
         }
 
-        View::render('documents/documentsList.php', ["documents" => $documentViews,
+        View::render('documents/documentsList.php', [
+            "documents" => $documentViews,
             "title" => "Lista dokumentów",
             "filter" => "#filter_popup",
-            "add" => "/documents/add",
-            "search" => "/documents/search"]);
+            "add" => '/' . ROUTE_DOCUMENTS . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_DOCUMENTS . '/' . ACTION_SEARCH
+        ]);
     }
 
     public function searchAction()
@@ -136,14 +140,16 @@ class Documents extends Controller
         $documents = $this->documentRepository->findOr($con, $val);
         $documentViews = [];
         foreach ($documents as $document) {
-            $documentViews[] = $this->maptoView($document);
+            $documentViews[] = $this->mapToView($document);
         }
 
-        View::render('documents/documentsList.php', ["documents" => $documentViews,
+        View::render('documents/documentsList.php', [
+            "documents" => $documentViews,
             "title" => "Lista dokumentów",
             "filter" => "#filter_popup",
-            "add" => "/documents/add",
-            "search" => "/documents/search"]);
+            "add" => '/' . ROUTE_DOCUMENTS . '/' . ACTION_ADD,
+            "search" => '/' . ROUTE_DOCUMENTS . '/' . ACTION_SEARCH
+        ]);
     }
 
     public function detailsAction()
@@ -152,7 +158,7 @@ class Documents extends Controller
 
         $id = $this->route_params['id'];
         $document = $this->documentRepository->findById($id);
-        $documentView = $this->maptoView($document);
+        $documentView = $this->mapToView($document);
 
         View::render('documents/documentDetails.php', ['document' => $documentView,
             "title" => "Szczegóły dokumentu o identyfikatorze: " . $documentView->getInternalId()]);
@@ -174,7 +180,7 @@ class Documents extends Controller
             $fileStorage->delete($fileId);
         }
 
-        Redirect::to('/documents/show');
+        Redirect::to('/' . ROUTE_DOCUMENTS . '/' . ACTION_SHOW);
     }
 
     public function editAction()
@@ -208,7 +214,7 @@ class Documents extends Controller
         $id = $this->route_params['id'];
         $this->documentRepository->update($id, $document);
 
-        Redirect::to('/documents/show');
+        Redirect::to('/' . ROUTE_DOCUMENTS . '/' . ACTION_SHOW);
     }
 
     public function downloadAction()
@@ -220,7 +226,7 @@ class Documents extends Controller
         $fileStorage->download($id);
     }
 
-    private function maptoView(Document $document): DocumentView
+    private function mapToView(Document $document): DocumentView
     {
         /** @var Contractor $contractor */
         $contractor = $this->contractorRepository->findById($document->getContractorId());
@@ -230,6 +236,7 @@ class Documents extends Controller
             ->setDateCreated($document->getDateCreated()->format(DateUtils::$PATTERN_DASHED_DATE))
             ->setLastUpdated($document->getLastUpdated()->format(DateUtils::$PATTERN_DASHED_DATE))
             ->setContractor($contractor->getName())
+            ->setContractorId($document->getContractorId())
             ->setDescription($document->getDescription())
             ->setInternalId($document->getIdInternal());
 

@@ -82,9 +82,8 @@ class Equipment extends Controller
             ->setInvoiceId($equipment->getInvoiceId());
 
         if (isset($invoice)) {
-            $equipmentView->setInventoryNumber($invoice->getNumber());
+            $equipmentView->setInvoiceNumber($invoice->getNumber());
         }
-
         return $equipmentView;
     }
 
@@ -288,6 +287,18 @@ class Equipment extends Controller
 
         Redirect::to('/' . ROUTE_EQUIPMENT . '/' . ACTION_SHOW);
     }
+
+    public function detailsAction()
+    {
+        $this->checkPermissions(self::RESOURCE_EQUIPMENT, AuthFlags::ALL_READ);
+
+        $id = $this->route_params['id'];
+        $equipment = $this->equipmentRepository->findById($id);
+        $equipmentView = $this->mapToView($equipment);
+        View::render('equipment/equipmentDetails.php', ["equipment" => $equipmentView,
+            "title" => "Szczegóły sprzętu " . $equipmentView->getName()]);
+    }
+
 }
 
 

@@ -38,7 +38,7 @@
             <?php if (isset($invoices)) { ?>
                 <label for="invoice_id">Numer faktury<br></label>
                 <select id="invoice_id" name="invoice_id">
-                    <?php /** @var \model\Contractor $value */
+                    <?php
                     foreach ($invoices as $invoice) { ?>
                         <option value="<?= $invoice->getId(); ?>"><?= $invoice->getNumber(); ?></option>
                     <?php } ?>

@@ -147,14 +147,6 @@ class Equipment extends Controller
         $equipment->setSerialNumber($serial_number);
         $equipment->setPriceNet($price_net);
 
-        $file = $_FILES['file'];
-        if (isset($file) && $file['error'] != UPLOAD_ERR_NO_FILE) {
-            $this->checkPermissions(self::RESOURCE_EQUIPMENT, AuthFlags::OWN_CREATE);
-            $fileStorage = FileStorage::getInstance();
-            $fileId = $fileStorage->store($file, 'equipment');
-            $equipment->setFileId($fileId);
-        }
-
         $this->equipmentRepository->add($equipment);
         Redirect::to('/' . ROUTE_EQUIPMENT . '/' . ACTION_SHOW);
     }

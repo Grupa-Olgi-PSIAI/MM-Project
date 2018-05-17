@@ -5,9 +5,13 @@ namespace controller;
 use core\Controller;
 use core\View;
 use model\Attendance;
+use model\AttendanceView;
+use model\User;
 use repository\AttendanceRepository;
+use repository\UserRepository;
 use util\AuthFlags;
 use util\Authorization;
+use util\DateUtils;
 use util\Redirect;
 use util\Session;
 
@@ -15,7 +19,15 @@ class Attendances extends Controller
 {
     private const RESOURCE_ATTENDANCE = "attendance";
 
+    /**
+     * @var AttendanceRepository
+     */
     private $attendanceRepository;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
     private $auth;
     private $userId;
 
@@ -23,6 +35,7 @@ class Attendances extends Controller
     {
         parent::__construct($route_params);
         $this->attendanceRepository = new AttendanceRepository();
+        $this->userRepository = new UserRepository();
         $this->auth = Authorization::getInstance();
         $this->userId = Session::getInstance()->get(Session::USER_SESSION);
     }
@@ -46,9 +59,16 @@ class Attendances extends Controller
             $addPath = '/' . ROUTE_ATTENDANCES . '/' . ACTION_ADD;
         }
 
+        if (isset($attendances)) {
+            $attendancesView = [];
+            foreach ($attendances as $attendance) {
+                $attendancesView[] = $this->mapToView($attendance);
+            }
+        }
+
         View::render('attendances/attendanceList.php',
             ["title" => "Godziny pracy",
-                "attendances" => $attendances,
+                "attendances" => $attendancesView,
                 "can_add" => $can_add,
                 "can_update" => $can_update,
                 "can_delete" => $can_delete,
@@ -197,5 +217,23 @@ class Attendances extends Controller
             "error_attendance_duplicate" => $error_attendance_duplicate,
             "error_attendance_dates" => $error_attendance_dates,
             "attendance" => $updated]);
+    }
+
+    private function mapToView(Attendance $attendance): AttendanceView
+    {
+        /** @var User $user */
+        $user = $this->userRepository->findById($attendance->getUserId());
+        $workTime = $attendance->getTimeIn()->diff($attendance->getTimeOut());
+        $attendanceView = new AttendanceView();
+        $attendanceView->setId($attendance->getId())
+            ->setNotes($attendance->getNotes())
+            ->setUserName($user->getFirstName() . ' ' . $user->getLastName())
+            ->setTimeIn($attendance->getTimeIn()->format(DateUtils::$PATTERN_SHORT_TIME))
+            ->setDateIn($attendance->getTimeIn()->format(DateUtils::$PATTERN_DASHED_DATE))
+            ->setDateOut($attendance->getTimeOut()->format(DateUtils::$PATTERN_DASHED_DATE))
+            ->setTimeOut($attendance->getTimeOut()->format(DateUtils::$PATTERN_SHORT_TIME))
+            ->setWorkTime($workTime);
+
+        return $attendanceView;
     }
 }

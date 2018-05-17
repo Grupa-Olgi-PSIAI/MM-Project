@@ -3,6 +3,7 @@
 namespace model;
 
 use core\Model;
+use util\DateUtils;
 
 class Attendance extends Model
 {
@@ -27,7 +28,7 @@ class Attendance extends Model
     private $last_updated;
 
     /**
-     * @var string
+     * @var int
      */
     private $user_id;
 
@@ -89,11 +90,11 @@ class Attendance extends Model
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getDateCreated(): string
+    public function getDateCreated(): \DateTime
     {
-        return $this->date_created;
+        return new \DateTime($this->date_created);
     }
 
     /**
@@ -102,16 +103,17 @@ class Attendance extends Model
      */
     public function setDateCreated(string $date_created): Attendance
     {
-        $this->date_created = $date_created;
+        $dateTime = new \DateTime($date_created);
+        $this->date_created = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getLastUpdated(): string
+    public function getLastUpdated(): \DateTime
     {
-        return $this->last_updated;
+        return new \DateTime($this->last_updated);
     }
 
     /**
@@ -120,34 +122,35 @@ class Attendance extends Model
      */
     public function setLastUpdated(string $last_updated): Attendance
     {
-        $this->last_updated = $last_updated;
+        $dateTime = new \DateTime($last_updated);
+        $this->last_updated = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getUserId(): string
+    public function getUserId(): int
     {
         return $this->user_id;
     }
 
     /**
-     * @param string $user_id
+     * @param int $user_id
      * @return Attendance
      */
-    public function setUserId(string $user_id): Attendance
+    public function setUserId(int $user_id): Attendance
     {
         $this->user_id = $user_id;
         return $this;
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getTimeIn(): string
+    public function getTimeIn(): \DateTime
     {
-        return $this->time_in;
+        return new \DateTime($this->time_in);
     }
 
     /**
@@ -156,16 +159,17 @@ class Attendance extends Model
      */
     public function setTimeIn(string $time_in): Attendance
     {
-        $this->time_in = $time_in;
+        $dateTime = new \DateTime($time_in);
+        $this->time_in = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getTimeOut(): string
+    public function getTimeOut(): \DateTime
     {
-        return $this->time_out;
+        return new \DateTime($this->time_out);
     }
 
     /**
@@ -174,7 +178,8 @@ class Attendance extends Model
      */
     public function setTimeOut(string $time_out): Attendance
     {
-        $this->time_out = $time_out;
+        $dateTime = new \DateTime($time_out);
+        $this->time_out = $dateTime->format(DateUtils::$PATTERN_MYSQL_DATE_TIME);
         return $this;
     }
 

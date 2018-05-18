@@ -10,7 +10,7 @@
 
         <div>
             <?php if (isset($users)) { ?>
-                <label for="user_id">Faktury<br></label>
+                <label for="user_id">Użytkownik<br></label>
                 <select id="user_id" name="user_id">
                     <?php /** @var \model\Contractor $value */
                     foreach ($users as $user) { ?>
@@ -64,7 +64,7 @@
 
         <div>
         <?php if (isset($invoices)) { ?>
-        <label for="invoice_id">Faktury<br></label>
+            <label for="invoice_id">Numer faktury<br></label>
         <select id="invoice_id" name="invoice_id">
             <?php /** @var \model\Contractor $value */
             foreach ($invoices as $invoice) { ?>

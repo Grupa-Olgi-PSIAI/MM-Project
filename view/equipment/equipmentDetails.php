@@ -57,12 +57,4 @@
         </tr>
         </tbody>
     </table>
-<?php /**
-    <div class="material-input">
-        <?php if (is_numeric($equipment->getFileId())) { ?>
-            <a href="<?= '/' . ROUTE_EQUIPMENT . '/' . $equipment->getFileId() . '/' . ACTION_DOWNLOAD ?>"
-               class="material-btn">Pobierz</a>
-        <?php } ?>
-    </div>
- */ ?>
 </div>

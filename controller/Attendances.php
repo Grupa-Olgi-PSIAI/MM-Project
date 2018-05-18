@@ -76,7 +76,8 @@ class Attendances extends Controller
                 "can_update" => $can_update,
                 "can_delete" => $can_delete,
                 "add" => $addPath,
-                "users" => $users]);
+                "users" => $users,
+                "search" => '/' . ROUTE_ATTENDANCES . '/' . ACTION_SEARCH]);
     }
 
     public function addAction()
@@ -220,5 +221,54 @@ class Attendances extends Controller
             ->setWorkTime($workTime);
 
         return $attendanceView;
+    }
+
+    public function searchAction()
+    {
+        $this->checkPermissions(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_READ);
+
+        $criterium = $_POST['criterium'];
+        $id = $this->userId;
+        if ($this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_READ)) {
+            $con = array('notes LIKE ?', 'user_id IN (SELECT id FROM users WHERE last_name = ?)');
+        } else if ($this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_READ)) {
+            $con = array('notes LIKE ? AND user_id = ' . $id . ' ', 'user_id IN (SELECT id FROM users WHERE last_name = ?) AND user_id = ' . $id . ' ');
+        }
+
+        $val = array("%" . $criterium . "%", $criterium);
+
+        $attendances = $this->attendanceRepository->findOr($con, $val);
+
+        $can_add = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_CREATE)
+            || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_CREATE);
+        $can_update = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_UPDATE)
+            || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_UPDATE);
+        $can_delete = $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::OWN_DELETE)
+            || $this->auth->hasPermission(self::RESOURCE_ATTENDANCE, AuthFlags::GROUP_DELETE);
+
+        $attendancesView = [];
+        foreach ($attendances as $attendance) {
+            $attendancesView[] = $this->mapToView($attendance);
+        }
+
+        if ($can_add) {
+            $addPath = '/' . ROUTE_ATTENDANCES . '/' . ACTION_ADD;
+            View::render('attendances/attendanceList.php',
+                ["title" => "Godziny pracy",
+                    "attendances" => $attendancesView,
+                    "can_add" => $can_add,
+                    "can_update" => $can_update,
+                    "can_delete" => $can_delete,
+                    "add" => $addPath,
+                    "search" => '/' . ROUTE_ATTENDANCES . '/' . ACTION_SEARCH]);
+        } else {
+            View::render('attendances/attendanceList.php',
+                ["title" => "Godziny pracy",
+                    "attendances" => $attendancesView,
+                    "can_add" => $can_add,
+                    "can_update" => $can_update,
+                    "can_delete" => $can_delete,
+                    "search" => '/' . ROUTE_ATTENDANCES . '/' . ACTION_SEARCH]);
+        }
     }
 }

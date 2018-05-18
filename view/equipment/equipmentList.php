@@ -56,7 +56,7 @@
                         <td><?= $equipment->getUserName(); ?></td>
                         <td><?= $equipment->getInventoryNumber(); ?></td>
                         <td><?= $equipment->getPurchaseDate(); ?></td>
-                        <td><?= $equipment->getInvoiceId(); ?></td>
+                        <td><?= $equipment->getInvoiceNumber(); ?></td>
                         <td><?= $equipment->getValidationDate(); ?></td>
                         <td><?= $equipment->getPriceNet(); ?></td>
                         <td><?= $equipment->getNotes(); ?></td>
